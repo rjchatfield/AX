@@ -603,12 +603,23 @@ private extension NSObject {
 
             var accessibilityHierarchyOfSubviews: [AccessibilityNode] = []
             for subview in subviewsToParse {
-                accessibilityHierarchyOfSubviews.append(
-                    contentsOf: subview.recursiveAccessibilityHierarchy(
-                        contextProvider: contextProvider ?? (providesContext ? providedContextAsSuperview() : nil)
-                    )
+                var subviewAXHeirarchy = subview.recursiveAccessibilityHierarchy(
+                    contextProvider: contextProvider ?? (providesContext ? providedContextAsSuperview() : nil)
                 )
+                // Extract implicit stuff from UILabel, UIButton, UITextField, etc
+                if subviewAXHeirarchy.isEmpty {
+                    switch self {
+                    case let label as UILabel:
+                        subviewAXHeirarchy = [.element(label, contextProvider: .superview(self))]
+                    case let button as UIButton:
+                        subviewAXHeirarchy = [.element(button, contextProvider: .superview(self))]
+                    default:
+                        break
+                    }
+                }
+                accessibilityHierarchyOfSubviews.append(contentsOf: subviewAXHeirarchy)
             }
+            
 
             if shouldGroupAccessibilityChildren {
                 recursiveAccessibilityHierarchy.append(
