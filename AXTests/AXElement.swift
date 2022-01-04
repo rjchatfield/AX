@@ -21,18 +21,18 @@ struct AXElement: CustomDumpReflectable {
                 style: .unknown
             )
         }
-        guard obj.isAccessibilityElement else {
-//            return nil
-            print("Not Accessible:")
-            customDump(any)
-            dump(obj)
-            return AXElement(
-                values: [
-                    ("notAccessible", type(of: any)),
-                ],
-                style: .unknown
-            )
-        }
+//        guard obj.isAccessibilityElement else {
+////            return nil
+//            print("Not Accessible:")
+//            customDump(any)
+//            dump(obj)
+//            return AXElement(
+//                values: [
+//                    ("notAccessible", type(of: any)),
+//                ],
+//                style: .unknown
+//            )
+//        }
         var traits = obj.accessibilityTraits
         let style: Style = {
             if let _ = traits.remove(.button) { return .button }
