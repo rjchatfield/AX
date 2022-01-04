@@ -10,6 +10,7 @@ import XCTest
 import CustomDump
 import ViewInspector
 import SwiftUI
+import AccessibilitySnapshot
 
 struct AXElement: CustomDumpReflectable {
     var values: [(label: String?, value: Any)]
@@ -246,6 +247,32 @@ class AXTests: XCTestCase {
             }
         }
     }
+    
+    var uiView: UIView {
+        let label = UILabel()
+        label.text = "ax_text"
+        let button1 = UIButton()
+        button1.setTitle("ax_button_1", for: .normal)
+        let button2 = UIButton(type: .system)
+        button2.setTitle("ax_button_2", for: .normal)
+        button2.accessibilityLabel = "ax_button_label"
+        button2.accessibilityIdentifier = "ax_button_identifier"
+        button2.accessibilityHint = "ax_button_hint"
+        button2.accessibilityValue = "ax_button_value"
+        let button3 = UIButton()
+        button2.setTitle("ax_button_3_hidden", for: .normal)
+        let section = UIStackView(arrangedSubviews: [
+            // Section Header?
+            button1,
+            button2,
+            button3,
+        ])
+        section.accessibilityElements = [button2, button1]
+        return UIStackView(arrangedSubviews: [
+            label,
+            section,
+        ])
+    }
 
     func testExample() {
 //        customDump(v)
@@ -408,30 +435,7 @@ class AXTests: XCTestCase {
     }
     
     func test4() {
-        let label = UILabel()
-        label.text = "ax_text"
-        let button1 = UIButton()
-        button1.setTitle("ax_button_1", for: .normal)
-        let button2 = UIButton(type: .system)
-        button2.setTitle("ax_button_2", for: .normal)
-        button2.accessibilityLabel = "ax_button_label"
-        button2.accessibilityIdentifier = "ax_button_identifier"
-        button2.accessibilityHint = "ax_button_hint"
-        button2.accessibilityValue = "ax_button_value"
-        let button3 = UIButton()
-        button2.setTitle("ax_button_3_hidden", for: .normal)
-        let section = UIStackView(arrangedSubviews: [
-            // Section Header?
-            button1,
-            button2,
-            button3,
-        ])
-        section.accessibilityElements = [button2, button1]
-        let v = UIStackView(arrangedSubviews: [
-            label,
-            section,
-        ])
-        customDump(AXElement.walk(view: v))
+        customDump(AXElement.walk(view: uiView))
         /*
          [
            [0]: AXElement(
@@ -452,6 +456,20 @@ class AXTests: XCTestCase {
          ]
          */
     }
+    
+    func test5() {
+        let vc = UIHostingController(rootView: v)
+        let parsed = AccessibilityHierarchyParser().parseAccessibilityElements(in: vc.view)
+        XCTAssert(parsed.isEmpty) // Not sure why
+        customDump(parsed)
+    }
+    
+    func test6() {
+        let parsed = AccessibilityHierarchyParser().parseAccessibilityElements(in: uiView)
+        XCTAssert(parsed.isEmpty) // Not sure why
+        customDump(parsed)
+    }
+
 }
 
 extension Mirror {
