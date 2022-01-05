@@ -223,7 +223,7 @@ class AXTests: XCTestCase {
         _assertInlineSnapshot(matching: v, as: .accessibilityElements, with: """
         [
           [0]: Text(label: "ax_text"),
-          [1]: AXElement(
+          [1]: PlatformAccessibilityElement(
             label: "section_header_text",
             traits: .header,
             customActions: [
@@ -258,10 +258,10 @@ class AXTests: XCTestCase {
         customDump(AXElement.walk(view: uiView))
         _assertInlineSnapshot(matching: uiView, as: .accessibilityElements, with: """
         [
-          [0]: AXElement(
+          [0]: UIView(
             children: [
               [0]: Text(),
-              [1]: AXElement(
+              [1]: UIView(
                 children: [
                   [0]: Button(
                     label: "ax_button_label",

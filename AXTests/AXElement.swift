@@ -9,29 +9,26 @@ struct AXElement: CustomDumpReflectable {
         case staticText
         case button
         case image
-        case unknown
+        case unknown(Any)
+    }
+    
+    static func failure(_ reason: String, subject: Any) -> AXElement {
+        AXElement(
+            values: [("failure", reason)],
+            style: .unknown(subject)
+        )
     }
     
     private static func make(any: Any) -> AXElement? {
         guard let obj = any as? NSObject else {
-            return AXElement(
-                values: [
-                    ("unknown", type(of: any)),
-                ],
-                style: .unknown
-            )
+            return AXElement.failure("Not NSObject", subject: any)
         }
 //        guard obj.isAccessibilityElement else {
 ////            return nil
 //            print("Not Accessible:")
 //            customDump(any)
 //            dump(obj)
-//            return AXElement(
-//                values: [
-//                    ("notAccessible", type(of: any)),
-//                ],
-//                style: .unknown
-//            )
+//            return AXElement.failure("Not accessible", subject: any)
 //        }
         var traits = obj.accessibilityTraits
         let style: Style = {
@@ -40,7 +37,7 @@ struct AXElement: CustomDumpReflectable {
             if let _ = traits.remove(.image) { return .image }
             if any is UIButton { return .button }
             if any is UILabel { return .staticText }
-            return .unknown
+            return .unknown(any)
         }()
 
         let elId = any as? UIAccessibilityIdentification
@@ -71,12 +68,14 @@ struct AXElement: CustomDumpReflectable {
             ("containerType", obj.accessibilityContainerType == .none ? nil : obj.accessibilityContainerType), // : UIAccessibilityContainerType
         ]
         
+        lazy var mirror = Mirror(reflecting: any)
+        
         var children: [Any]? {
             if let accessibilityElements = obj.accessibilityElements {
                 return Self.walk(accessibilityElements: accessibilityElements)
             } else if let view = any as? UIView {
                 return Self.walk(accessibilityElements: view.subviews)
-            } else if let mirrorChildren = Mirror(reflecting: any)["children"] as? [Any] {
+            } else if let mirrorChildren = mirror["children"] as? [Any] {
                 return Self.walk(accessibilityElements: mirrorChildren)
             } else {
                 return nil
@@ -92,8 +91,7 @@ struct AXElement: CustomDumpReflectable {
         if el.values.isEmpty {
             print("🧐 NO ACCESSIBILITY PROPERTIES?")
             customDump(any)
-            let m = Mirror(reflecting: any)
-            for (label, value) in m.children {
+            for (label, value) in mirror.children {
                 print("", label ?? "<nil>", value)
             }
         }
@@ -175,8 +173,9 @@ struct AXElement: CustomDumpReflectable {
     }
     
     var customDumpMirror: Mirror {
-        func makeMirror<Subject>(_ subject: Subject) -> Mirror {
-            Mirror(subject, children: values, displayStyle: .struct)
+//        func makeMirror<Subject>(_ subject: Subject) -> Mirror {
+        func makeMirror(_ subject: Any) -> Mirror {
+            Mirror.make(any: subject, children: values)
         }
         // Tick to make a Button look like a button
         switch style {
@@ -186,8 +185,8 @@ struct AXElement: CustomDumpReflectable {
             return makeMirror(Text(""))
         case .image:
             return makeMirror(Image(systemName: ""))
-        case .unknown:
-            return makeMirror(self)
+        case .unknown(let any):
+            return makeMirror(any)
         }
     }
 }
