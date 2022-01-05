@@ -49,7 +49,16 @@ struct ContentView: View {
             } header: {
                 HStack {
                     Text("section_header_text")
-                    Button("section_header_button") {}
+                    Button("section_header_button1") {}
+                        .accessibilityLabel("section_header_button1_label")
+                        .accessibilityIdentifier("section_header_button1_identifier")
+                        .accessibilityHint(Text("section_header_button1_hint"))
+                        .accessibilityValue(Text("section_header_button1_value").bold())
+                    Button("section_header_button2") {}
+                        .accessibilityLabel("section_header_button2_label")
+                        .accessibilityIdentifier("section_header_button2_identifier")
+                        .accessibilityHint(Text("section_header_button2_hint"))
+                        .accessibilityValue(Text("section_header_button2_value").bold())
                 }
                 .accessibilityElement(children: .combine)
             }

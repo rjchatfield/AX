@@ -80,7 +80,7 @@ class AXTests: XCTestCase {
         _assertInlineSnapshot(matching: vc.view.accessibilityElements!, as: .customDump(maxDepth: 2), with: """
         [
           [0]: AccessibilityNode(
-            id: UniqueID(value: 196),
+            id: UniqueID(value: 213),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -95,7 +95,7 @@ class AXTests: XCTestCase {
             isCell: false
           ),
           [1]: AccessibilityNode(
-            id: UniqueID(value: 234),
+            id: UniqueID(value: 270),
             version: DisplayList.Version(value: 0),
             children: […],
             bridgedChild: nil,
@@ -110,7 +110,7 @@ class AXTests: XCTestCase {
             isCell: false
           ),
           [2]: AccessibilityNode(
-            id: UniqueID(value: 236),
+            id: UniqueID(value: 272),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -125,7 +125,7 @@ class AXTests: XCTestCase {
             isCell: false
           ),
           [3]: AccessibilityNode(
-            id: UniqueID(value: 239),
+            id: UniqueID(value: 275),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -140,7 +140,7 @@ class AXTests: XCTestCase {
             isCell: false
           ),
           [4]: AccessibilityNode(
-            id: UniqueID(value: 240),
+            id: UniqueID(value: 276),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -155,7 +155,7 @@ class AXTests: XCTestCase {
             isCell: false
           ),
           [5]: AccessibilityNode(
-            id: UniqueID(value: 235),
+            id: UniqueID(value: 271),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -177,7 +177,7 @@ class AXTests: XCTestCase {
         XCTAssertEqual(try v.inspect().vStack().text(0).string(), "ax_text")
         _assertInlineSnapshot(matching: nsax1, as: .customDump(maxDepth: 1), with: """
         AccessibilityNode(
-          id: UniqueID(value: 196),
+          id: UniqueID(value: 213),
           version: DisplayList.Version(value: 0),
           children: [],
           bridgedChild: nil,
@@ -224,13 +224,18 @@ class AXTests: XCTestCase {
         [
           [0]: Text(label: "ax_text"),
           [1]: PlatformAccessibilityElement(
+            identifier: "section_header_button1_identifier-section_header_button2_identifier",
             label: "section_header_text",
+            hint: "section_header_button1_hint, section_header_button2_hint",
+            value: "section_header_button2_value",
             traits: .header,
             customActions: [
-              [0]: section_header_button
+              [0]: section_header_button1_label,
+              [1]: section_header_button2_label
             ]
           ),
           [2]: Button(
+            identifier: "ax_button_identifier",
             label: "ax_button_label",
             hint: "ax_button_hint",
             value: "ax_button_value"
@@ -247,9 +252,11 @@ class AXTests: XCTestCase {
          TODO: VoiceOver
          [
            [0]: "ax_text",
-           [1]: "section_header_text, header"
-           [2]: "button, ax_button_label, ax_button_hint, ax_button_value",
-           [3]: "button, ax_button_1"
+           [1]: "section_header_text, section_header_button2_value, Header, section_header_button1_hint, section_header_button2_hint", {customActions: [section_header_button1_label, section_header_button2_label]}
+           [2]: "ax_button_label, ax_button_value, Button, ax_button_hint",
+           [3]: "ax_label_title"
+           [4]: "Forward, Image"
+           [5]: "ax_button_1, Button"
          ]
          */
     }
@@ -260,20 +267,21 @@ class AXTests: XCTestCase {
         [
           [0]: UIView(
             children: [
-              [0]: Text(),
+              [0]: UIView(),
               [1]: UIView(
                 children: [
-                  [0]: Button(
+                  [0]: UIButton(
+                    identifier: "ax_button_identifier",
                     label: "ax_button_label",
                     hint: "ax_button_hint",
                     value: "ax_button_value",
                     children: [
-                      [0]: Text()
+                      [0]: UIView()
                     ]
                   ),
-                  [1]: Button(
+                  [1]: UIButton(
                     children: [
-                      [0]: Text()
+                      [0]: UIView()
                     ]
                   )
                 ]
@@ -397,7 +405,16 @@ class AXTests: XCTestCase {
             } header: {
                 HStack {
                     Text("section_header_text")
-                    Button("section_header_button") {}
+                    Button("section_header_button1") {}
+                        .accessibilityLabel("section_header_button1_label")
+                        .accessibilityIdentifier("section_header_button1_identifier")
+                        .accessibilityHint(Text("section_header_button1_hint"))
+                        .accessibilityValue(Text("section_header_button1_value").bold())
+                    Button("section_header_button2") {}
+                        .accessibilityLabel("section_header_button2_label")
+                        .accessibilityIdentifier("section_header_button2_identifier")
+                        .accessibilityHint(Text("section_header_button2_hint"))
+                        .accessibilityValue(Text("section_header_button2_value").bold())
                 }
                 .accessibilityElement(children: .combine)
             }

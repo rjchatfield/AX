@@ -20,83 +20,7 @@ struct AXElement: CustomDumpReflectable {
     }
     
     private static func make(any: Any) -> AXElement? {
-        guard let obj = any as? NSObject else {
-            return AXElement.failure("Not NSObject", subject: any)
-        }
-//        guard obj.isAccessibilityElement else {
-////            return nil
-//            print("Not Accessible:")
-//            customDump(any)
-//            dump(obj)
-//            return AXElement.failure("Not accessible", subject: any)
-//        }
-        var traits = obj.accessibilityTraits
-        let style: Style = {
-            if let _ = traits.remove(.button) { return .button }
-            if let _ = traits.remove(.staticText) { return .staticText }
-            if let _ = traits.remove(.image) { return .image }
-            if any is UIButton { return .button }
-            if any is UILabel { return .staticText }
-            return .unknown(any)
-        }()
-
-        let elId = any as? UIAccessibilityIdentification
-        func nonEmpty(_ arr: [Any]?) -> [Any]? { arr?.isEmpty == true ? nil : arr }
-        func ifTrue(_ bool: Bool) -> Bool? { bool ? true : nil }
-        var optionals: [(label: String?, value: Any?)] = [
-            ("identifier", elId?.accessibilityIdentifier),
-            ("label", obj.accessibilityLabel),
-            ("hint", obj.accessibilityHint),
-            ("value", obj.accessibilityValue),
-            ("traits", traits.isEmpty ? nil : traits),
-//                ("frame", el.accessibilityFrame == .zero ? nil : el.accessibilityFrame),
-            // accessibilityPath: UIBezierPath?
-            // accessibilityActivationPoint: CGPoint
-            // accessibilityLanguage: String?
-            ("elementsHidden", ifTrue(obj.accessibilityElementsHidden)), // : Bool
-            ("viewIsModal", ifTrue(obj.accessibilityViewIsModal)), //: Bool
-            ("shouldGroupAccessibilityChildren", ifTrue(obj.shouldGroupAccessibilityChildren)), // : Bool
-            ("navigationStyle", obj.accessibilityNavigationStyle == .automatic ? nil : obj.accessibilityNavigationStyle), //: UIAccessibilityNavigationStyle
-//            ("respondsToUserInteraction", ifTrue(el.accessibilityRespondsToUserInteraction)), // : Bool
-            ("userInputLabels", nonEmpty(obj.accessibilityUserInputLabels)), // : [String]!
-//            ("attributedUserInputLabels", el.accessibilityAttributedUserInputLabels), // : [NSAttributedString]!
-            ("textualContext", obj.accessibilityTextualContext), // : UIAccessibilityTextualContext?
-            ("customActions", obj.accessibilityCustomActions), // : [UIAccessibilityCustomAction]?
-            ("dragSourceDescriptors", nonEmpty(obj.accessibilityDragSourceDescriptors)), // : [UIAccessibilityLocationDescriptor]?
-            ("dropPointDescriptors", nonEmpty(obj.accessibilityDropPointDescriptors)), // : [UIAccessibilityLocationDescriptor]?
-            ("customRotors", nonEmpty(obj.accessibilityCustomRotors)), // : [UIAccessibilityCustomRotor]?
-            ("containerType", obj.accessibilityContainerType == .none ? nil : obj.accessibilityContainerType), // : UIAccessibilityContainerType
-        ]
-        
-        lazy var mirror = Mirror(reflecting: any)
-        
-        var children: [Any]? {
-            if let accessibilityElements = obj.accessibilityElements {
-                return Self.walk(accessibilityElements: accessibilityElements)
-            } else if let view = any as? UIView {
-                return Self.walk(accessibilityElements: view.subviews)
-            } else if let mirrorChildren = mirror["children"] as? [Any] {
-                return Self.walk(accessibilityElements: mirrorChildren)
-            } else {
-                return nil
-            }
-        }
-        optionals.append(("children", children))
-                        
-        let el = AXElement(
-            values: optionals.compactMap({ (label, value) in value.map { (label, $0) } }),
-            style: style
-        )
-        
-        if el.values.isEmpty {
-            print("🧐 NO ACCESSIBILITY PROPERTIES?")
-            customDump(any)
-            for (label, value) in mirror.children {
-                print("", label ?? "<nil>", value)
-            }
-        }
-        
-        return el
+        Wrapper(any: any).element
     }
     
     static func walk<V: View>(view: V) -> [AXElement] {
@@ -188,6 +112,112 @@ struct AXElement: CustomDumpReflectable {
         case .unknown(let any):
             return makeMirror(any)
         }
+    }
+}
+
+extension AXElement {
+    final class Wrapper {
+        init(any: Any) {
+            self.any = any
+        }
+        
+        let any: Any
+        var obj: NSObject { (any as? NSObject) ?? NSObject() }
+        lazy var mirror = Mirror(reflecting: any)
+        
+        var element: AXElement {
+            AXElement(values: values, style: style)
+        }
+        
+        var values: [(label: String?, value: Any)] {
+            let optionals: [(label: String?, value: Any?)] = [
+                ("identifier", accessibilityIdentifier),
+                ("label", accessibilityLabel),
+                ("hint", accessibilityHint),
+                ("value", accessibilityValue),
+                ("traits", accessibilityTraits),
+    //                ("frame", el.accessibilityFrame == .zero ? nil : el.accessibilityFrame),
+                // accessibilityPath: UIBezierPath?
+                // accessibilityActivationPoint: CGPoint
+                // accessibilityLanguage: String?
+                ("elementsHidden", accessibilityElementsHidden),
+                ("viewIsModal", accessibilityViewIsModal),
+                ("shouldGroupAccessibilityChildren", shouldGroupAccessibilityChildren),
+                ("navigationStyle", accessibilityNavigationStyle),
+    //            ("respondsToUserInteraction", ifTrue(el.accessibilityRespondsToUserInteraction))
+                ("userInputLabels", accessibilityUserInputLabels),
+    //            ("attributedUserInputLabels", el.accessibilityAttributedUserInputLabels),
+                ("textualContext", accessibilityTextualContext),
+                ("customActions", accessibilityCustomActions),
+                ("dragSourceDescriptors", accessibilityDragSourceDescriptors),
+                ("dropPointDescriptors", accessibilityDropPointDescriptors),
+                ("customRotors", accessibilityCustomRotors),
+                ("containerType", accessibilityContainerType),
+                ("children", accessibilityChildren),
+            ]
+            
+            let values = optionals.compactMap({ (label, value) in value.map { (label, $0) } })
+            
+            if values.isEmpty {
+                print("🧐 NO ACCESSIBILITY PROPERTIES?")
+                customDump(any)
+                for (label, value) in mirror.children {
+                    print("", label ?? "<nil>", value)
+                }
+            }
+            
+            return values
+        }
+        
+        var style: Style {
+            if any is UIView { return .unknown(any) }
+            let traits = obj.accessibilityTraits
+            if traits.contains(.button) { return .button }
+            if traits.contains(.staticText) { return .staticText }
+            if traits.contains(.image) { return .image }
+            return .unknown(any)
+        }
+        
+        var accessibilityIdentifier: Any? { obj.value(forKey: "accessibilityIdentifier") }
+        var accessibilityLabel: Any? { obj.accessibilityLabel }
+        var accessibilityHint: Any? { obj.accessibilityHint }
+        var accessibilityValue: Any? { obj.accessibilityValue }
+        var accessibilityTraits: UIAccessibilityTraits? {
+            let traits = obj.accessibilityTraits.subtracting([.staticText, .image, .button])
+            return traits.isEmpty ? nil : traits
+        }
+        // ("frame", el.accessibilityFrame == .zero ? nil : el.accessibilityFrame),
+        // accessibilityPath: UIBezierPath?
+        // accessibilityActivationPoint: CGPoint
+        // accessibilityLanguage: String?
+        var accessibilityElementsHidden: Bool? { ifTrue(obj.accessibilityElementsHidden) }
+        var accessibilityViewIsModal: Bool? { ifTrue(obj.accessibilityViewIsModal) }
+        var shouldGroupAccessibilityChildren: Bool? { ifTrue(obj.shouldGroupAccessibilityChildren) }
+        var accessibilityNavigationStyle: UIAccessibilityNavigationStyle? { obj.accessibilityNavigationStyle == .automatic ? nil : obj.accessibilityNavigationStyle }
+        // ("respondsToUserInteraction", ifTrue(el.accessibilityRespondsToUserInteraction)), // : Bool
+        var accessibilityUserInputLabels: [String]? { nonEmpty(obj.accessibilityUserInputLabels) }
+        // ("attributedUserInputLabels", el.accessibilityAttributedUserInputLabels), // : [NSAttributedString]!
+        var accessibilityTextualContext: UIAccessibilityTextualContext? { obj.accessibilityTextualContext }
+        var accessibilityCustomActions: [UIAccessibilityCustomAction]? { obj.accessibilityCustomActions }
+        var accessibilityDragSourceDescriptors: [UIAccessibilityLocationDescriptor]? { nonEmpty(obj.accessibilityDragSourceDescriptors) }
+        var accessibilityDropPointDescriptors: [UIAccessibilityLocationDescriptor]? { nonEmpty(obj.accessibilityDropPointDescriptors) }
+        var accessibilityCustomRotors: [UIAccessibilityCustomRotor]? { nonEmpty(obj.accessibilityCustomRotors) }
+        var accessibilityContainerType: UIAccessibilityContainerType? { obj.accessibilityContainerType == .none ? nil : obj.accessibilityContainerType }
+    
+        var accessibilityChildren: [Any]? {
+            if let accessibilityElements = obj.accessibilityElements {
+                return AXElement.walk(accessibilityElements: accessibilityElements)
+            } else if let view = any as? UIView {
+                return AXElement.walk(accessibilityElements: view.subviews)
+            } else if let mirrorChildren = mirror["children"] as? [Any] {
+                return AXElement.walk(accessibilityElements: mirrorChildren)
+            } else {
+                return nil
+            }
+        }
+
+        private func nonEmpty<T>(_ arr: [T]?) -> [T]? { arr?.isEmpty == true ? nil : arr }
+        private func ifTrue(_ bool: Bool) -> Bool? { bool ? true : nil }
     }
 }
 
