@@ -162,6 +162,7 @@ extension AXElement {
                 ("dropPointDescriptors", accessibilityDropPointDescriptors),
                 ("customRotors", accessibilityCustomRotors),
                 ("containerType", accessibilityContainerType),
+                ("accessibilityHeadingLevel", accessibilityHeadingLevel),
                 ("children", accessibilityChildren),
             ]
             
@@ -212,6 +213,14 @@ extension AXElement {
         var accessibilityDropPointDescriptors: [UIAccessibilityLocationDescriptor]? { nonEmpty(obj.accessibilityDropPointDescriptors) }
         var accessibilityCustomRotors: [UIAccessibilityCustomRotor]? { nonEmpty(obj.accessibilityCustomRotors) }
         var accessibilityContainerType: UIAccessibilityContainerType? { obj.accessibilityContainerType == .none ? nil : obj.accessibilityContainerType }
+        
+        var accessibilityHeadingLevel: Any? {
+            nil // obj.value() throws exception
+//            obj.responds(to: Selector(("_accessibilityHeadingLevel")))
+//                //? obj.value(forKey: "_accessibilityHeadingLevel")
+//                ? obj.perform(Selector(("_accessibilityHeadingLevel")))
+//                : nil
+        }
     
         var accessibilityChildren: [Any]? {
             if let accessibilityElements = obj.accessibilityElements {
