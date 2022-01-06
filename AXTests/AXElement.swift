@@ -162,7 +162,8 @@ extension AXElement {
                 ("dropPointDescriptors", accessibilityDropPointDescriptors),
                 ("customRotors", accessibilityCustomRotors),
                 ("containerType", accessibilityContainerType),
-                ("accessibilityHeadingLevel", accessibilityHeadingLevel),
+                ("headingLevel", accessibilityHeadingLevel),
+                ("respondsToUserInteraction", accessibilityRespondsToUserInteraction),
                 ("children", accessibilityChildren),
             ]
             
@@ -215,11 +216,16 @@ extension AXElement {
         var accessibilityContainerType: UIAccessibilityContainerType? { obj.accessibilityContainerType == .none ? nil : obj.accessibilityContainerType }
         
         var accessibilityHeadingLevel: Any? {
-            nil // obj.value() throws exception
+            nil // throws exception
 //            obj.responds(to: Selector(("_accessibilityHeadingLevel")))
 //                //? obj.value(forKey: "_accessibilityHeadingLevel")
 //                ? obj.perform(Selector(("_accessibilityHeadingLevel")))
 //                : nil
+        }
+        
+        var accessibilityRespondsToUserInteraction: Bool? {
+            nil // Too noisy
+//            obj.value(forKey: "accessibilityRespondsToUserInteraction") as? Bool
         }
     
         var accessibilityChildren: [Any]? {
@@ -235,7 +241,8 @@ extension AXElement {
         }
 
         private func nonEmpty<T>(_ arr: [T]?) -> [T]? { arr?.isEmpty == true ? nil : arr }
-        private func ifTrue(_ bool: Bool) -> Bool? { bool ? true : nil }
+        private func ifTrue(_ bool: Bool?) -> Bool? { bool == true ? true : nil }
+        private func ifFalse(_ bool: Bool?) -> Bool? { bool == false ? false : nil }
     }
 }
 
