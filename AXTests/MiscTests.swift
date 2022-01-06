@@ -12,7 +12,7 @@ import SwiftUI
 import AccessibilitySnapshot
 import SnapshotTesting
 
-class AXTests: XCTestCase {
+final class MiscTests: XCTestCase {
 
     func test1() {
         customDump(v)
@@ -80,7 +80,7 @@ class AXTests: XCTestCase {
         _assertInlineSnapshot(matching: vc.view.accessibilityElements!, as: .customDump(maxDepth: 2), with: """
         [
           [0]: AccessibilityNode(
-            id: UniqueID(value: 213),
+            id: UniqueID(value: 3708),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -95,7 +95,7 @@ class AXTests: XCTestCase {
             isCell: false
           ),
           [1]: AccessibilityNode(
-            id: UniqueID(value: 270),
+            id: UniqueID(value: 3765),
             version: DisplayList.Version(value: 0),
             children: […],
             bridgedChild: nil,
@@ -110,7 +110,7 @@ class AXTests: XCTestCase {
             isCell: false
           ),
           [2]: AccessibilityNode(
-            id: UniqueID(value: 272),
+            id: UniqueID(value: 3767),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -125,7 +125,7 @@ class AXTests: XCTestCase {
             isCell: false
           ),
           [3]: AccessibilityNode(
-            id: UniqueID(value: 275),
+            id: UniqueID(value: 3770),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -140,7 +140,7 @@ class AXTests: XCTestCase {
             isCell: false
           ),
           [4]: AccessibilityNode(
-            id: UniqueID(value: 276),
+            id: UniqueID(value: 3771),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -155,7 +155,7 @@ class AXTests: XCTestCase {
             isCell: false
           ),
           [5]: AccessibilityNode(
-            id: UniqueID(value: 271),
+            id: UniqueID(value: 3766),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -177,7 +177,7 @@ class AXTests: XCTestCase {
         XCTAssertEqual(try v.inspect().vStack().text(0).string(), "ax_text")
         _assertInlineSnapshot(matching: nsax1, as: .customDump(maxDepth: 1), with: """
         AccessibilityNode(
-          id: UniqueID(value: 213),
+          id: UniqueID(value: 3708),
           version: DisplayList.Version(value: 0),
           children: [],
           bridgedChild: nil,
@@ -262,7 +262,6 @@ class AXTests: XCTestCase {
     }
     
     func test4() {
-        customDump(AXElement.walk(view: uiView))
         _assertInlineSnapshot(matching: uiView, as: .accessibilityElements, with: """
         [
           [0]: UIView(

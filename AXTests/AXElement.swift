@@ -1,9 +1,18 @@
 import CustomDump
 import SwiftUI
 
+@dynamicMemberLookup
 struct AXElement: CustomDumpReflectable {
     var values: [(label: String?, value: Any)]
     var style: AXElement.Style
+    
+    subscript(label: String) -> Any? {
+        values.first(where: { $0.label == label })?.value
+    }
+    
+    subscript(dynamicMember label: String) -> Any? {
+        self[label]
+    }
     
     enum Style {
         case staticText
@@ -295,5 +304,49 @@ extension UIAccessibilityTextualContext: CustomDumpStringConvertible {
 extension UIAccessibilityCustomAction: CustomDumpStringConvertible {
     public var customDumpDescription: String {
         name
+    }
+}
+
+extension UIAccessibilityCustomRotor: CustomDumpReflectable {
+    public var customDumpMirror: Mirror {
+        let child: Mirror.Child = systemRotorType == .none
+            ? ("custom", name)
+            : ("systemRotorType", systemRotorType)
+        return Mirror(self, children: [child], displayStyle: .struct)
+    }
+}
+
+extension UIAccessibilityCustomRotor.SystemRotorType: CustomDumpStringConvertible {
+    public var customDumpDescription: String {
+        switch self {
+        case .none: return ".none"
+        case .link: return ".link"
+        case .visitedLink: return ".visitedLink"
+        case .heading: return ".heading"
+        case .headingLevel1: return ".headingLevel1"
+        case .headingLevel2: return ".headingLevel2"
+        case .headingLevel3: return ".headingLevel3"
+        case .headingLevel4: return ".headingLevel4"
+        case .headingLevel5: return ".headingLevel5"
+        case .headingLevel6: return ".headingLevel6"
+        case .boldText: return ".boldText"
+        case .italicText: return ".italicText"
+        case .underlineText: return ".underlineText"
+        case .misspelledWord: return ".misspelledWord"
+        case .image: return ".image"
+        case .textField: return ".textField"
+        case .table: return ".table"
+        case .list: return ".list"
+        case .landmark: return ".landmark"
+        @unknown default:
+            return ".unknown⚠️"
+        }
+    }
+}
+
+extension Array {
+    subscript(safe index: Int) -> Element? {
+        guard indices.contains(index) else { return nil }
+        return self[index]
     }
 }
