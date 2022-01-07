@@ -94,7 +94,7 @@ struct AXElement: CustomDumpReflectable {
         return children
     }
     
-    static func walk(view: UIView) -> [AXElement] {
+    static func walk<V: UIView>(view: V) -> [AXElement] {
         guard let element = make(any: view) else { return [] }
         return [element]
     }
@@ -102,11 +102,14 @@ struct AXElement: CustomDumpReflectable {
     private static func walk(accessibilityElements: [Any]?) -> [AXElement]? {
         guard let accessibilityElements = accessibilityElements else { return nil }
         let children = accessibilityElements.compactMap(make(any:))
+//        { any -> AXElement? in
+//            func _make<T>(t: T) -> AXElement? { Wrapper(any: t).element }
+//            return _openExistential(any, do: _make(t:))
+//        }
         return children.isEmpty ? nil : children
     }
     
     var customDumpMirror: Mirror {
-//        func makeMirror<Subject>(_ subject: Subject) -> Mirror {
         func makeMirror(_ subject: Any) -> Mirror {
             Mirror.make(any: subject, children: values)
         }
@@ -140,6 +143,7 @@ extension AXElement {
         
         var values: [(label: String?, value: Any)] {
             let optionals: [(label: String?, value: Any?)] = [
+                ("type", uiViewClass),
                 ("identifier", accessibilityIdentifier),
                 ("label", accessibilityLabel),
                 ("hint", accessibilityHint),
@@ -187,6 +191,12 @@ extension AXElement {
             if traits.contains(.staticText) { return .staticText }
             if traits.contains(.image) { return .image }
             return .unknown(any)
+        }
+        
+        var uiViewClass: Any? {
+            (any is UIView)
+                ? type(of: any)
+                : nil
         }
         
         var accessibilityIdentifier: Any? { obj.value(forKey: "accessibilityIdentifier") }

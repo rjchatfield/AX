@@ -265,22 +265,26 @@ final class MiscTests: XCTestCase {
         _assertInlineSnapshot(matching: uiView, as: .accessibilityElements, with: """
         [
           [0]: UIView(
+            type: UIStackView.self,
             children: [
-              [0]: UIView(),
+              [0]: UIView(type: UILabel.self),
               [1]: UIView(
+                type: UIStackView.self,
                 children: [
                   [0]: UIButton(
+                    type: UIButton.self,
                     identifier: "ax_button_identifier",
                     label: "ax_button_label",
                     hint: "ax_button_hint",
                     value: "ax_button_value",
                     children: [
-                      [0]: UIView()
+                      [0]: UIView(type: UIButtonLabel.self)
                     ]
                   ),
                   [1]: UIButton(
+                    type: UIButton.self,
                     children: [
-                      [0]: UIView()
+                      [0]: UIView(type: UIButtonLabel.self)
                     ]
                   )
                 ]
@@ -490,6 +494,36 @@ final class MiscTests: XCTestCase {
 //            XCTAssertNotNil(obj.perform(Selector(("_accessibilityHeadingLevel")))?.takeRetainedValue())
             // FAILS!
         }
+    }
+    
+    func test8() {
+        func run(any: Any) {
+            XCTAssertEqual("\(type(of: any))", "UILabel")
+            XCTAssertEqual(String(reflecting: type(of: any)), "UILabel")
+            
+            let m2 = Mirror(reflecting: any)
+            XCTAssertEqual("\(m2.subjectType)", "UILabel")
+            XCTAssertEqual(String(reflecting: m2.subjectType), "UILabel")
+            
+            let c = AXElement.Style.unknown(any)
+            guard case .unknown(let any2) = c else { fatalError() }
+            let m3 = Mirror.make(any: any2, children: [])
+            XCTAssertEqual(String(reflecting: m3.subjectType), "UILabel")
+            
+            let m4 = Mirror(any, children: [])
+            XCTAssertEqual("\(m4.subjectType)", "Any")
+
+            _assertInlineSnapshot(matching: any as! UILabel, as: .accessibilityElements, with: """
+            [
+              [0]: UILabel(type: UILabel.self)
+            ]
+            """)
+            _assertInlineSnapshot(matching: any, as: .customDump, with: """
+            UILabel()
+            """)
+
+        }
+        run(any: UILabel())
     }
 
     // MARK: -
