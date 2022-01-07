@@ -15,7 +15,6 @@
 		D477E25027850BA900AA0076 /* AX+Snapshotting.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477E24F27850BA900AA0076 /* AX+Snapshotting.swift */; };
 		D477E252278512A900AA0076 /* Mirror+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477E251278512A900AA0076 /* Mirror+Extensions.swift */; };
 		D477E25427865E2F00AA0076 /* TextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477E25327865E2F00AA0076 /* TextTests.swift */; };
-		D477E2572786660000AA0076 /* ButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477E2562786660000AA0076 /* ButtonTests.swift */; };
 		D477E259278694F800AA0076 /* AXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477E258278694F800AA0076 /* AXTests.swift */; };
 		D477E25B2787AED100AA0076 /* ViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477E25A2787AED100AA0076 /* ViewTests.swift */; };
 		D48E5C40276C3531002ACB6A /* AXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48E5C3F276C3531002ACB6A /* AXApp.swift */; };
@@ -65,7 +64,6 @@
 		D477E24F27850BA900AA0076 /* AX+Snapshotting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AX+Snapshotting.swift"; sourceTree = "<group>"; };
 		D477E251278512A900AA0076 /* Mirror+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mirror+Extensions.swift"; sourceTree = "<group>"; };
 		D477E25327865E2F00AA0076 /* TextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTests.swift; sourceTree = "<group>"; };
-		D477E2562786660000AA0076 /* ButtonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTests.swift; sourceTree = "<group>"; };
 		D477E258278694F800AA0076 /* AXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AXTests.swift; sourceTree = "<group>"; };
 		D477E25A2787AED100AA0076 /* ViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTests.swift; sourceTree = "<group>"; };
 		D48E5C3C276C3531002ACB6A /* AX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AX.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,10 +130,19 @@
 			children = (
 				D477E258278694F800AA0076 /* AXTests.swift */,
 				D477E25A2787AED100AA0076 /* ViewTests.swift */,
-				D477E2562786660000AA0076 /* ButtonTests.swift */,
 				D477E25327865E2F00AA0076 /* TextTests.swift */,
 			);
 			path = SwiftUI;
+			sourceTree = "<group>";
+		};
+		D477E25C2787F69B00AA0076 /* AX */ = {
+			isa = PBXGroup;
+			children = (
+				D4261DEF278457A700A849CE /* AXElement.swift */,
+				D477E24F27850BA900AA0076 /* AX+Snapshotting.swift */,
+				D477E251278512A900AA0076 /* Mirror+Extensions.swift */,
+			);
+			path = AX;
 			sourceTree = "<group>";
 		};
 		D48E5C33276C3531002ACB6A = {
@@ -183,11 +190,9 @@
 		D48E5C4F276C3532002ACB6A /* AXTests */ = {
 			isa = PBXGroup;
 			children = (
-				D48E5C50276C3532002ACB6A /* MiscTests.swift */,
 				D477E25527865F4C00AA0076 /* SwiftUI */,
-				D4261DEF278457A700A849CE /* AXElement.swift */,
-				D477E24F27850BA900AA0076 /* AX+Snapshotting.swift */,
-				D477E251278512A900AA0076 /* Mirror+Extensions.swift */,
+				D477E25C2787F69B00AA0076 /* AX */,
+				D48E5C50276C3532002ACB6A /* MiscTests.swift */,
 			);
 			path = AXTests;
 			sourceTree = "<group>";
@@ -415,7 +420,6 @@
 				D477E252278512A900AA0076 /* Mirror+Extensions.swift in Sources */,
 				D4261DF0278457A700A849CE /* AXElement.swift in Sources */,
 				D477E25027850BA900AA0076 /* AX+Snapshotting.swift in Sources */,
-				D477E2572786660000AA0076 /* ButtonTests.swift in Sources */,
 				D477E259278694F800AA0076 /* AXTests.swift in Sources */,
 				D48E5C51276C3532002ACB6A /* MiscTests.swift in Sources */,
 				D477E25427865E2F00AA0076 /* TextTests.swift in Sources */,

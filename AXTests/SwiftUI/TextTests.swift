@@ -32,12 +32,6 @@ final class TextTests: XCTestCase {
         """)
     }
     
-//    func testSearch() {
-//        let view = AnyView(Text("abc"))
-//        XCTAssertEqual(try view.inspect().find(ViewType.Text.self).pathToRoot, "anyView().text()")
-//        XCTAssertEqual(try view.inspect().find(text: "abc").pathToRoot, "anyView().text()")
-//    }
-    
     // MARK: - string()
     
     func testExternalStringValue() {
@@ -53,35 +47,6 @@ final class TextTests: XCTestCase {
         XCTAssertEqual(value, "Test")
     }
     
-//    func testResourceLocalizationStringNoParams() {
-//        let bundle = try Bundle.testResources()
-//        let sut = Text("Test", tableName: "Test", bundle: bundle)
-//        let text = try sut.inspect().text()
-//        let value1 = try text.string(locale: Locale(identifier: "fr"))
-//        XCTAssertEqual(value1, "Test")
-//        let value2 = try text.string(locale: Locale(identifier: "en"))
-//        XCTAssertEqual(value2, "Test_en")
-//        let value3 = try text.string(locale: Locale(identifier: "en_AU"))
-//        XCTAssertEqual(value3, "Test_en_au")
-//        let value4 = try text.string(locale: Locale(identifier: "ru"))
-//        XCTAssertEqual(value4, "Тест_ru")
-//    }
-//    
-//    func testLocalizationGlobalDefault() {
-//        let bundle = try Bundle.testResources()
-//        let sut = Text("Test", tableName: "Test", bundle: bundle)
-//        let text = try sut.inspect().text()
-//        
-//        let value1 = try text.string()
-//        XCTAssertEqual(value1, "Test_en")
-//        
-//        let defaultLocale = Locale.testsDefault
-//        Locale.testsDefault = Locale(identifier: "ru")
-//        let value2 = try text.string()
-//        XCTAssertEqual(value2, "Тест_ru")
-//        Locale.testsDefault = defaultLocale
-//    }
-//    
     func testVerbatimStringNoParams() {
         let sut = Text(verbatim: "Test")
         let value = AXElement.walk(view: sut).first?.label as? String
@@ -192,23 +157,6 @@ final class TextTests: XCTestCase {
         let value = AXElement.walk(view: sut).first?.label as? String
         XCTAssertEqual(value, "TestAbc123")
     }
-    
-//    func testImageExtraction() {
-//        guard #available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
-//        else { throw XCTSkip() }
-//        let image1 = Image("abc").antialiased(true)
-//        let image2 = Image("def").resizable()
-//        let image3 = Image("xyz")
-//        let sut = Text("Text \(image1) \(Text(image2))") + Text("\(42, specifier: "%d") \(image3)")
-//        let images = try sut.inspect().text().images()
-//        XCTAssertEqual(images, [image1, image2, image3])
-//        let string = AXElement.walk(view: sut).first?.label as? String
-//        XCTAssertEqual(string, "Text ￼ ￼42 ￼") // Note: contains invisible chars
-//        let sut2 = Text(Date()...Date())
-//        XCTAssertEqual(try sut2.inspect().text().images(), [])
-//        let sut3 = Text("abc")
-//        XCTAssertEqual(try sut3.inspect().text().images(), [])
-//    }
     
     // MARK: -
     
