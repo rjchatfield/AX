@@ -261,72 +261,462 @@ final class ViewTests: XCTestCase {
     // MARK: - Containers
     
     func testAlert() {
+        let view = EmptyView()
+            .alert(isPresented: .constant(true)) {
+                Alert(
+                    title: Text("title"),
+                    message: Text("message"),
+                    primaryButton: .destructive(Text("destructive")),
+                    secondaryButton: .cancel()
+                )
+            }
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        []
+        """)
     }
     
     func testAnyView() {
+        let view = AnyView(Text("title"))
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: Text(label: "title")
+        ]
+        """)
     }
     
     func testCustomView() {
+        struct MyView: View { var body: some View { Text("title") } }
+        let view = MyView()
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: Text(label: "title")
+        ]
+        """)
     }
     
     func testDisclosureGroup() {
+        let view = DisclosureGroup("Group1", isExpanded: .constant(true)) {
+            Text("item1")
+            DisclosureGroup("Group2") {
+                Button {} label: { Text("item2") }
+            }
+        }
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: Button(
+            label: "Group1",
+            customActions: [
+              [0]: Group1
+            ]
+          ),
+          [1]: Text(label: "item1"),
+          [2]: Button(
+            label: "Group2",
+            customActions: [
+              [0]: Group2
+            ]
+          )
+        ]
+        """)
     }
     
     func testForEach() {
+        let view = ForEach([1, 2], id: \.self) { i in
+            Text("item\(i)")
+        }
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: Text(label: "item1"),
+          [1]: Text(label: "item2")
+        ]
+        """)
     }
     
     func testForm() {
+        let view = Form {
+            Text("item1")
+            Button {} label: { Text("item2") }
+        }
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: PlatformAccessibilityElement()
+        ]
+        """)
     }
     
     func testGroup() {
+        let view = Group {
+            Text("item1")
+            Button {} label: { Text("item2") }
+        }
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: Text(label: "item1"),
+          [1]: Button(label: "item2")
+        ]
+        """)
+    }
+    
+    func testGroupBox() {
+        let view = GroupBox {
+            Text("item1")
+            Button {} label: { Text("item2") }
+        }
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: PlatformAccessibilityElement(
+            shouldGroupAccessibilityChildren: true,
+            navigationStyle: .combined,
+            containerType: .semanticGroup,
+            children: [
+              [0]: Text(label: "item1"),
+              [1]: Button(label: "item2")
+            ]
+          )
+        ]
+        """)
     }
     
     func testHStack() {
+        let view = HStack {
+            Text("item1")
+            Button {} label: { Text("item2") }
+        }
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: Text(label: "item1"),
+          [1]: Button(label: "item2")
+        ]
+        """)
     }
     
     func testLazyHGrid() {
+        let view = LazyHGrid(
+            rows: [GridItem()],
+            alignment: .center,
+            spacing: 10,
+            pinnedViews: [.sectionHeaders],
+            content: {
+                Text("item1")
+                Button {} label: { Text("item2") }
+            }
+        )
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: PlatformAccessibilityElement(
+            shouldGroupAccessibilityChildren: true,
+            navigationStyle: .combined,
+            containerType: .semanticGroup,
+            children: [
+              [0]: Text(label: "item1"),
+              [1]: Button(label: "item2")
+            ]
+          )
+        ]
+        """)
     }
     
     func testLazyHStack() {
+        let view = LazyHStack {
+            Text("item1")
+            Button {} label: { Text("item2") }
+        }
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: PlatformAccessibilityElement(
+            shouldGroupAccessibilityChildren: true,
+            navigationStyle: .combined,
+            containerType: .semanticGroup,
+            children: [
+              [0]: Text(label: "item1"),
+              [1]: Button(label: "item2")
+            ]
+          )
+        ]
+        """)
     }
     
     func testLazyVGrid() {
+        let view = LazyVGrid(
+            columns: [GridItem()],
+            alignment: .center,
+            spacing: 10,
+            pinnedViews: [.sectionHeaders],
+            content: {
+                Text("item1")
+                Button {} label: { Text("item2") }
+            }
+        )
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: PlatformAccessibilityElement(
+            shouldGroupAccessibilityChildren: true,
+            navigationStyle: .combined,
+            containerType: .semanticGroup,
+            children: [
+              [0]: Text(label: "item1"),
+              [1]: Button(label: "item2")
+            ]
+          )
+        ]
+        """)
     }
     
     func testLazyVStack() {
+        let view = LazyVStack {
+            Text("item1")
+            Button {} label: { Text("item2") }
+        }
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: PlatformAccessibilityElement(
+            shouldGroupAccessibilityChildren: true,
+            navigationStyle: .combined,
+            containerType: .semanticGroup,
+            children: [
+              [0]: Text(label: "item1"),
+              [1]: Button(label: "item2")
+            ]
+          )
+        ]
+        """)
     }
     
     func testList() {
+        let view = List {
+            Text("item1")
+            Button {} label: { Text("item2") }
+        }
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: PlatformAccessibilityElement(
+            children: [
+              [0]: UIView()
+            ]
+          )
+        ]
+        """)
     }
     
     func testMenu() {
+        let view = Menu("title") {
+            Text("item1")
+            Button {} label: { Text("item2") }
+        }
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: Button(
+            label: "title",
+            traits: 
+          )
+        ]
+        """)
     }
     
     func testNavigationLink() {
+        let view = NavigationLink(destination: Text("next"), isActive: .constant(true)) {
+            Text("item1")
+            Button {} label: { Text("item2") }
+        }
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: Button(
+            label: "item1",
+            traits: .notEnabled,
+            customActions: [
+              [0]: item2
+            ]
+          )
+        ]
+        """)
     }
     
     func testNavigationView() {
+        let view = NavigationView {
+            Text("item1")
+            Button {} label: { Text("item2") }
+        }
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: PlatformAccessibilityElement(
+            children: [
+              [0]: UIView()
+            ]
+          )
+        ]
+        """)
     }
     
     func testScrollView() {
+        let view = ScrollView {
+            Text("item1")
+            Button {} label: { Text("item2") }
+        }
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: PlatformAccessibilityElement(
+            children: [
+              [0]: UIView(
+                shouldGroupAccessibilityChildren: true,
+                children: [
+                  [0]: Text(label: "item1"),
+                  [1]: Button(label: "item2")
+                ]
+              ),
+              [1]: UIView(
+                children: [
+                  [0]: UIView()
+                ]
+              )
+            ]
+          )
+        ]
+        """)
     }
     
     func testSection() {
+        let view = Section {
+            Text("item1")
+            Button {} label: { Text("item2") }
+        } header: {
+            Text("header.item1")
+            Button {} label: { Text("header.item2") }
+        } footer: {
+            Text("footer.item1")
+            Button {} label: { Text("footer.item2") }
+        }
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: Text(
+            label: "header.item1",
+            traits: .header
+          ),
+          [1]: Button(
+            label: "header.item2",
+            traits: .header
+          ),
+          [2]: Text(label: "item1"),
+          [3]: Button(label: "item2"),
+          [4]: Text(label: "footer.item1"),
+          [5]: Button(label: "footer.item2")
+        ]
+        """)
     }
     
     func testTabView() {
+        let view = TabView {
+            Text("item1")
+                .badge(10)
+                .tabItem {
+                    Image(systemName: "1.square.fill")
+                    Text("First")
+                }
+            Button {} label: { Text("item2") }
+                 .tabItem {
+                     Image(systemName: "2.square.fill")
+                     Text("Second")
+                 }
+        }
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: PlatformAccessibilityElement(
+            children: [
+              [0]: UIView(
+                children: [
+                  [0]: UIView(
+                    children: [
+                      [0]: UIView(
+                        children: [
+                          [0]: Text(
+                            label: "item1",
+                            value: "10"
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ]
+              ),
+              [1]: UIView(
+                children: [
+                  [0]: UIView(
+                    label: "First",
+                    children: [
+                      [0]: UIView(),
+                      [1]: UIView(),
+                      [2]: UIView(
+                        children: [
+                          [0]: UIView()
+                        ]
+                      )
+                    ]
+                  ),
+                  [1]: UIView(
+                    label: "Second",
+                    children: [
+                      [0]: UIView(),
+                      [1]: UIView()
+                    ]
+                  )
+                ]
+              )
+            ]
+          )
+        ]
+        """)
     }
     
     func testTimelineView() {
+        let view = TimelineView(.everyMinute) { context in
+            Text("item1")
+            Button {} label: { Text("item2") }
+        }
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: Text(label: "item1"),
+          [1]: Button(label: "item2")
+        ]
+        """)
     }
     
     func testToolbar() {
+        let view = Text("").toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Text("item1")
+                Button {} label: { Text("item2") }
+            }
+        }
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: Text(label: "")
+        ]
+        """)
     }
     
     func testVStack() {
+        let view = VStack {
+            Text("item1")
+            Button {} label: { Text("item2") }
+        }
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: Text(label: "item1"),
+          [1]: Button(label: "item2")
+        ]
+        """)
     }
     
     func testZStack() {
+        let view = ZStack {
+            Text("item1")
+            Button {} label: { Text("item2") }
+        }
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: Text(label: "item1"),
+          [1]: Button(label: "item2")
+        ]
+        """)
     }
     
     // MARK: -
