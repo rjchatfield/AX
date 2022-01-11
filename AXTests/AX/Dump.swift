@@ -1,7 +1,25 @@
 @testable import CustomDump
 import UIKit
 
+@discardableResult
+public func customDump<T>(
+  _ value: T,
+  name: String? = nil,
+  indent: Int = 0,
+  maxDepth: Int = .max
+) -> T {
+  var target = ""
+  let value = _customDump(value, to: &target, name: name, indent: indent, maxDepth: maxDepth)
+  print(target)
+  return value
+}
+
 /// Dumps the given value's contents using its mirror to the specified output stream.
+///
+/// WARNING: Fork of CustomDump.customDump(...)
+///
+/// Solves problem with `Mirror(UIButton() as UIView, children: [])` where
+/// `mirror.subjectType == UIView.self`. As a workaround, `CustomDumpReflectable` defines `customDumpTypeName: String?` which explicitly returns the type name.
 ///
 /// - Parameters:
 ///   - value: The value to output to the `target` stream.
@@ -216,7 +234,7 @@ func _customDump<T, TargetStream>(
     return value
 }
 
-func _customDump(_ value: Any, name: String?, indent: Int, maxDepth: Int) -> String {
+private func _customDump(_ value: Any, name: String?, indent: Int, maxDepth: Int) -> String {
     var out = ""
     customDump(value, to: &out, name: name, indent: indent, maxDepth: maxDepth)
     return out
