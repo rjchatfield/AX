@@ -431,13 +431,21 @@ final class AXTests: XCTestCase {
         ]
         """)
     }
+    
+    func testAXTextContentType() {
+        let view = Text("title").accessibilityTextContentType(.sourceCode)
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: Text(label: "title")
+        ]
+        """)
+    }
 
     func testAX() {
         // .accessibilityActivationPoint
         // .accessibilityLinkedGroup
         // .accessibilityLabeledPair
         // .accessibilityScrollAction
-        // .accessibilityTextContentType
     }
     
     // MARK: -

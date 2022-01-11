@@ -80,7 +80,7 @@ final class MiscTests: XCTestCase {
         _assertInlineSnapshot(matching: vc.view.accessibilityElements!, as: .customDump(maxDepth: 2), with: """
         [
           [0]: AccessibilityNode(
-            id: UniqueID(value: 1856),
+            id: UniqueID(value: 1904),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -95,7 +95,7 @@ final class MiscTests: XCTestCase {
             isCell: false
           ),
           [1]: AccessibilityNode(
-            id: UniqueID(value: 1913),
+            id: UniqueID(value: 1961),
             version: DisplayList.Version(value: 0),
             children: […],
             bridgedChild: nil,
@@ -110,7 +110,7 @@ final class MiscTests: XCTestCase {
             isCell: false
           ),
           [2]: AccessibilityNode(
-            id: UniqueID(value: 1915),
+            id: UniqueID(value: 1963),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -125,7 +125,7 @@ final class MiscTests: XCTestCase {
             isCell: false
           ),
           [3]: AccessibilityNode(
-            id: UniqueID(value: 1918),
+            id: UniqueID(value: 1966),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -140,7 +140,7 @@ final class MiscTests: XCTestCase {
             isCell: false
           ),
           [4]: AccessibilityNode(
-            id: UniqueID(value: 1919),
+            id: UniqueID(value: 1967),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -155,7 +155,7 @@ final class MiscTests: XCTestCase {
             isCell: false
           ),
           [5]: AccessibilityNode(
-            id: UniqueID(value: 1914),
+            id: UniqueID(value: 1962),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -177,7 +177,7 @@ final class MiscTests: XCTestCase {
         XCTAssertEqual(try v.inspect().vStack().text(0).string(), "ax_text")
         _assertInlineSnapshot(matching: nsax1, as: .customDump(maxDepth: 1), with: """
         AccessibilityNode(
-          id: UniqueID(value: 1856),
+          id: UniqueID(value: 1904),
           version: DisplayList.Version(value: 0),
           children: [],
           bridgedChild: nil,
@@ -363,7 +363,7 @@ final class MiscTests: XCTestCase {
         let element = vc.view.accessibilityElements![0]
         _assertInlineSnapshot(matching: element, as: .customDump(maxDepth: 1), with: """
         AccessibilityNode(
-          id: UniqueID(value: 2243),
+          id: UniqueID(value: 2291),
           version: DisplayList.Version(value: 0),
           children: [],
           bridgedChild: nil,
@@ -665,7 +665,7 @@ final class MiscTests: XCTestCase {
         _assertInlineSnapshot(matching: vc.view.accessibilityElements!, as: .customDump(maxDepth: 2), with: """
         [
           [0]: AccessibilityNode(
-            id: UniqueID(value: 1644),
+            id: UniqueID(value: 1692),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,

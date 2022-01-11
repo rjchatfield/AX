@@ -18,6 +18,16 @@ extension Snapshotting where Value: SwiftUI.View, Format == String {
                 "TODO: voiceOver elements"
             }
     }
+    
+    static func findingInView(_ predicate: String) -> Snapshotting {
+        Snapshotting<Any, String>.finding(predicate)
+            .pullback { view -> Any in
+                let frame = CGRect(x: 0, y: 0, width: 300, height: 3000)
+                let viewController = UIHostingController(rootView: view)
+                viewController.view.frame = frame
+                return viewController.view?.accessibilityElements ?? []
+            }
+    }
 }
 
 extension Snapshotting where Value: UIView, Format == String {
@@ -51,5 +61,23 @@ extension Snapshotting where Value == Any, Format == String {
                 return result
             }
     }
+    
+    static func finding(_ predicate: String) -> Snapshotting {
+        Snapshotting<String, String>.lines
+            .pullback { any -> String in
+                guard let trace = find(predicate, in: any) else { return "<not found>" }
+                return trace.description
+            }
+    }
+}
 
+// MARK: NSObject
+
+extension Snapshotting where Value == NSObject, Format == String {
+    static var allSelectors: Snapshotting {
+        Snapshotting<Any, String>.customDump
+            .pullback { obj -> Any in
+                obj.allSelectors
+            }
+    }
 }
