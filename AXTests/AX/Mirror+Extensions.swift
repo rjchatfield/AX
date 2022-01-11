@@ -9,8 +9,15 @@ extension Mirror {
     }
 
     subscript(label: String) -> Any? {
-        children.first(where: { $0.label == label })?.value
-            ?? superclassMirror?[label]
+        allChildren.first(where: { $0.label == label })?.value
+    }
+    
+    var allChildren: AnySequence<(label: String?, value: Any)> {
+        AnySequence(
+            sequence(first: self, next: \.superclassMirror)
+                .reversed()
+                .flatMap(\.children)
+        )
     }
 }
 

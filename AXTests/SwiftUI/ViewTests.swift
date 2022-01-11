@@ -719,6 +719,17 @@ final class ViewTests: XCTestCase {
         """)
     }
     
+    // MARK: - Modifiers
+    
+    func testOnTapGesture() {
+        let view = Text("title").onTapGesture {}
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: Text(label: "title")
+        ]
+        """)
+    }
+    
     // MARK: -
     
     override func setUp() {

@@ -362,10 +362,21 @@ final class AXTests: XCTestCase {
     // MARK: - Not yet supported
     
     func testAXCustomContent() {
-        let view = Text("title").accessibilityCustomContent("ax_label", Text("ax_value"), importance: .high)
+        let view = Text("title")
+            .accessibilityCustomContent("ax_label1", Text("ax_value1"))
+            .accessibilityCustomContent("ax_label2", Text("ax_value2"), importance: .high)
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: Text(label: "title")
+          [0]: Text(
+            label: "title",
+            customContent: [
+              [0]: AXCustomContent(ax_label1: "ax_value1"),
+              [1]: AXCustomContent(
+                ax_label2: "ax_value2",
+                importance: .high
+              )
+            ]
+          )
         ]
         """)
     }

@@ -80,7 +80,7 @@ final class MiscTests: XCTestCase {
         _assertInlineSnapshot(matching: vc.view.accessibilityElements!, as: .customDump(maxDepth: 2), with: """
         [
           [0]: AccessibilityNode(
-            id: UniqueID(value: 1808),
+            id: UniqueID(value: 1856),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -95,7 +95,7 @@ final class MiscTests: XCTestCase {
             isCell: false
           ),
           [1]: AccessibilityNode(
-            id: UniqueID(value: 1865),
+            id: UniqueID(value: 1913),
             version: DisplayList.Version(value: 0),
             children: […],
             bridgedChild: nil,
@@ -110,7 +110,7 @@ final class MiscTests: XCTestCase {
             isCell: false
           ),
           [2]: AccessibilityNode(
-            id: UniqueID(value: 1867),
+            id: UniqueID(value: 1915),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -125,7 +125,7 @@ final class MiscTests: XCTestCase {
             isCell: false
           ),
           [3]: AccessibilityNode(
-            id: UniqueID(value: 1870),
+            id: UniqueID(value: 1918),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -140,7 +140,7 @@ final class MiscTests: XCTestCase {
             isCell: false
           ),
           [4]: AccessibilityNode(
-            id: UniqueID(value: 1871),
+            id: UniqueID(value: 1919),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -155,7 +155,7 @@ final class MiscTests: XCTestCase {
             isCell: false
           ),
           [5]: AccessibilityNode(
-            id: UniqueID(value: 1866),
+            id: UniqueID(value: 1914),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -177,7 +177,7 @@ final class MiscTests: XCTestCase {
         XCTAssertEqual(try v.inspect().vStack().text(0).string(), "ax_text")
         _assertInlineSnapshot(matching: nsax1, as: .customDump(maxDepth: 1), with: """
         AccessibilityNode(
-          id: UniqueID(value: 1808),
+          id: UniqueID(value: 1856),
           version: DisplayList.Version(value: 0),
           children: [],
           bridgedChild: nil,
@@ -363,7 +363,7 @@ final class MiscTests: XCTestCase {
         let element = vc.view.accessibilityElements![0]
         _assertInlineSnapshot(matching: element, as: .customDump(maxDepth: 1), with: """
         AccessibilityNode(
-          id: UniqueID(value: 2195),
+          id: UniqueID(value: 2243),
           version: DisplayList.Version(value: 0),
           children: [],
           bridgedChild: nil,
@@ -656,6 +656,53 @@ final class MiscTests: XCTestCase {
             ]
           )
         ]
+        """)
+    }
+    
+    func test11() {
+        let v = Text("ax_title").accessibilityCustomContent("ax_label_high", "ax_value_high", importance: .high)
+        let vc = UIHostingController(rootView: v)
+        _assertInlineSnapshot(matching: vc.view.accessibilityElements!, as: .customDump(maxDepth: 2), with: """
+        [
+          [0]: AccessibilityNode(
+            id: UniqueID(value: 1644),
+            version: DisplayList.Version(value: 0),
+            children: [],
+            bridgedChild: nil,
+            parent: AccessibilityNode(…),
+            viewRendererHost: _UIHostingView(…),
+            attachmentsStorage: […],
+            cachedCombinedAttachment: nil,
+            platformRotorStorage: [:],
+            cachedIsPlaceholder: false,
+            focusableAncestor: nil,
+            relationshipScope: nil,
+            isCell: false
+          )
+        ]
+        """)
+        let el = vc.view.accessibilityElements![0]
+        let trace1 = find("ax_label_high", in: el)
+        _assertInlineSnapshot(matching: trace1!.description, as: .lines, with: """
+        AccessibilityNode
+        parent: Optional<AccessibilityNode>
+          some: AccessibilityNode
+            viewRendererHost: Optional<ViewRendererHost>
+              some: _UIHostingView<ModifiedContent<Text, AccessibilityAttachmentModifier>>
+                _rootView: ModifiedContent<Text, AccessibilityAttachmentModifier>
+                  modifier: AccessibilityAttachmentModifier
+                    storage: Storage
+                      propertiesComponent: Array<PropertiesComponent>
+                        0: ReplacingPropertiesComponent<Array<AccessibilityCustomContentEntry>>
+                          value: Array<AccessibilityCustomContentEntry>
+                            0: AccessibilityCustomContentEntry
+                              key: AccessibilityCustomContentKey
+                                identifier: Identifier
+                                  text: Text
+                                    storage: Storage
+                                      anyTextStorage: LocalizedTextStorage
+                                        key: LocalizedStringKey
+                                          key: "ax_label_high"
         """)
     }
 

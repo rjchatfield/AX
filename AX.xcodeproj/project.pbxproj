@@ -18,6 +18,7 @@
 		D477E259278694F800AA0076 /* AXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477E258278694F800AA0076 /* AXTests.swift */; };
 		D477E25B2787AED100AA0076 /* ViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477E25A2787AED100AA0076 /* ViewTests.swift */; };
 		D477E25E278D019300AA0076 /* Dump.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477E25D278D019300AA0076 /* Dump.swift */; };
+		D477E260278D38CC00AA0076 /* PathToElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477E25F278D38CC00AA0076 /* PathToElement.swift */; };
 		D48E5C40276C3531002ACB6A /* AXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48E5C3F276C3531002ACB6A /* AXApp.swift */; };
 		D48E5C42276C3531002ACB6A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48E5C41276C3531002ACB6A /* ContentView.swift */; };
 		D48E5C44276C3532002ACB6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D48E5C43276C3532002ACB6A /* Assets.xcassets */; };
@@ -68,6 +69,7 @@
 		D477E258278694F800AA0076 /* AXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AXTests.swift; sourceTree = "<group>"; };
 		D477E25A2787AED100AA0076 /* ViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTests.swift; sourceTree = "<group>"; };
 		D477E25D278D019300AA0076 /* Dump.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dump.swift; sourceTree = "<group>"; };
+		D477E25F278D38CC00AA0076 /* PathToElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathToElement.swift; sourceTree = "<group>"; };
 		D48E5C3C276C3531002ACB6A /* AX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D48E5C3F276C3531002ACB6A /* AXApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AXApp.swift; sourceTree = "<group>"; };
 		D48E5C41276C3531002ACB6A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				D477E24F27850BA900AA0076 /* AX+Snapshotting.swift */,
 				D477E251278512A900AA0076 /* Mirror+Extensions.swift */,
 				D477E25D278D019300AA0076 /* Dump.swift */,
+				D477E25F278D38CC00AA0076 /* PathToElement.swift */,
 			);
 			path = AX;
 			sourceTree = "<group>";
@@ -427,6 +430,7 @@
 				D477E259278694F800AA0076 /* AXTests.swift in Sources */,
 				D48E5C51276C3532002ACB6A /* MiscTests.swift in Sources */,
 				D477E25427865E2F00AA0076 /* TextTests.swift in Sources */,
+				D477E260278D38CC00AA0076 /* PathToElement.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

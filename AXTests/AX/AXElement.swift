@@ -130,6 +130,7 @@ extension AXElement {
                 ("containerType", accessibilityContainerType),
                 ("headingLevel", accessibilityHeadingLevel),
                 ("respondsToUserInteraction", accessibilityRespondsToUserInteraction),
+                ("customContent", accessibilityCustomContent),
                 ("children", accessibilityChildren),
             ]
             
@@ -214,6 +215,11 @@ extension AXElement {
             } else {
                 return nil
             }
+        }
+        
+        var accessibilityCustomContent: [AXCustomContent]? {
+            guard let customContentProvider = obj as? AXCustomContentProvider else { return nil }
+            return nonEmpty(customContentProvider.accessibilityCustomContent)
         }
         
         var uiLabel: UILabel? { any as? UILabel }
@@ -392,6 +398,27 @@ extension UIAccessibilityCustomRotor.SystemRotorType: CustomDumpStringConvertibl
         case .table: return ".table"
         case .list: return ".list"
         case .landmark: return ".landmark"
+        @unknown default:
+            return ".unknown⚠️"
+        }
+    }
+}
+
+extension AXCustomContent: CustomDumpReflectable {
+    public var customDumpMirror: Mirror {
+        var children: [Mirror.Child] = [(label, value)]
+        if importance != .default {
+            children.append(("importance", importance))
+        }
+        return Mirror(self, children: children, displayStyle: .struct)
+    }
+}
+
+extension AXCustomContent.Importance: CustomDumpStringConvertible {
+    public var customDumpDescription: String {
+        switch self {
+        case .default: return ".default"
+        case .high: return ".high"
         @unknown default:
             return ".unknown⚠️"
         }
