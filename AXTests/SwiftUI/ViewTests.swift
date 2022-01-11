@@ -38,7 +38,7 @@ final class ViewTests: XCTestCase {
                       [0]: UIView(),
                       [1]: _UIDatePickerLinkedLabel(
                         children: [
-                          [0]: UILabel()
+                          [0]: UILabel(label: "")
                         ]
                       )
                     ]
@@ -46,10 +46,10 @@ final class ViewTests: XCTestCase {
                   [1]: _UIDatePickerCompactTimeLabel(
                     children: [
                       [0]: UIView(),
-                      [1]: UILabel(),
-                      [2]: UILabel(),
-                      [3]: UILabel(),
-                      [4]: UILabel()
+                      [1]: UILabel(label: "10:00 AM"),
+                      [2]: UILabel(label: ""),
+                      [3]: UILabel(label: ""),
+                      [4]: UILabel(label: "")
                     ]
                   )
                 ]
@@ -643,10 +643,10 @@ final class ViewTests: XCTestCase {
                     label: "First",
                     children: [
                       [0]: UITabBarSwappableImageView(),
-                      [1]: UITabBarButtonLabel(),
+                      [1]: UITabBarButtonLabel(label: "First"),
                       [2]: _UIBadgeView(
                         children: [
-                          [0]: UILabel()
+                          [0]: UILabel(label: "10")
                         ]
                       )
                     ]
@@ -655,7 +655,7 @@ final class ViewTests: XCTestCase {
                     label: "Second",
                     children: [
                       [0]: UITabBarSwappableImageView(),
-                      [1]: UITabBarButtonLabel()
+                      [1]: UITabBarButtonLabel(label: "Second")
                     ]
                   )
                 ]

@@ -266,7 +266,7 @@ final class MiscTests: XCTestCase {
         [
           [0]: UIStackView(
             children: [
-              [0]: UILabel(),
+              [0]: UILabel(label: "ax_text"),
               [1]: UIStackView(
                 children: [
                   [0]: UIButton(
@@ -275,12 +275,13 @@ final class MiscTests: XCTestCase {
                     hint: "ax_button_hint",
                     value: "ax_button_value",
                     children: [
-                      [0]: UIButtonLabel()
+                      [0]: UIButtonLabel(label: "ax_button_3_hidden")
                     ]
                   ),
                   [1]: UIButton(
+                    label: "ax_button_1",
                     children: [
-                      [0]: UIButtonLabel()
+                      [0]: UIButtonLabel(label: "ax_button_1")
                     ]
                   )
                 ]
@@ -511,7 +512,7 @@ final class MiscTests: XCTestCase {
 
             _assertInlineSnapshot(matching: any as! UILabel, as: .accessibilityElements, with: """
             [
-              [0]: UILabel()
+              [0]: UILabel(label: "")
             ]
             """)
             _assertInlineSnapshot(matching: any, as: .customDump, with: """

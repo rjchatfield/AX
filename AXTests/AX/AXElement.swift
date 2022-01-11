@@ -162,7 +162,11 @@ extension AXElement {
         }
         
         var accessibilityIdentifier: Any? { obj.value(forKey: "accessibilityIdentifier") }
-        var accessibilityLabel: Any? { obj.accessibilityLabel }
+        var accessibilityLabel: Any? {
+            obj.accessibilityLabel
+                ?? uiLabel.map { $0.text ?? "" } // If label, then default to empty string
+                ?? uiButton?.title(for: .normal)
+        }
         var accessibilityHint: Any? { obj.accessibilityHint }
         var accessibilityValue: Any? { obj.accessibilityValue }
         var accessibilityTraits: UIAccessibilityTraits? {
@@ -211,6 +215,9 @@ extension AXElement {
                 return nil
             }
         }
+        
+        var uiLabel: UILabel? { any as? UILabel }
+        var uiButton: UIButton? { any as? UIButton }
 
         private func nonEmpty<T>(_ arr: [T]?) -> [T]? { arr?.isEmpty == true ? nil : arr }
         private func ifTrue(_ bool: Bool?) -> Bool? { bool == true ? true : nil }
