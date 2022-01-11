@@ -88,7 +88,7 @@ func _customDump<T, TargetStream>(
         }
         
         func typeName(_ type: Any.Type) -> String {
-            (value as? CustomDumpTypeName)?.customDumpTypeName
+            (value as? CustomDumpReflectable)?.customDumpTypeName
                 ?? CustomDump.typeName(type)
         }
         
@@ -222,6 +222,22 @@ func _customDump(_ value: Any, name: String?, indent: Int, maxDepth: Int) -> Str
     return out
 }
 
-protocol CustomDumpTypeName {
-    var customDumpTypeName: String { get }
+// MARK: -
+
+public protocol CustomDumpReflectable {
+    /// The custom dump mirror for this instance.
+    var customDumpMirror: Mirror { get }
+    var customDumpTypeName: String? { get }
+}
+
+public extension CustomDumpReflectable {
+    var customDumpTypeName: String? { nil }
+}
+
+extension Mirror {
+  init(customDumpReflecting subject: Any) {
+    self = (subject as? CustomDumpReflectable)?.customDumpMirror
+      ?? (subject as? CustomDump.CustomDumpReflectable)?.customDumpMirror
+      ?? Mirror(reflecting: subject)
+  }
 }

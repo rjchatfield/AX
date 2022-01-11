@@ -78,28 +78,8 @@ extension AXElement: CustomDumpReflectable {
             return makeMirror(any)
         }
     }
-}
 
-//extension AXElement: CustomDumpValuable {
-//    var customDumpValue: CustomDumpValue {
-//        var typeName: String {
-//            switch style {
-//            case .button: return "Button"
-//            case .staticText: return "Text"
-//            case .image: return "Image"
-//            case .unknown(let any): return "\(type(of: any))"
-//            }
-//        }
-//        return CustomDumpValue(
-//            typeName: typeName,
-//            children: values,
-//            displayStyle: .struct
-//        )
-//    }
-//}
-
-extension AXElement: CustomDumpTypeName {
-    var customDumpTypeName: String {
+    var customDumpTypeName: String? {
         switch style {
         case .button: return "Button"
         case .staticText: return "Text"

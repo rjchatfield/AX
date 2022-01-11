@@ -610,6 +610,53 @@ final class MiscTests: XCTestCase {
         XCTAssertEqual("\(makeMirror(a  ).subjectType)", "A") // Not B... and this is my problem
         XCTAssertEqual("\(makeMirror(any).subjectType)", "B")
     }
+    
+    func testWrapper() {
+        // A wrapper around UIView to provide unique `CustomDumpReflectable` conformance
+        struct Wrapper: CustomDump.CustomDumpReflectable {
+            let view: UIView
+            
+            var mirrorChildren: [Mirror.Child] {
+                var children: [Mirror.Child] = []
+                if let accessibilityIdentifier = view.accessibilityIdentifier {
+                    // Only append to `children` if non-nil
+                    children.append(("subviews", accessibilityIdentifier))
+                }
+                if !view.subviews.isEmpty {
+                    // Only append to `children` if non-empty
+                    children.append(("subviews", view.subviews.map(Wrapper.init(view:))))
+                }
+                // Imagine many more optional values added to `children`
+                return children
+            }
+            
+            var customDumpMirror: Mirror {
+//                Mirror(view, children: mirrorChildren, displayStyle: .struct)
+                Mirror.make(any: view, children: mirrorChildren)
+            }
+        }
+        
+        let v = UIStackView(arrangedSubviews: [UIButton()])
+        let w = Wrapper(view: v)
+        
+        _assertInlineSnapshot(matching: w, as: .customDump, with: """
+        UIView(
+          subviews: [
+            [0]: UIView()
+          ]
+        )
+        """)
+        
+        _assertInlineSnapshot(matching: v, as: .accessibilityElements, with: """
+        [
+          [0]: UIStackView(
+            children: [
+              [0]: UIButton()
+            ]
+          )
+        ]
+        """)
+    }
 
     // MARK: -
     
