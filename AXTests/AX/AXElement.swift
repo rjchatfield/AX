@@ -61,21 +61,51 @@ struct AXElement {
     }
 }
 
-extension AXElement: CustomDumpValuable {
-    var customDumpValue: CustomDumpValue {
-        var typeName: String {
-            switch style {
-            case .button: return "Button"
-            case .staticText: return "Text"
-            case .image: return "Image"
-            case .unknown(let any): return "\(type(of: any))"
-            }
+extension AXElement: CustomDumpReflectable {
+    var customDumpMirror: Mirror {
+        func makeMirror(_ subject: Any) -> Mirror {
+            Mirror.make(any: subject, children: values)
         }
-        return CustomDumpValue(
-            typeName: typeName,
-            children: values,
-            displayStyle: .struct
-        )
+        // Tick to make a Button look like a button
+        switch style {
+        case .button:
+            return makeMirror(Button("") {})
+        case .staticText:
+            return makeMirror(Text(""))
+        case .image:
+            return makeMirror(Image(systemName: ""))
+        case .unknown(let any):
+            return makeMirror(any)
+        }
+    }
+}
+
+//extension AXElement: CustomDumpValuable {
+//    var customDumpValue: CustomDumpValue {
+//        var typeName: String {
+//            switch style {
+//            case .button: return "Button"
+//            case .staticText: return "Text"
+//            case .image: return "Image"
+//            case .unknown(let any): return "\(type(of: any))"
+//            }
+//        }
+//        return CustomDumpValue(
+//            typeName: typeName,
+//            children: values,
+//            displayStyle: .struct
+//        )
+//    }
+//}
+
+extension AXElement: CustomDumpTypeName {
+    var customDumpTypeName: String {
+        switch style {
+        case .button: return "Button"
+        case .staticText: return "Text"
+        case .image: return "Image"
+        case .unknown(let any): return "\(type(of: any))"
+        }
     }
 }
 

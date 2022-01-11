@@ -36,11 +36,11 @@ func _customDump<T, TargetStream>(
             return
         }
         
-        let mirror = Mirror.customDumpValue(reflecting: value)
+        let mirror = Mirror(customDumpReflecting: value)
         var out = ""
         
         func dumpChildren(
-            of mirror: CustomDumpValue,
+            of mirror: Mirror,
             prefix: String,
             suffix: String,
             by areInIncreasingOrder: ((Mirror.Child, Mirror.Child) -> Bool)? = nil,
@@ -87,6 +87,11 @@ func _customDump<T, TargetStream>(
             out.write(suffix)
         }
         
+        func typeName(_ type: Any.Type) -> String {
+            (value as? CustomDumpTypeName)?.customDumpTypeName
+                ?? CustomDump.typeName(type)
+        }
+        
         switch (value, mirror.displayStyle) {
         case let (value as Any.Type, _):
             out.write("\(typeName(value)).self")
@@ -100,10 +105,10 @@ func _customDump<T, TargetStream>(
         case let (value as AnyObject, .class?):
             let item = ObjectIdentifier(value)
             if visitedItems.contains(item) {
-                out.write("\(mirror.typeName)(↩︎)")
+                out.write("\(typeName(mirror.subjectType))(↩︎)")
             } else {
                 visitedItems.insert(item)
-                dumpChildren(of: mirror, prefix: "\(mirror.typeName)(", suffix: ")")
+                dumpChildren(of: mirror, prefix: "\(typeName(mirror.subjectType))(", suffix: ")")
             }
             
         case (_, .collection?):
@@ -133,14 +138,13 @@ func _customDump<T, TargetStream>(
             }
             
         case (_, .enum?):
-            //      out.write("\(typeName(mirror.subjectType)).")
-            out.write("\(mirror.typeName).")
+            out.write("\(typeName(mirror.subjectType)).")
             if let child = mirror.children.first {
-                let childMirror = Mirror.customDumpValue(reflecting: child.value)
+                let childMirror = Mirror(customDumpReflecting: child.value)
                 let associatedValuesMirror =
                 childMirror.displayStyle == .tuple
                 ? childMirror
-                : Mirror(value, unlabeledChildren: [child.value], displayStyle: .tuple).customDumpValue
+                : Mirror(value, unlabeledChildren: [child.value], displayStyle: .tuple)
                 dumpChildren(
                     of: associatedValuesMirror,
                     prefix: "\(child.label ?? "@unknown")(",
@@ -172,8 +176,7 @@ func _customDump<T, TargetStream>(
                 })
             
         case (_, .struct?):
-//            dumpChildren(of: mirror, prefix: "\(typeName(mirror.subjectType))(", suffix: ")")
-            dumpChildren(of: mirror, prefix: "\(mirror.typeName)(", suffix: ")")
+            dumpChildren(of: mirror, prefix: "\(typeName(mirror.subjectType))(", suffix: ")")
             
         case (_, .tuple?):
             dumpChildren(
@@ -219,67 +222,6 @@ func _customDump(_ value: Any, name: String?, indent: Int, maxDepth: Int) -> Str
     return out
 }
 
-// MARK: - CustomDumpValue
-
-struct CustomDumpValue {
-    let typeName: String
-    let children: [Mirror.Child]
-    let displayStyle: Mirror.DisplayStyle?
-}
-
-extension CustomDumpValue {
-    var isSingleValueContainer: Bool {
-      switch self.displayStyle {
-      case .collection?, .dictionary?, .set?:
-        return false
-      default:
-        guard
-          self.children.count == 1,
-          let child = self.children.first
-        else { return false }
-        var value = child.value
-        while let representable = value as? CustomDumpRepresentable {
-          value = representable.customDumpValue
-        }
-        if let convertible = child.value as? CustomDumpStringConvertible {
-          return !convertible.customDumpDescription.contains("\n")
-        }
-        return Mirror(customDumpReflecting: value).children.isEmpty
-      }
-    }
-}
-
-protocol CustomDumpValuable {
-    var customDumpValue: CustomDumpValue { get }
-}
-
-extension Mirror {
-    var customDumpValue: CustomDumpValue {
-        CustomDumpValue(
-            typeName: typeName(subjectType),
-            children: Array(children),
-            displayStyle: displayStyle
-        )
-    }
-}
-
-extension Mirror {
-    static func customDumpValue(reflecting subject: Any) -> CustomDumpValue {
-        if let customDumpValue = (subject as? CustomDumpValuable)?.customDumpValue {
-            return customDumpValue
-        } else {
-            return Mirror(customDumpReflecting: subject).customDumpValue
-        }
-    }
-}
-
-extension UIView: CustomDumpValuable {
-    var customDumpValue: CustomDumpValue {
-        let m = Mirror(reflecting: self)
-        return CustomDumpValue(
-            typeName: "\(type(of: self))",
-            children: Array(m.children),
-            displayStyle: .struct
-        )
-    }
+protocol CustomDumpTypeName {
+    var customDumpTypeName: String { get }
 }
