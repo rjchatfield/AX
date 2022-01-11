@@ -21,7 +21,7 @@ final class MiscTests: XCTestCase {
     func test2() {
         let vc = UIHostingController(rootView: v)
         _assertInlineSnapshot(matching: vc.view!, as: .customDump(maxDepth: 1), with: """
-        _UIHostingView(
+        _UIHostingView<VStack<TupleView<(Text, Section<ModifiedContent<HStack<TupleView<(Text, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>)>>, AccessibilityContainerModifier>, TupleView<(ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, Label<Text, Image>, Image)>, EmptyView>)>>>(
           _rootView: VStack(…),
           viewGraph: SwiftUI.ViewGraph,
           renderer: DisplayList.ViewRenderer(…),
@@ -80,12 +80,12 @@ final class MiscTests: XCTestCase {
         _assertInlineSnapshot(matching: vc.view.accessibilityElements!, as: .customDump(maxDepth: 2), with: """
         [
           [0]: AccessibilityNode(
-            id: UniqueID(value: 2672),
+            id: UniqueID(value: 1808),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
             parent: AccessibilityNode(…),
-            viewRendererHost: _UIHostingView(…),
+            viewRendererHost: _UIHostingView<VStack<TupleView<(Text, Section<ModifiedContent<HStack<TupleView<(Text, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>)>>, AccessibilityContainerModifier>, TupleView<(ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, Label<Text, Image>, Image)>, EmptyView>)>>>(…),
             attachmentsStorage: […],
             cachedCombinedAttachment: nil,
             platformRotorStorage: [:],
@@ -95,12 +95,12 @@ final class MiscTests: XCTestCase {
             isCell: false
           ),
           [1]: AccessibilityNode(
-            id: UniqueID(value: 2729),
+            id: UniqueID(value: 1865),
             version: DisplayList.Version(value: 0),
             children: […],
             bridgedChild: nil,
             parent: AccessibilityNode(↩︎),
-            viewRendererHost: _UIHostingView(↩︎),
+            viewRendererHost: _UIHostingView<VStack<TupleView<(Text, Section<ModifiedContent<HStack<TupleView<(Text, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>)>>, AccessibilityContainerModifier>, TupleView<(ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, Label<Text, Image>, Image)>, EmptyView>)>>>(…),
             attachmentsStorage: […],
             cachedCombinedAttachment: nil,
             platformRotorStorage: [:],
@@ -110,12 +110,12 @@ final class MiscTests: XCTestCase {
             isCell: false
           ),
           [2]: AccessibilityNode(
-            id: UniqueID(value: 2731),
+            id: UniqueID(value: 1867),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
             parent: AccessibilityNode(↩︎),
-            viewRendererHost: _UIHostingView(↩︎),
+            viewRendererHost: _UIHostingView<VStack<TupleView<(Text, Section<ModifiedContent<HStack<TupleView<(Text, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>)>>, AccessibilityContainerModifier>, TupleView<(ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, Label<Text, Image>, Image)>, EmptyView>)>>>(…),
             attachmentsStorage: […],
             cachedCombinedAttachment: nil,
             platformRotorStorage: [:],
@@ -125,12 +125,12 @@ final class MiscTests: XCTestCase {
             isCell: false
           ),
           [3]: AccessibilityNode(
-            id: UniqueID(value: 2734),
+            id: UniqueID(value: 1870),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
             parent: AccessibilityNode(↩︎),
-            viewRendererHost: _UIHostingView(↩︎),
+            viewRendererHost: _UIHostingView<VStack<TupleView<(Text, Section<ModifiedContent<HStack<TupleView<(Text, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>)>>, AccessibilityContainerModifier>, TupleView<(ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, Label<Text, Image>, Image)>, EmptyView>)>>>(…),
             attachmentsStorage: […],
             cachedCombinedAttachment: nil,
             platformRotorStorage: [:],
@@ -140,12 +140,12 @@ final class MiscTests: XCTestCase {
             isCell: false
           ),
           [4]: AccessibilityNode(
-            id: UniqueID(value: 2735),
+            id: UniqueID(value: 1871),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
             parent: AccessibilityNode(↩︎),
-            viewRendererHost: _UIHostingView(↩︎),
+            viewRendererHost: _UIHostingView<VStack<TupleView<(Text, Section<ModifiedContent<HStack<TupleView<(Text, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>)>>, AccessibilityContainerModifier>, TupleView<(ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, Label<Text, Image>, Image)>, EmptyView>)>>>(…),
             attachmentsStorage: […],
             cachedCombinedAttachment: nil,
             platformRotorStorage: [:],
@@ -155,12 +155,12 @@ final class MiscTests: XCTestCase {
             isCell: false
           ),
           [5]: AccessibilityNode(
-            id: UniqueID(value: 2730),
+            id: UniqueID(value: 1866),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
             parent: AccessibilityNode(↩︎),
-            viewRendererHost: _UIHostingView(↩︎),
+            viewRendererHost: _UIHostingView<VStack<TupleView<(Text, Section<ModifiedContent<HStack<TupleView<(Text, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>)>>, AccessibilityContainerModifier>, TupleView<(ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, Label<Text, Image>, Image)>, EmptyView>)>>>(…),
             attachmentsStorage: […],
             cachedCombinedAttachment: nil,
             platformRotorStorage: [:],
@@ -177,12 +177,12 @@ final class MiscTests: XCTestCase {
         XCTAssertEqual(try v.inspect().vStack().text(0).string(), "ax_text")
         _assertInlineSnapshot(matching: nsax1, as: .customDump(maxDepth: 1), with: """
         AccessibilityNode(
-          id: UniqueID(value: 2672),
+          id: UniqueID(value: 1808),
           version: DisplayList.Version(value: 0),
           children: [],
           bridgedChild: nil,
           parent: AccessibilityNode(…),
-          viewRendererHost: _UIHostingView(…),
+          viewRendererHost: _UIHostingView<VStack<TupleView<(Text, Section<ModifiedContent<HStack<TupleView<(Text, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>)>>, AccessibilityContainerModifier>, TupleView<(ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, ModifiedContent<Button<Text>, AccessibilityAttachmentModifier>, Label<Text, Image>, Image)>, EmptyView>)>>>(…),
           attachmentsStorage: […],
           cachedCombinedAttachment: nil,
           platformRotorStorage: [:],
@@ -223,7 +223,7 @@ final class MiscTests: XCTestCase {
         _assertInlineSnapshot(matching: v, as: .accessibilityElements, with: """
         [
           [0]: Text(label: "ax_text"),
-          [1]: PlatformAccessibilityElement(
+          [1]: AccessibilityNode(
             identifier: "section_header_button1_identifier-section_header_button2_identifier",
             label: "section_header_text",
             hint: "section_header_button1_hint, section_header_button2_hint",
@@ -264,27 +264,23 @@ final class MiscTests: XCTestCase {
     func test4() {
         _assertInlineSnapshot(matching: uiView, as: .accessibilityElements, with: """
         [
-          [0]: UIView(
-            type: UIStackView.self,
+          [0]: UIStackView(
             children: [
-              [0]: UIView(type: UILabel.self),
-              [1]: UIView(
-                type: UIStackView.self,
+              [0]: UILabel(),
+              [1]: UIStackView(
                 children: [
                   [0]: UIButton(
-                    type: UIButton.self,
                     identifier: "ax_button_identifier",
                     label: "ax_button_label",
                     hint: "ax_button_hint",
                     value: "ax_button_value",
                     children: [
-                      [0]: UIView(type: UIButtonLabel.self)
+                      [0]: UIButtonLabel()
                     ]
                   ),
                   [1]: UIButton(
-                    type: UIButton.self,
                     children: [
-                      [0]: UIView(type: UIButtonLabel.self)
+                      [0]: UIButtonLabel()
                     ]
                   )
                 ]
@@ -366,12 +362,12 @@ final class MiscTests: XCTestCase {
         let element = vc.view.accessibilityElements![0]
         _assertInlineSnapshot(matching: element, as: .customDump(maxDepth: 1), with: """
         AccessibilityNode(
-          id: UniqueID(value: 3091),
+          id: UniqueID(value: 2195),
           version: DisplayList.Version(value: 0),
           children: [],
           bridgedChild: nil,
           parent: AccessibilityNode(…),
-          viewRendererHost: _UIHostingView(…),
+          viewRendererHost: _UIHostingView<Text>(…),
           attachmentsStorage: […],
           cachedCombinedAttachment: nil,
           platformRotorStorage: [:],
@@ -515,7 +511,7 @@ final class MiscTests: XCTestCase {
 
             _assertInlineSnapshot(matching: any as! UILabel, as: .accessibilityElements, with: """
             [
-              [0]: UILabel(type: UILabel.self)
+              [0]: UILabel()
             ]
             """)
             _assertInlineSnapshot(matching: any, as: .customDump, with: """
@@ -524,6 +520,95 @@ final class MiscTests: XCTestCase {
 
         }
         run(any: UILabel())
+    }
+    
+    func test9() {
+        let button = UIButton()
+        let m1 = Mirror(button, children: [])
+        XCTAssertEqual("\(m1.subjectType)", "UIButton")
+        
+        let any = button as Any
+        let m2 = Mirror(any, children: [])
+        XCTAssertEqual("\(m2.subjectType)", "Any")
+
+        func _m<Subject>(_ subject: Subject) -> Mirror { Mirror(subject, children: []) }
+        let m3 = _openExistential(any, do: _m)
+        XCTAssertEqual("\(m3.subjectType)", "UIButton")
+        
+        struct Wrapper { let value: [Any] }
+        let w = Wrapper(value: [any])
+        let m4 = _openExistential(w.value[0], do: _m)
+        XCTAssertEqual("\(m4.subjectType)", "UIButton")
+        
+//        func f0(any: Any) -> Wrapper {
+//            Wrapper
+//        }
+//        func f1(anys: [Any]?) -> Mirror? {
+//            anys?.compactMap(f0(any:)).first
+//        }
+//        XCTAssertEqual("\(f1(anys: [UIButton()])!.subjectType)", "UIButton")
+    }
+    
+    func test10() {
+        let v = UIButton()
+        v.addSubview(UIButton())
+//        _assertInlineSnapshot(matching: v, as: .accessibilityElements, with: """
+//        [
+//          [0]: UIButton(
+//            type: UIButton.self,
+//            children: [
+//              [0]: UIView(type: UIButton.self)
+//            ]
+//          )
+//        ]
+//        """)
+        _assertInlineSnapshot(matching: v, as: .accessibilityElements, with: """
+        [
+          [0]: UIButton(
+            children: [
+              [0]: UIButton()
+            ]
+          )
+        ]
+        """)
+//        let elements = AXElement.walk(view: v)
+//        let _b = ((elements[0].values[1].value as! [Any])[0] as! AXElement).style.unknownValue!
+//
+//        XCTAssertEqual("\(type(of: _b))", "UIButton")
+//        XCTAssertEqual("\(Mirror(reflecting: _b).subjectType)", "UIButton")
+//        XCTAssertEqual("\(Mirror(_b, children: []).subjectType)", "Any")
+//        XCTAssertEqual("\(Mirror.make(any: _b, children: []).subjectType)", "UIView")
+//
+//        let arr: [(String, Any)] = [("", UIButton())]
+//        func makeMirror(_ subject: Any) -> Mirror { Mirror.make(any: subject, children: []) }
+//        XCTAssertEqual("\(makeMirror(arr[0].1 as! UIView).subjectType)", "UIView")
+//
+//        XCTAssertEqual("\(Mirror(UIButton(), children: []).subjectType)", "UIButton")
+//        XCTAssertEqual("\(Mirror(UIButton() as UIView, children: []).subjectType)", "UIView")
+//        XCTAssertEqual("\(Mirror(UIButton() as UIResponder, children: []).subjectType)", "UIResponder")
+    }
+    
+    func testAny() {
+        class A {}    // base class
+        class B: A {} // subclass
+        
+        let b        = B()
+        let a  : A   = b // cast to base class
+        let any: Any = b // case to `Any`
+        
+        XCTAssertEqual("\(Mirror(b  , children: []).subjectType)", "B")
+        XCTAssertEqual("\(Mirror(a  , children: []).subjectType)", "A")
+        XCTAssertEqual("\(Mirror(any, children: []).subjectType)", "Any")
+        
+        // Use _openExistential() to get type of `Any`
+        func makeMirror(_ any: Any) -> Mirror {
+            func _m<Subject>(_ subject: Subject) -> Mirror { Mirror(subject, children: []) }
+            return _openExistential(any, do: _m)
+        }
+        
+        XCTAssertEqual("\(makeMirror(b  ).subjectType)", "B")
+        XCTAssertEqual("\(makeMirror(a  ).subjectType)", "A") // Not B... and this is my problem
+        XCTAssertEqual("\(makeMirror(any).subjectType)", "B")
     }
 
     // MARK: -

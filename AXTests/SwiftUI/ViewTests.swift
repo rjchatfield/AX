@@ -29,32 +29,27 @@ final class ViewTests: XCTestCase {
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: Text(label: "title"),
-          [1]: PlatformAccessibilityElement(
-            type: SwiftUIDatePicker.self,
+          [1]: SwiftUIDatePicker(
             children: [
-              [0]: UIView(
-                type: _UIDatePickerIOSCompactView.self,
+              [0]: _UIDatePickerIOSCompactView(
                 children: [
-                  [0]: UIView(
-                    type: _UIDatePickerCompactDateLabel.self,
+                  [0]: _UIDatePickerCompactDateLabel(
                     children: [
-                      [0]: UIView(type: UIView.self),
-                      [1]: UIView(
-                        type: _UIDatePickerLinkedLabel.self,
+                      [0]: UIView(),
+                      [1]: _UIDatePickerLinkedLabel(
                         children: [
-                          [0]: UIView(type: UILabel.self)
+                          [0]: UILabel()
                         ]
                       )
                     ]
                   ),
-                  [1]: UIView(
-                    type: _UIDatePickerCompactTimeLabel.self,
+                  [1]: _UIDatePickerCompactTimeLabel(
                     children: [
-                      [0]: UIView(type: UIView.self),
-                      [1]: UIView(type: UILabel.self),
-                      [2]: UIView(type: UILabel.self),
-                      [3]: UIView(type: UILabel.self),
-                      [4]: UIView(type: UILabel.self)
+                      [0]: UIView(),
+                      [1]: UILabel(),
+                      [2]: UILabel(),
+                      [3]: UILabel(),
+                      [4]: UILabel()
                     ]
                   )
                 ]
@@ -125,10 +120,7 @@ final class ViewTests: XCTestCase {
         }
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: PlatformAccessibilityElement(
-            type: UIButton.self,
-            label: "Second Option"
-          ),
+          [0]: UIButton(label: "Second Option"),
           [1]: Text(label: "Title")
         ]
         """)
@@ -143,13 +135,12 @@ final class ViewTests: XCTestCase {
         )
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: PlatformAccessibilityElement(
-            type: UIProgressView.self,
+          [0]: UIProgressView(
             label: "label, currentValueLabel",
             value: "10%",
             children: [
-              [0]: UIView(type: UIImageView.self),
-              [1]: UIView(type: UIImageView.self)
+              [0]: UIImageView(),
+              [1]: UIImageView()
             ]
           )
         ]
@@ -160,10 +151,9 @@ final class ViewTests: XCTestCase {
         let view = SecureField("title", text: .constant("value"), prompt: Text("prompt"))
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: PlatformAccessibilityElement(
-            type: UITextField.self,
+          [0]: UITextField(
             children: [
-              [0]: UIView(type: _UITextLayoutCanvasView.self)
+              [0]: _UITextLayoutCanvasView()
             ]
           )
         ]
@@ -174,11 +164,10 @@ final class ViewTests: XCTestCase {
         let view = Slider(value: .constant(69), in: 0...100, step: 1, onEditingChanged: { _ in })
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: PlatformAccessibilityElement(
-            type: UISlider.self,
+          [0]: UISlider(
             value: "69%",
             children: [
-              [0]: UIView(type: _UISlideriOSVisualElement.self)
+              [0]: _UISlideriOSVisualElement()
             ]
           )
         ]
@@ -190,25 +179,22 @@ final class ViewTests: XCTestCase {
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: Text(label: "title"),
-          [1]: PlatformAccessibilityElement(
-            type: UIStepper.self,
+          [1]: UIStepper(
             value: "69",
             children: [
-              [0]: UIView(
-                type: UIStepperHorizontalVisualElement.self,
+              [0]: UIStepperHorizontalVisualElement(
                 children: [
-                  [0]: UIView(type: UIImageView.self),
-                  [1]: UIView(type: UIImageView.self),
-                  [2]: UIView(
-                    type: UIImageView.self,
+                  [0]: UIImageView(),
+                  [1]: UIImageView(),
+                  [2]: UIImageView(
                     children: [
-                      [0]: UIView(type: UIImageView.self)
+                      [0]: UIImageView()
                     ]
                   ),
-                  [3]: UIView(type: UIImageView.self),
-                  [4]: UIView(type: UIImageView.self),
-                  [5]: UIView(type: _UIStepperButton.self),
-                  [6]: UIView(type: _UIStepperButton.self)
+                  [3]: UIImageView(),
+                  [4]: UIImageView(),
+                  [5]: _UIStepperButton(),
+                  [6]: _UIStepperButton()
                 ]
               )
             ]
@@ -221,15 +207,13 @@ final class ViewTests: XCTestCase {
         let view = TextEditor(text: .constant("value"))
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: PlatformAccessibilityElement(
-            type: UITextView.self,
+          [0]: UITextView(
             children: [
-              [0]: UIView(type: _UITextLayoutView.self),
-              [1]: UIView(
-                type: _UITextContainerView.self,
+              [0]: _UITextLayoutView(),
+              [1]: _UITextContainerView(
                 children: [
-                  [0]: UIView(type: _UITextViewCanvasView.self),
-                  [1]: UIView(type: UITextSelectionView.self)
+                  [0]: _UITextViewCanvasView(),
+                  [1]: UITextSelectionView()
                 ]
               )
             ]
@@ -242,10 +226,9 @@ final class ViewTests: XCTestCase {
         let view = TextField("title", value: .constant(1.0), format: .percent, prompt: Text("prompt"))
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: PlatformAccessibilityElement(
-            type: UITextField.self,
+          [0]: UITextField(
             children: [
-              [0]: UIView(type: _UITextLayoutCanvasView.self)
+              [0]: _UITextLayoutCanvasView()
             ]
           )
         ]
@@ -356,7 +339,7 @@ final class ViewTests: XCTestCase {
         }
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: PlatformAccessibilityElement(type: UpdateCoalescingTableView.self)
+          [0]: UpdateCoalescingTableView()
         ]
         """)
     }
@@ -381,7 +364,7 @@ final class ViewTests: XCTestCase {
         }
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: PlatformAccessibilityElement(
+          [0]: AccessibilityNode(
             shouldGroupAccessibilityChildren: true,
             navigationStyle: .combined,
             containerType: .semanticGroup,
@@ -420,7 +403,7 @@ final class ViewTests: XCTestCase {
         )
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: PlatformAccessibilityElement(
+          [0]: AccessibilityIncrementalLayoutNode(
             shouldGroupAccessibilityChildren: true,
             navigationStyle: .combined,
             containerType: .semanticGroup,
@@ -440,7 +423,7 @@ final class ViewTests: XCTestCase {
         }
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: PlatformAccessibilityElement(
+          [0]: AccessibilityIncrementalLayoutNode(
             shouldGroupAccessibilityChildren: true,
             navigationStyle: .combined,
             containerType: .semanticGroup,
@@ -466,7 +449,7 @@ final class ViewTests: XCTestCase {
         )
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: PlatformAccessibilityElement(
+          [0]: AccessibilityIncrementalLayoutNode(
             shouldGroupAccessibilityChildren: true,
             navigationStyle: .combined,
             containerType: .semanticGroup,
@@ -486,7 +469,7 @@ final class ViewTests: XCTestCase {
         }
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: PlatformAccessibilityElement(
+          [0]: AccessibilityIncrementalLayoutNode(
             shouldGroupAccessibilityChildren: true,
             navigationStyle: .combined,
             containerType: .semanticGroup,
@@ -506,10 +489,9 @@ final class ViewTests: XCTestCase {
         }
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: PlatformAccessibilityElement(
-            type: UpdateCoalescingTableView.self,
+          [0]: UpdateCoalescingTableView(
             children: [
-              [0]: UIView(type: UITableViewWrapperView.self)
+              [0]: UITableViewWrapperView()
             ]
           )
         ]
@@ -556,10 +538,9 @@ final class ViewTests: XCTestCase {
         }
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: PlatformAccessibilityElement(
-            type: _UISplitViewControllerPanelImplView.self,
+          [0]: _UISplitViewControllerPanelImplView(
             children: [
-              [0]: UIView(type: _UIPanelControllerContentView.self)
+              [0]: _UIPanelControllerContentView()
             ]
           )
         ]
@@ -573,21 +554,18 @@ final class ViewTests: XCTestCase {
         }
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: PlatformAccessibilityElement(
-            type: HostingScrollView.self,
+          [0]: HostingScrollView(
             children: [
-              [0]: UIView(
-                type: HostingScrollView.PlatformGroupContainer.self,
+              [0]: PlatformGroupContainer(
                 shouldGroupAccessibilityChildren: true,
                 children: [
                   [0]: Text(label: "item1"),
                   [1]: Button(label: "item2")
                 ]
               ),
-              [1]: UIView(
-                type: _UIScrollViewScrollIndicator.self,
+              [1]: _UIScrollViewScrollIndicator(
                 children: [
-                  [0]: UIView(type: UIView.self)
+                  [0]: UIView()
                 ]
               )
             ]
@@ -641,17 +619,13 @@ final class ViewTests: XCTestCase {
         }
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: PlatformAccessibilityElement(
-            type: UILayoutContainerView.self,
+          [0]: UILayoutContainerView(
             children: [
-              [0]: UIView(
-                type: UITransitionView.self,
+              [0]: UITransitionView(
                 children: [
-                  [0]: UIView(
-                    type: UIViewControllerWrapperView.self,
+                  [0]: UIViewControllerWrapperView(
                     children: [
-                      [0]: UIView(
-                        type: _UIHostingView.self,
+                      [0]: _UIHostingView<_ViewList_View>(
                         children: [
                           [0]: Text(
                             label: "item1",
@@ -663,29 +637,25 @@ final class ViewTests: XCTestCase {
                   )
                 ]
               ),
-              [1]: UIView(
-                type: UITabBar.self,
+              [1]: UITabBar(
                 children: [
-                  [0]: UIView(
-                    type: UITabBarButton.self,
+                  [0]: UITabBarButton(
                     label: "First",
                     children: [
-                      [0]: UIView(type: UITabBarSwappableImageView.self),
-                      [1]: UIView(type: UITabBarButtonLabel.self),
-                      [2]: UIView(
-                        type: _UIBadgeView.self,
+                      [0]: UITabBarSwappableImageView(),
+                      [1]: UITabBarButtonLabel(),
+                      [2]: _UIBadgeView(
                         children: [
-                          [0]: UIView(type: UILabel.self)
+                          [0]: UILabel()
                         ]
                       )
                     ]
                   ),
-                  [1]: UIView(
-                    type: UITabBarButton.self,
+                  [1]: UITabBarButton(
                     label: "Second",
                     children: [
-                      [0]: UIView(type: UITabBarSwappableImageView.self),
-                      [1]: UIView(type: UITabBarButtonLabel.self)
+                      [0]: UITabBarSwappableImageView(),
+                      [1]: UITabBarButtonLabel()
                     ]
                   )
                 ]

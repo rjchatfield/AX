@@ -47,7 +47,7 @@ extension Snapshotting where Value == Any, Format == String {
         Snapshotting<String, String>.lines
             .pullback { any -> String in
                 var result = ""
-                CustomDump.customDump(any, to: &result, maxDepth: maxDepth)
+                _customDump(any, to: &result, maxDepth: maxDepth)
                 return result
             }
     }

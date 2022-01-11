@@ -163,11 +163,11 @@ final class AXTests: XCTestCase {
           ),
           [1]: Text(label: "section_header"),
           [2]: Text(label: "title"),
-          [3]: PlatformAccessibilityElement(label: "title"),
+          [3]: AccessibilityNode(label: "title"),
           [4]: Button(label: "title"),
           [5]: Button(label: "title"),
           [6]: Image(label: "Favorite"),
-          [7]: PlatformAccessibilityElement(label: "Favorite")
+          [7]: AccessibilityNode(label: "Favorite")
         ]
         """)
     }
@@ -210,13 +210,13 @@ final class AXTests: XCTestCase {
         }
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: PlatformAccessibilityElement(
+          [0]: AccessibilityNode(
             shouldGroupAccessibilityChildren: true,
             navigationStyle: .separate,
             containerType: .semanticGroup,
             children: [
               [0]: Text(label: "ax_children1"),
-              [1]: PlatformAccessibilityElement(
+              [1]: AccessibilityNode(
                 label: "ax_children2",
                 shouldGroupAccessibilityChildren: true,
                 navigationStyle: .combined,
@@ -238,7 +238,7 @@ final class AXTests: XCTestCase {
         }.accessibilityElement(children: .combine)
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: PlatformAccessibilityElement(
+          [0]: AccessibilityNode(
             label: "text_title",
             customActions: [
               [0]: button_title
@@ -255,7 +255,7 @@ final class AXTests: XCTestCase {
         }.accessibilityElement(children: .contain)
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: PlatformAccessibilityElement(
+          [0]: AccessibilityNode(
             shouldGroupAccessibilityChildren: true,
             navigationStyle: .combined,
             containerType: .semanticGroup,
@@ -275,7 +275,7 @@ final class AXTests: XCTestCase {
         }.accessibilityElement(children: .ignore)
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: PlatformAccessibilityElement()
+          [0]: AccessibilityNode()
         ]
         """)
     }

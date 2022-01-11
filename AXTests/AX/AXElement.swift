@@ -2,7 +2,7 @@ import CustomDump
 import SwiftUI
 
 @dynamicMemberLookup
-struct AXElement: CustomDumpReflectable {
+struct AXElement {
     var values: [(label: String?, value: Any)]
     var style: AXElement.Style
     
@@ -19,6 +19,11 @@ struct AXElement: CustomDumpReflectable {
         case button
         case image
         case unknown(Any)
+        
+        var unknownValue: Any? {
+            guard case .unknown(let value) = self else { return nil }
+            return value
+        }
     }
     
     static func failure(_ reason: String, subject: Any) -> AXElement {
@@ -35,62 +40,8 @@ struct AXElement: CustomDumpReflectable {
     static func walk<V: View>(view: V) -> [AXElement] {
         let frame = CGRect(x: 0, y: 0, width: 300, height: 3000)
         let viewController = UIHostingController(rootView: view)
-//        viewController.view.frame = frame
-        let window = UIWindow(frame: frame)
-        
-        // vvv FROM SNAPSHOT
-        let rootViewController = UIViewController()
-        rootViewController.view.backgroundColor = .clear
-        rootViewController.view.frame = window.frame
-        rootViewController.view.translatesAutoresizingMaskIntoConstraints =
-          viewController.view.translatesAutoresizingMaskIntoConstraints
-        rootViewController.preferredContentSize = rootViewController.view.frame.size
-        viewController.view.frame = rootViewController.view.frame
-        rootViewController.view.addSubview(viewController.view)
-        if viewController.view.translatesAutoresizingMaskIntoConstraints {
-          viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        } else {
-          NSLayoutConstraint.activate([
-            viewController.view.topAnchor.constraint(equalTo: rootViewController.view.topAnchor),
-            viewController.view.bottomAnchor.constraint(equalTo: rootViewController.view.bottomAnchor),
-            viewController.view.leadingAnchor.constraint(equalTo: rootViewController.view.leadingAnchor),
-            viewController.view.trailingAnchor.constraint(equalTo: rootViewController.view.trailingAnchor),
-          ])
-        }
-        rootViewController.addChild(viewController)
-
-//        rootViewController.setOverrideTraitCollection(traits, forChild: viewController)
-        viewController.didMove(toParent: rootViewController)
-
-        window.rootViewController = rootViewController
-
-        rootViewController.beginAppearanceTransition(true, animated: false)
-        rootViewController.endAppearanceTransition()
-
-        rootViewController.view.setNeedsLayout()
-        rootViewController.view.layoutIfNeeded()
-
-        viewController.view.setNeedsLayout()
-        viewController.view.layoutIfNeeded()
-        // ^^^ FROM SNAPSHOT
-        
-//        // Try to call sizeToFit() if the view still has invalid size
-//        viewController.view.sizeToFit()
-//        viewController.view.setNeedsLayout()
-//        viewController.view.layoutIfNeeded()
-
-//        window.rootViewController = vc
-//        window.makeKeyAndVisible()
-        print(rootViewController.view.frame)
+        viewController.view.frame = frame
         let children = walk(accessibilityElements: viewController.view.accessibilityElements) ?? []
-        
-//        window.resignKey()
-        // vvv FROM SNAPSHOT
-        rootViewController.beginAppearanceTransition(false, animated: false)
-        rootViewController.endAppearanceTransition()
-        window.rootViewController = nil
-        // ^^^ FROM SNAPSHOT
-        
         return children
     }
     
@@ -108,22 +59,23 @@ struct AXElement: CustomDumpReflectable {
 //        }
         return children.isEmpty ? nil : children
     }
-    
-    var customDumpMirror: Mirror {
-        func makeMirror(_ subject: Any) -> Mirror {
-            Mirror.make(any: subject, children: values)
+}
+
+extension AXElement: CustomDumpValuable {
+    var customDumpValue: CustomDumpValue {
+        var typeName: String {
+            switch style {
+            case .button: return "Button"
+            case .staticText: return "Text"
+            case .image: return "Image"
+            case .unknown(let any): return "\(type(of: any))"
+            }
         }
-        // Tick to make a Button look like a button
-        switch style {
-        case .button:
-            return makeMirror(Button("") {})
-        case .staticText:
-            return makeMirror(Text(""))
-        case .image:
-            return makeMirror(Image(systemName: ""))
-        case .unknown(let any):
-            return makeMirror(any)
-        }
+        return CustomDumpValue(
+            typeName: typeName,
+            children: values,
+            displayStyle: .struct
+        )
     }
 }
 
@@ -143,7 +95,7 @@ extension AXElement {
         
         var values: [(label: String?, value: Any)] {
             let optionals: [(label: String?, value: Any?)] = [
-                ("type", uiViewClass),
+//                ("type", uiViewClass),
                 ("identifier", accessibilityIdentifier),
                 ("label", accessibilityLabel),
                 ("hint", accessibilityHint),
@@ -253,6 +205,65 @@ extension AXElement {
         private func nonEmpty<T>(_ arr: [T]?) -> [T]? { arr?.isEmpty == true ? nil : arr }
         private func ifTrue(_ bool: Bool?) -> Bool? { bool == true ? true : nil }
         private func ifFalse(_ bool: Bool?) -> Bool? { bool == false ? false : nil }
+    }
+}
+
+extension UIWindow {
+    
+    static func prepare(viewController: UIViewController, frame: CGRect) -> (() -> Void) {
+        let window = UIWindow(frame: frame)
+
+        // vvv FROM SNAPSHOT
+        let rootViewController = UIViewController()
+        rootViewController.view.backgroundColor = .clear
+        rootViewController.view.frame = window.frame
+        rootViewController.view.translatesAutoresizingMaskIntoConstraints =
+          viewController.view.translatesAutoresizingMaskIntoConstraints
+        rootViewController.preferredContentSize = rootViewController.view.frame.size
+        viewController.view.frame = rootViewController.view.frame
+        rootViewController.view.addSubview(viewController.view)
+        if viewController.view.translatesAutoresizingMaskIntoConstraints {
+          viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        } else {
+          NSLayoutConstraint.activate([
+            viewController.view.topAnchor.constraint(equalTo: rootViewController.view.topAnchor),
+            viewController.view.bottomAnchor.constraint(equalTo: rootViewController.view.bottomAnchor),
+            viewController.view.leadingAnchor.constraint(equalTo: rootViewController.view.leadingAnchor),
+            viewController.view.trailingAnchor.constraint(equalTo: rootViewController.view.trailingAnchor),
+          ])
+        }
+        rootViewController.addChild(viewController)
+
+//        rootViewController.setOverrideTraitCollection(traits, forChild: viewController)
+        viewController.didMove(toParent: rootViewController)
+
+        window.rootViewController = rootViewController
+
+        rootViewController.beginAppearanceTransition(true, animated: false)
+        rootViewController.endAppearanceTransition()
+
+        rootViewController.view.setNeedsLayout()
+        rootViewController.view.layoutIfNeeded()
+
+        viewController.view.setNeedsLayout()
+        viewController.view.layoutIfNeeded()
+        // ^^^ FROM SNAPSHOT
+
+//        // Try to call sizeToFit() if the view still has invalid size
+//        viewController.view.sizeToFit()
+//        viewController.view.setNeedsLayout()
+//        viewController.view.layoutIfNeeded()
+
+//        window.rootViewController = vc
+//        window.makeKeyAndVisible()
+        
+        return {
+//            window.resignKey()
+            
+            rootViewController.beginAppearanceTransition(false, animated: false)
+            rootViewController.endAppearanceTransition()
+            window.rootViewController = nil
+        }
     }
 }
 
