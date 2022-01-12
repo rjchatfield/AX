@@ -115,6 +115,7 @@ extension AXElement {
                 // accessibilityPath: UIBezierPath?
                 // accessibilityActivationPoint: CGPoint
                 // accessibilityLanguage: String?
+                ("isEnabled", isEnabled),
                 ("elementsHidden", accessibilityElementsHidden),
                 ("viewIsModal", accessibilityViewIsModal),
                 ("shouldGroupAccessibilityChildren", shouldGroupAccessibilityChildren),
@@ -169,6 +170,7 @@ extension AXElement {
             obj.accessibilityLabel
                 ?? uiLabel.map { $0.text ?? "" } // If label, then default to empty string
                 ?? uiButton?.title(for: .normal)
+                ?? uiTextField?.text
         }
         var accessibilityHint: Any? { obj.accessibilityHint }
         var accessibilityValue: Any? { obj.accessibilityValue }
@@ -234,14 +236,21 @@ extension AXElement {
             return nonEmpty(customContentProvider.accessibilityCustomContent)
         }
         
+        var isEnabled: Bool? {
+            ifFalse(uiControl?.isEnabled)
+        }
+        
         var uiView: UIView? { any as? UIView }
+        var uiControl: UIControl? { any as? UIControl }
         var uiLabel: UILabel? { any as? UILabel }
         var uiButton: UIButton? { any as? UIButton }
+        var uiTextField: UITextField? { any as? UITextField }
         
         var isLeafAXView: Bool {
             return obj.isAccessibilityElement
                 || any is UILabel
                 || any is UIButton
+                || any is UITextField
                 // TODO: find all the Views that are accessibilityElement
         }
 

@@ -147,11 +147,7 @@ final class ViewTests: XCTestCase {
         let view = SecureField("title", text: .constant("value"), prompt: Text("prompt"))
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: UITextField(
-            subviews: [
-              [0]: _UITextLayoutCanvasView()
-            ]
-          )
+          [0]: UITextField(label: "value")
         ]
         """)
     }
@@ -217,11 +213,7 @@ final class ViewTests: XCTestCase {
         let view = TextField("title", value: .constant(1.0), format: .percent, prompt: Text("prompt"))
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: UITextField(
-            subviews: [
-              [0]: _UITextLayoutCanvasView()
-            ]
-          )
+          [0]: UITextField(label: "100%")
         ]
         """)
     }
@@ -717,6 +709,25 @@ final class ViewTests: XCTestCase {
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: Text(label: "title")
+        ]
+        """)
+    }
+    
+    func testDisabled() {
+        let view = VStack {
+            Button("title", action: {}).disabled(true)
+            TextField("title", text: .constant("value")).disabled(true)
+        }
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: Button(
+            label: "title",
+            traits: .notEnabled
+          ),
+          [1]: UITextField(
+            label: "value",
+            isEnabled: false
+          )
         ]
         """)
     }
