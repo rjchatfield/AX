@@ -147,7 +147,7 @@ final class ViewTests: XCTestCase {
         let view = SecureField("title", text: .constant("value"), prompt: Text("prompt"))
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: UITextField(label: "value")
+          [0]: UITextField(value: "value")
         ]
         """)
     }
@@ -194,26 +194,24 @@ final class ViewTests: XCTestCase {
         let view = TextEditor(text: .constant("value"))
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: UITextView(
-            subviews: [
-              [0]: _UITextLayoutView(),
-              [1]: _UITextContainerView(
-                subviews: [
-                  [0]: _UITextViewCanvasView(),
-                  [1]: UITextSelectionView()
-                ]
-              )
-            ]
-          )
+          [0]: UITextView(value: "value")
         ]
         """)
     }
     
     func testTextField() {
-        let view = TextField("title", value: .constant(1.0), format: .percent, prompt: Text("prompt"))
+        let view = VStack {
+            TextField("title (no prompt, no value)", text: .constant(""))
+            TextField("title", text: .constant(""), prompt: Text("prompt (no value)"))
+            TextField("title", text: .constant("value"), prompt: Text("prompt"))
+            TextField("title", value: .constant(0.69), format: .percent, prompt: Text("prompt"))
+        }
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: UITextField(label: "100%")
+          [0]: UITextField(value: "title (no prompt, no value)"),
+          [1]: UITextField(value: "prompt (no value)"),
+          [2]: UITextField(value: "value"),
+          [3]: UITextField(value: "69%")
         ]
         """)
     }
@@ -725,7 +723,7 @@ final class ViewTests: XCTestCase {
             traits: .notEnabled
           ),
           [1]: UITextField(
-            label: "value",
+            value: "value",
             isEnabled: false
           )
         ]

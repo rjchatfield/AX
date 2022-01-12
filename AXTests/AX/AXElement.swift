@@ -170,10 +170,13 @@ extension AXElement {
             obj.accessibilityLabel
                 ?? uiLabel.map { $0.text ?? "" } // If label, then default to empty string
                 ?? uiButton?.title(for: .normal)
-                ?? uiTextField?.text
         }
         var accessibilityHint: Any? { obj.accessibilityHint }
-        var accessibilityValue: Any? { obj.accessibilityValue }
+        var accessibilityValue: Any? {
+            obj.accessibilityValue
+                ?? uiTextField.flatMap { nonEmpty($0.text) ?? nonEmpty($0.placeholder) }
+                ?? uiTextView.flatMap { nonEmpty($0.text) }
+        }
         var accessibilityTraits: UIAccessibilityTraits? {
             let traits = obj.accessibilityTraits.subtracting([.staticText, .image, .button])
             return traits.isEmpty ? nil : traits
@@ -245,16 +248,18 @@ extension AXElement {
         var uiLabel: UILabel? { any as? UILabel }
         var uiButton: UIButton? { any as? UIButton }
         var uiTextField: UITextField? { any as? UITextField }
+        var uiTextView: UITextView? { any as? UITextView }
         
         var isLeafAXView: Bool {
             return obj.isAccessibilityElement
                 || any is UILabel
                 || any is UIButton
                 || any is UITextField
+                || any is UITextView
                 // TODO: find all the Views that are accessibilityElement
         }
 
-        private func nonEmpty<T>(_ arr: [T]?) -> [T]? { arr?.isEmpty == true ? nil : arr }
+        private func nonEmpty<Col: Collection>(_ arr: Col?) -> Col? { arr?.isEmpty == true ? nil : arr }
         private func ifTrue(_ bool: Bool?) -> Bool? { bool == true ? true : nil }
         private func ifFalse(_ bool: Bool?) -> Bool? { bool == false ? false : nil }
     }
