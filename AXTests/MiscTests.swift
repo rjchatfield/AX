@@ -265,25 +265,17 @@ final class MiscTests: XCTestCase {
         _assertInlineSnapshot(matching: uiView, as: .accessibilityElements, with: """
         [
           [0]: UIStackView(
-            children: [
+            subviews: [
               [0]: UILabel(label: "ax_text"),
               [1]: UIStackView(
-                children: [
+                accessibilityElements: [
                   [0]: UIButton(
                     identifier: "ax_button_identifier",
                     label: "ax_button_label",
                     hint: "ax_button_hint",
-                    value: "ax_button_value",
-                    children: [
-                      [0]: UIButtonLabel(label: "ax_button_3_hidden")
-                    ]
+                    value: "ax_button_value"
                   ),
-                  [1]: UIButton(
-                    label: "ax_button_1",
-                    children: [
-                      [0]: UIButtonLabel(label: "ax_button_1")
-                    ]
-                  )
+                  [1]: UIButton(label: "ax_button_1")
                 ]
               )
             ]
@@ -565,11 +557,7 @@ final class MiscTests: XCTestCase {
 //        """)
         _assertInlineSnapshot(matching: v, as: .accessibilityElements, with: """
         [
-          [0]: UIButton(
-            children: [
-              [0]: UIButton()
-            ]
-          )
+          [0]: UIButton()
         ]
         """)
 //        let elements = AXElement.walk(view: v)
@@ -651,7 +639,7 @@ final class MiscTests: XCTestCase {
         _assertInlineSnapshot(matching: v, as: .accessibilityElements, with: """
         [
           [0]: UIStackView(
-            children: [
+            subviews: [
               [0]: UIButton()
             ]
           )

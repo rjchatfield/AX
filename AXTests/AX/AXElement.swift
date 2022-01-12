@@ -131,7 +131,9 @@ extension AXElement {
                 ("headingLevel", accessibilityHeadingLevel),
                 ("respondsToUserInteraction", accessibilityRespondsToUserInteraction),
                 ("customContent", accessibilityCustomContent),
-                ("children", accessibilityChildren),
+//                ("children", accessibilityChildren),
+                ("accessibilityElements", accessibilityElements),
+                ("subviews", subviews),
             ]
             
             let values = optionals.compactMap({ (label, value) in value.map { (label, $0) } })
@@ -204,26 +206,44 @@ extension AXElement {
             nil // Too noisy
 //            obj.value(forKey: "accessibilityRespondsToUserInteraction") as? Bool
         }
-    
-        var accessibilityChildren: [Any]? {
-            if let accessibilityElements = obj.accessibilityElements {
-                return AXElement.walk(accessibilityElements: accessibilityElements)
-            } else if let view = any as? UIView {
-                return AXElement.walk(accessibilityElements: view.subviews)
-            } else if let mirrorChildren = mirror["children"] as? [Any] {
-                return AXElement.walk(accessibilityElements: mirrorChildren)
-            } else {
-                return nil
-            }
+        
+        var accessibilityElements: [AXElement]? {
+            AXElement.walk(accessibilityElements: obj.accessibilityElements)
         }
+        
+        var subviews: [AXElement]? {
+            if isLeafAXView { return nil }
+            if accessibilityElements != nil { return nil }
+            return AXElement.walk(accessibilityElements: uiView?.subviews)
+        }
+        
+//        var accessibilityChildren: [Any]? {
+//            if let accessibilityElements = obj.accessibilityElements {
+//                return AXElement.walk(accessibilityElements: accessibilityElements)
+//            } else if let view = any as? UIView {
+//                return AXElement.walk(accessibilityElements: view.subviews)
+//            } else if let mirrorChildren = mirror["children"] as? [Any] {
+//                return AXElement.walk(accessibilityElements: mirrorChildren)
+//            } else {
+//                return nil
+//            }
+//        }
         
         var accessibilityCustomContent: [AXCustomContent]? {
             guard let customContentProvider = obj as? AXCustomContentProvider else { return nil }
             return nonEmpty(customContentProvider.accessibilityCustomContent)
         }
         
+        var uiView: UIView? { any as? UIView }
         var uiLabel: UILabel? { any as? UILabel }
         var uiButton: UIButton? { any as? UIButton }
+        
+        var isLeafAXView: Bool {
+            return obj.isAccessibilityElement
+                || any is UILabel
+                || any is UIButton
+                // TODO: find all the Views that are accessibilityElement
+        }
 
         private func nonEmpty<T>(_ arr: [T]?) -> [T]? { arr?.isEmpty == true ? nil : arr }
         private func ifTrue(_ bool: Bool?) -> Bool? { bool == true ? true : nil }

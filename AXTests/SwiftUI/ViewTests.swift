@@ -30,21 +30,21 @@ final class ViewTests: XCTestCase {
         [
           [0]: Text(label: "title"),
           [1]: SwiftUIDatePicker(
-            children: [
+            subviews: [
               [0]: _UIDatePickerIOSCompactView(
-                children: [
+                subviews: [
                   [0]: _UIDatePickerCompactDateLabel(
-                    children: [
+                    subviews: [
                       [0]: UIView(),
                       [1]: _UIDatePickerLinkedLabel(
-                        children: [
+                        subviews: [
                           [0]: UILabel(label: "")
                         ]
                       )
                     ]
                   ),
                   [1]: _UIDatePickerCompactTimeLabel(
-                    children: [
+                    subviews: [
                       [0]: UIView(),
                       [1]: UILabel(label: "10:00 AM"),
                       [2]: UILabel(label: ""),
@@ -137,11 +137,7 @@ final class ViewTests: XCTestCase {
         [
           [0]: UIProgressView(
             label: "label, currentValueLabel",
-            value: "10%",
-            children: [
-              [0]: UIImageView(),
-              [1]: UIImageView()
-            ]
+            value: "10%"
           )
         ]
         """)
@@ -152,7 +148,7 @@ final class ViewTests: XCTestCase {
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: UITextField(
-            children: [
+            subviews: [
               [0]: _UITextLayoutCanvasView()
             ]
           )
@@ -164,12 +160,7 @@ final class ViewTests: XCTestCase {
         let view = Slider(value: .constant(69), in: 0...100, step: 1, onEditingChanged: { _ in })
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: UISlider(
-            value: "69%",
-            children: [
-              [0]: _UISlideriOSVisualElement()
-            ]
-          )
+          [0]: UISlider(value: "69%")
         ]
         """)
     }
@@ -181,13 +172,13 @@ final class ViewTests: XCTestCase {
           [0]: Text(label: "title"),
           [1]: UIStepper(
             value: "69",
-            children: [
+            subviews: [
               [0]: UIStepperHorizontalVisualElement(
-                children: [
+                subviews: [
                   [0]: UIImageView(),
                   [1]: UIImageView(),
                   [2]: UIImageView(
-                    children: [
+                    subviews: [
                       [0]: UIImageView()
                     ]
                   ),
@@ -208,10 +199,10 @@ final class ViewTests: XCTestCase {
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: UITextView(
-            children: [
+            subviews: [
               [0]: _UITextLayoutView(),
               [1]: _UITextContainerView(
-                children: [
+                subviews: [
                   [0]: _UITextViewCanvasView(),
                   [1]: UITextSelectionView()
                 ]
@@ -227,7 +218,7 @@ final class ViewTests: XCTestCase {
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: UITextField(
-            children: [
+            subviews: [
               [0]: _UITextLayoutCanvasView()
             ]
           )
@@ -368,7 +359,7 @@ final class ViewTests: XCTestCase {
             shouldGroupAccessibilityChildren: true,
             navigationStyle: .combined,
             containerType: .semanticGroup,
-            children: [
+            accessibilityElements: [
               [0]: Text(label: "item1"),
               [1]: Button(label: "item2")
             ]
@@ -407,7 +398,7 @@ final class ViewTests: XCTestCase {
             shouldGroupAccessibilityChildren: true,
             navigationStyle: .combined,
             containerType: .semanticGroup,
-            children: [
+            accessibilityElements: [
               [0]: Text(label: "item1"),
               [1]: Button(label: "item2")
             ]
@@ -427,7 +418,7 @@ final class ViewTests: XCTestCase {
             shouldGroupAccessibilityChildren: true,
             navigationStyle: .combined,
             containerType: .semanticGroup,
-            children: [
+            accessibilityElements: [
               [0]: Text(label: "item1"),
               [1]: Button(label: "item2")
             ]
@@ -453,7 +444,7 @@ final class ViewTests: XCTestCase {
             shouldGroupAccessibilityChildren: true,
             navigationStyle: .combined,
             containerType: .semanticGroup,
-            children: [
+            accessibilityElements: [
               [0]: Text(label: "item1"),
               [1]: Button(label: "item2")
             ]
@@ -473,7 +464,7 @@ final class ViewTests: XCTestCase {
             shouldGroupAccessibilityChildren: true,
             navigationStyle: .combined,
             containerType: .semanticGroup,
-            children: [
+            accessibilityElements: [
               [0]: Text(label: "item1"),
               [1]: Button(label: "item2")
             ]
@@ -490,7 +481,7 @@ final class ViewTests: XCTestCase {
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: UpdateCoalescingTableView(
-            children: [
+            subviews: [
               [0]: UITableViewWrapperView()
             ]
           )
@@ -539,7 +530,7 @@ final class ViewTests: XCTestCase {
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: _UISplitViewControllerPanelImplView(
-            children: [
+            subviews: [
               [0]: _UIPanelControllerContentView()
             ]
           )
@@ -555,16 +546,16 @@ final class ViewTests: XCTestCase {
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: HostingScrollView(
-            children: [
+            subviews: [
               [0]: PlatformGroupContainer(
                 shouldGroupAccessibilityChildren: true,
-                children: [
+                accessibilityElements: [
                   [0]: Text(label: "item1"),
                   [1]: Button(label: "item2")
                 ]
               ),
               [1]: _UIScrollViewScrollIndicator(
-                children: [
+                subviews: [
                   [0]: UIView()
                 ]
               )
@@ -620,13 +611,13 @@ final class ViewTests: XCTestCase {
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: UILayoutContainerView(
-            children: [
+            subviews: [
               [0]: UITransitionView(
-                children: [
+                subviews: [
                   [0]: UIViewControllerWrapperView(
-                    children: [
+                    subviews: [
                       [0]: _UIHostingView<_ViewList_View>(
-                        children: [
+                        accessibilityElements: [
                           [0]: Text(
                             label: "item1",
                             value: "10"
@@ -638,14 +629,14 @@ final class ViewTests: XCTestCase {
                 ]
               ),
               [1]: UITabBar(
-                children: [
+                subviews: [
                   [0]: UITabBarButton(
                     label: "First",
-                    children: [
+                    subviews: [
                       [0]: UITabBarSwappableImageView(),
                       [1]: UITabBarButtonLabel(label: "First"),
                       [2]: _UIBadgeView(
-                        children: [
+                        subviews: [
                           [0]: UILabel(label: "10")
                         ]
                       )
@@ -653,7 +644,7 @@ final class ViewTests: XCTestCase {
                   ),
                   [1]: UITabBarButton(
                     label: "Second",
-                    children: [
+                    subviews: [
                       [0]: UITabBarSwappableImageView(),
                       [1]: UITabBarButtonLabel(label: "Second")
                     ]

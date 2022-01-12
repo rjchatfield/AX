@@ -214,14 +214,14 @@ final class AXTests: XCTestCase {
             shouldGroupAccessibilityChildren: true,
             navigationStyle: .separate,
             containerType: .semanticGroup,
-            children: [
+            accessibilityElements: [
               [0]: Text(label: "ax_children1"),
               [1]: AccessibilityNode(
                 label: "ax_children2",
                 shouldGroupAccessibilityChildren: true,
                 navigationStyle: .combined,
                 containerType: .semanticGroup,
-                children: [
+                accessibilityElements: [
                   [0]: Text(label: "ax_children2.1")
                 ]
               )
@@ -259,7 +259,7 @@ final class AXTests: XCTestCase {
             shouldGroupAccessibilityChildren: true,
             navigationStyle: .combined,
             containerType: .semanticGroup,
-            children: [
+            accessibilityElements: [
               [0]: Text(label: "text_title"),
               [1]: Button(label: "button_title")
             ]
