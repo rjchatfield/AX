@@ -123,8 +123,12 @@ extension AXElement {
         var obj: NSObject { (any as? NSObject) ?? NSObject() }
         lazy var mirror = Mirror(reflecting: any)
         
-        var element: AXElement {
-            AXElement(subject: any, values: values, style: style)
+        var element: AXElement? {
+            let element = AXElement(subject: any, values: values, style: style)
+            if element.values.isEmpty, !obj.isAccessibilityElement {
+                return nil
+            }
+            return element
         }
         
         var values: [(label: String?, value: Any)] {
@@ -194,6 +198,7 @@ extension AXElement {
             obj.accessibilityLabel
                 ?? uiLabel.map { $0.text ?? "" } // If label, then default to empty string
                 ?? uiButton?.title(for: .normal)
+//                ?? uiButton.map { $0.title(for: .normal) ?? "" }
         }
         var accessibilityHint: Any? { obj.accessibilityHint }
         var accessibilityValue: Any? {
@@ -321,6 +326,7 @@ extension UIWindow {
         viewController.didMove(toParent: rootViewController)
 
         window.rootViewController = rootViewController
+        window.makeKeyAndVisible()
 
         rootViewController.beginAppearanceTransition(true, animated: false)
         rootViewController.endAppearanceTransition()
@@ -341,7 +347,7 @@ extension UIWindow {
 //        window.makeKeyAndVisible()
         
         return {
-//            window.resignKey()
+            window.resignKey()
             
             rootViewController.beginAppearanceTransition(false, animated: false)
             rootViewController.endAppearanceTransition()

@@ -21,7 +21,7 @@ extension Mirror {
     }
 }
 
-extension UIView {
+extension NSObject {
     subscript(mirroring label: String) -> Any? {
         Mirror(reflecting: self)[label]
     }

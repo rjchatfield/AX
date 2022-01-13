@@ -28,6 +28,20 @@ extension Snapshotting where Value: SwiftUI.View, Format == String {
                 return viewController.view?.accessibilityElements ?? []
             }
     }
+    
+    static var presentedAccessibilityElements: Snapshotting {
+        Snapshotting<Any, String>.customDump
+            .pullback { (view: Value) -> Any in
+                let vc = UIHostingController(rootView: view)
+                let dispose = UIWindow.prepare(viewController: vc, frame: .init(x: 0, y: 0, width: 300, height: 3000))
+                defer { dispose() }
+                guard let presentedView = vc.presentedViewController?.view else {
+                    return "<no presentedViewController>"
+                }
+                return AXElement.walk(view: presentedView)
+            }
+    }
+
 }
 
 extension Snapshotting where Value: UIView, Format == String {

@@ -35,8 +35,7 @@ final class ViewTests: XCTestCase {
                 subviews: [
                   [0]: _UIDatePickerCompactDateLabel(
                     subviews: [
-                      [0]: UIView(),
-                      [1]: _UIDatePickerLinkedLabel(
+                      [0]: _UIDatePickerLinkedLabel(
                         subviews: [
                           [0]: UILabel(label: "")
                         ]
@@ -45,8 +44,7 @@ final class ViewTests: XCTestCase {
                   ),
                   [1]: _UIDatePickerCompactTimeLabel(
                     subviews: [
-                      [0]: UIView(),
-                      [1]: UILabel(label: "10:00 AM")
+                      [0]: UILabel(label: "10:00 AM")
                     ]
                   )
                 ]
@@ -57,16 +55,16 @@ final class ViewTests: XCTestCase {
         """)
         
         // Weirdly, UILabel doesn't have `text`. But at runtime it is visible. Not sure how else to debug this?!
-        let els = AXElement.walk(view: view)
-        let label = els[1]
-            .value(axElement: 0)
-            .value(axElement: 0)
-            .value(axElement: 1)
-            .value(axElement: 0)
-            .subject(as: UILabel.self)
-        _assertInlineSnapshot(matching: label, as: .dump, with: """
-        - <UILabel; frame = (0 0; 0 0); userInteractionEnabled = NO; layer = <_UILabelLayer>>
-        """)
+//        let els = AXElement.walk(view: view)
+//        let label = els[1]
+//            .value(axElement: 0)
+//            .value(axElement: 0)
+//            .value(axElement: 1)
+//            .value(axElement: 0)
+//            .subject(as: UILabel.self)
+//        _assertInlineSnapshot(matching: label, as: .dump, with: """
+//        - <UILabel; frame = (0 0; 0 0); userInteractionEnabled = NO; layer = <_UILabelLayer>>
+//        """)
     }
     
     func testDivider() {
@@ -175,26 +173,7 @@ final class ViewTests: XCTestCase {
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: Text(label: "title"),
-          [1]: UIStepper(
-            value: "69",
-            subviews: [
-              [0]: UIStepperHorizontalVisualElement(
-                subviews: [
-                  [0]: UIImageView(),
-                  [1]: UIImageView(),
-                  [2]: UIImageView(
-                    subviews: [
-                      [0]: UIImageView()
-                    ]
-                  ),
-                  [3]: UIImageView(),
-                  [4]: UIImageView(),
-                  [5]: _UIStepperButton(),
-                  [6]: _UIStepperButton()
-                ]
-              )
-            ]
-          )
+          [1]: UIStepper(value: "69")
         ]
         """)
     }
@@ -254,14 +233,41 @@ final class ViewTests: XCTestCase {
         let view = EmptyView()
             .alert(isPresented: .constant(true)) {
                 Alert(
-                    title: Text("title"),
-                    message: Text("message"),
+                    title: Text("alert-title"),
+                    message: Text("alert-message"),
                     primaryButton: .destructive(Text("destructive")),
                     secondaryButton: .cancel()
                 )
             }
-        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
-        []
+        _assertInlineSnapshot(matching: view, as: .presentedAccessibilityElements, with: """
+        [
+          [0]: _UIAlertControllerView(
+            subviews: [
+              [0]: UIView(
+                subviews: [
+                  [0]: _UIAlertControllerInterfaceActionGroupView(
+                    subviews: [
+                      [0]: UIView(
+                        subviews: [
+                          [0]: _UIInterfaceActionGroupHeaderScrollView(
+                            subviews: [
+                              [0]: UIView(
+                                subviews: [
+                                  [0]: UILabel(label: "alert-title"),
+                                  [1]: UILabel(label: "alert-message")
+                                ]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ]
+              )
+            ]
+          )
+        ]
         """)
     }
     
@@ -328,9 +334,7 @@ final class ViewTests: XCTestCase {
             Button {} label: { Text("item2") }
         }
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
-        [
-          [0]: UpdateCoalescingTableView()
-        ]
+        []
         """)
     }
     
@@ -478,13 +482,7 @@ final class ViewTests: XCTestCase {
             Button {} label: { Text("item2") }
         }
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
-        [
-          [0]: UpdateCoalescingTableView(
-            subviews: [
-              [0]: UITableViewWrapperView()
-            ]
-          )
-        ]
+        []
         """)
     }
     
@@ -527,13 +525,7 @@ final class ViewTests: XCTestCase {
             Button {} label: { Text("item2") }
         }
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
-        [
-          [0]: _UISplitViewControllerPanelImplView(
-            subviews: [
-              [0]: _UIPanelControllerContentView()
-            ]
-          )
-        ]
+        []
         """)
     }
     
@@ -551,11 +543,6 @@ final class ViewTests: XCTestCase {
                 accessibilityElements: [
                   [0]: Text(label: "item1"),
                   [1]: Button(label: "item2")
-                ]
-              ),
-              [1]: _UIScrollViewScrollIndicator(
-                subviews: [
-                  [0]: UIView()
                 ]
               )
             ]
@@ -632,9 +619,8 @@ final class ViewTests: XCTestCase {
                   [0]: UITabBarButton(
                     label: "First",
                     subviews: [
-                      [0]: UITabBarSwappableImageView(),
-                      [1]: UITabBarButtonLabel(label: "First"),
-                      [2]: _UIBadgeView(
+                      [0]: UITabBarButtonLabel(label: "First"),
+                      [1]: _UIBadgeView(
                         subviews: [
                           [0]: UILabel(label: "10")
                         ]
@@ -644,8 +630,7 @@ final class ViewTests: XCTestCase {
                   [1]: UITabBarButton(
                     label: "Second",
                     subviews: [
-                      [0]: UITabBarSwappableImageView(),
-                      [1]: UITabBarButtonLabel(label: "Second")
+                      [0]: UITabBarButtonLabel(label: "Second")
                     ]
                   )
                 ]

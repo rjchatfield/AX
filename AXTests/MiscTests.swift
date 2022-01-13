@@ -556,9 +556,7 @@ final class MiscTests: XCTestCase {
 //        ]
 //        """)
         _assertInlineSnapshot(matching: v, as: .accessibilityElements, with: """
-        [
-          [0]: UIButton()
-        ]
+        []
         """)
 //        let elements = AXElement.walk(view: v)
 //        let _b = ((elements[0].values[1].value as! [Any])[0] as! AXElement).style.unknownValue!
@@ -637,13 +635,7 @@ final class MiscTests: XCTestCase {
         """)
         
         _assertInlineSnapshot(matching: v, as: .accessibilityElements, with: """
-        [
-          [0]: UIStackView(
-            subviews: [
-              [0]: UIButton()
-            ]
-          )
-        ]
+        []
         """)
     }
     

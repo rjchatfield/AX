@@ -7,11 +7,18 @@
 
 import SwiftUI
 
+struct UI: UIViewRepresentable {
+    func makeUIView(context: Context) -> UIButton {
+        let v = UIButton()
+        v.setTitle("text_goes_here", for: .normal) 
+        return v
+    }
+    func updateUIView(_ uiView: UIButton, context: Context) {}
+}
+
 struct ContentView: View {
     var body: some View {
-        let d1 = Date(timeIntervalSince1970: 0)
-        let d2 = d1.advanced(by: 601)
-        DatePicker("title", selection: .constant(d1), in: d1...d2)
+        UI()
 //        VStack {
 ////        List {
 ////        LazyVStack {
