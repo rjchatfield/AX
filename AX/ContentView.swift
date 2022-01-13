@@ -9,7 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        TextField("ax_textfield_title", text: .constant("ax_textfield_text"), prompt: nil)
+        let d1 = Date(timeIntervalSince1970: 0)
+        let d2 = d1.advanced(by: 601)
+        DatePicker("title", selection: .constant(d1), in: d1...d2)
 //        VStack {
 ////        List {
 ////        LazyVStack {

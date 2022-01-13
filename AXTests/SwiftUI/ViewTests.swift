@@ -46,10 +46,7 @@ final class ViewTests: XCTestCase {
                   [1]: _UIDatePickerCompactTimeLabel(
                     subviews: [
                       [0]: UIView(),
-                      [1]: UILabel(label: "10:00 AM"),
-                      [2]: UILabel(label: ""),
-                      [3]: UILabel(label: ""),
-                      [4]: UILabel(label: "")
+                      [1]: UILabel(label: "10:00 AM")
                     ]
                   )
                 ]
@@ -57,6 +54,18 @@ final class ViewTests: XCTestCase {
             ]
           )
         ]
+        """)
+        
+        // Weirdly, UILabel doesn't have `text`. But at runtime it is visible. Not sure how else to debug this?!
+        let els = AXElement.walk(view: view)
+        let label = els[1]
+            .value(axElement: 0)
+            .value(axElement: 0)
+            .value(axElement: 1)
+            .value(axElement: 0)
+            .subject(as: UILabel.self)
+        _assertInlineSnapshot(matching: label, as: .dump, with: """
+        - <UILabel; frame = (0 0; 0 0); userInteractionEnabled = NO; layer = <_UILabelLayer>>
         """)
     }
     

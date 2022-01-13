@@ -3,13 +3,36 @@ import SwiftUI
 
 @dynamicMemberLookup
 struct AXElement {
+    var subject: Any
     var values: [(label: String?, value: Any)]
     var style: AXElement.Style
+
+    // For debugging
+    func value<T>(at idx: Int, as: T.Type) -> T {
+        values[idx].value as! T
+    }
     
+    // For debugging
+    func value(_ idx: Int = 0, axElement subIdx: Int) -> AXElement {
+        value(at: idx, as: [AXElement].self)[subIdx]
+    }
+    
+    // For debugging
+    func subject<T>(as: T.Type) -> T {
+        subject as! T
+    }
+
+    // For debugging
+    func axElements(at idx: Int) -> [AXElement] {
+        values[idx].value as! [AXElement]
+    }
+    
+    // For debugging
     subscript(label: String) -> Any? {
         values.first(where: { $0.label == label })?.value
     }
     
+    // For debugging
     subscript(dynamicMember label: String) -> Any? {
         self[label]
     }
@@ -28,6 +51,7 @@ struct AXElement {
     
     static func failure(_ reason: String, subject: Any) -> AXElement {
         AXElement(
+            subject: (),
             values: [("failure", reason)],
             style: .unknown(subject)
         )
@@ -100,7 +124,7 @@ extension AXElement {
         lazy var mirror = Mirror(reflecting: any)
         
         var element: AXElement {
-            AXElement(values: values, style: style)
+            AXElement(subject: any, values: values, style: style)
         }
         
         var values: [(label: String?, value: Any)] {
@@ -219,7 +243,9 @@ extension AXElement {
         var subviews: [AXElement]? {
             if isLeafAXView { return nil }
             if accessibilityElements != nil { return nil }
-            return AXElement.walk(accessibilityElements: uiView?.subviews)
+            return AXElement.walk(
+                accessibilityElements: uiView?.subviews.filter({ !$0.isHidden })
+            )
         }
         
 //        var accessibilityChildren: [Any]? {
