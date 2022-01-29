@@ -264,22 +264,14 @@ final class MiscTests: XCTestCase {
     func test4() {
         _assertInlineSnapshot(matching: uiView, as: .accessibilityElements, with: """
         [
-          [0]: UIStackView(
-            subviews: [
-              [0]: UILabel(label: "ax_text"),
-              [1]: UIStackView(
-                accessibilityElements: [
-                  [0]: UIButton(
-                    identifier: "ax_button_identifier",
-                    label: "ax_button_label",
-                    hint: "ax_button_hint",
-                    value: "ax_button_value"
-                  ),
-                  [1]: UIButton(label: "ax_button_1")
-                ]
-              )
-            ]
-          )
+          [0]: UILabel(label: "ax_text"),
+          [1]: UIButton(
+            identifier: "ax_button_identifier",
+            label: "ax_button_label",
+            hint: "ax_button_hint",
+            value: "ax_button_value"
+          ),
+          [2]: UIButton(label: "ax_button_1")
         ]
         """)
         _assertInlineSnapshot(matching: uiView, as: .voiceOver, with: """

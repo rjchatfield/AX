@@ -29,28 +29,8 @@ final class ViewTests: XCTestCase {
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: Text(label: "title"),
-          [1]: SwiftUIDatePicker(
-            subviews: [
-              [0]: _UIDatePickerIOSCompactView(
-                subviews: [
-                  [0]: _UIDatePickerCompactDateLabel(
-                    subviews: [
-                      [0]: _UIDatePickerLinkedLabel(
-                        subviews: [
-                          [0]: UILabel(label: "")
-                        ]
-                      )
-                    ]
-                  ),
-                  [1]: _UIDatePickerCompactTimeLabel(
-                    subviews: [
-                      [0]: UILabel(label: "10:00 AM")
-                    ]
-                  )
-                ]
-              )
-            ]
-          )
+          [1]: UILabel(label: ""),
+          [2]: UILabel(label: "10:00 AM")
         ]
         """)
         
@@ -298,32 +278,8 @@ final class ViewTests: XCTestCase {
             }
         _assertInlineSnapshot(matching: view, as: .presentedAccessibilityElements, with: """
         [
-          [0]: _UIAlertControllerView(
-            subviews: [
-              [0]: UIView(
-                subviews: [
-                  [0]: _UIAlertControllerInterfaceActionGroupView(
-                    subviews: [
-                      [0]: UIView(
-                        subviews: [
-                          [0]: _UIInterfaceActionGroupHeaderScrollView(
-                            subviews: [
-                              [0]: UIView(
-                                subviews: [
-                                  [0]: UILabel(label: "alert-title"),
-                                  [1]: UILabel(label: "alert-message")
-                                ]
-                              )
-                            ]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              )
-            ]
-          )
+          [0]: UILabel(label: "alert-title"),
+          [1]: UILabel(label: "alert-message")
         ]
         """)
     }
@@ -593,15 +549,11 @@ final class ViewTests: XCTestCase {
         }
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: HostingScrollView(
-            subviews: [
-              [0]: PlatformGroupContainer(
-                shouldGroupAccessibilityChildren: true,
-                accessibilityElements: [
-                  [0]: Text(label: "item1"),
-                  [1]: Button(label: "item2")
-                ]
-              )
+          [0]: PlatformGroupContainer(
+            shouldGroupAccessibilityChildren: true,
+            accessibilityElements: [
+              [0]: Text(label: "item1"),
+              [1]: Button(label: "item2")
             ]
           )
         ]
@@ -653,45 +605,21 @@ final class ViewTests: XCTestCase {
         }
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: UILayoutContainerView(
+          [0]: Text(
+            label: "item1",
+            value: "10"
+          ),
+          [1]: UITabBarButton(
+            label: "First",
             subviews: [
-              [0]: UITransitionView(
-                subviews: [
-                  [0]: UIViewControllerWrapperView(
-                    subviews: [
-                      [0]: _UIHostingView<_ViewList_View>(
-                        accessibilityElements: [
-                          [0]: Text(
-                            label: "item1",
-                            value: "10"
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              ),
-              [1]: UITabBar(
-                subviews: [
-                  [0]: UITabBarButton(
-                    label: "First",
-                    subviews: [
-                      [0]: UITabBarButtonLabel(label: "First"),
-                      [1]: _UIBadgeView(
-                        subviews: [
-                          [0]: UILabel(label: "10")
-                        ]
-                      )
-                    ]
-                  ),
-                  [1]: UITabBarButton(
-                    label: "Second",
-                    subviews: [
-                      [0]: UITabBarButtonLabel(label: "Second")
-                    ]
-                  )
-                ]
-              )
+              [0]: UITabBarButtonLabel(label: "First"),
+              [1]: UILabel(label: "10")
+            ]
+          ),
+          [2]: UITabBarButton(
+            label: "Second",
+            subviews: [
+              [0]: UITabBarButtonLabel(label: "Second")
             ]
           )
         ]

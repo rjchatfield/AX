@@ -57,8 +57,8 @@ struct AXElement {
         )
     }
     
-    private static func make(any: Any) -> AXElement? {
-        Wrapper(any: any).element
+    private static func make(any: Any) -> [AXElement] {
+        Wrapper(any: any).elements
     }
     
     static func walk<V: View>(view: V) -> [AXElement] {
@@ -70,13 +70,12 @@ struct AXElement {
     }
     
     static func walk<V: UIView>(view: V) -> [AXElement] {
-        guard let element = make(any: view) else { return [] }
-        return [element]
+        make(any: view)
     }
     
     private static func walk(accessibilityElements: [Any]?) -> [AXElement]? {
         guard let accessibilityElements = accessibilityElements else { return nil }
-        let children = accessibilityElements.compactMap(make(any:))
+        let children = accessibilityElements.flatMap(make(any:))
 //        { any -> AXElement? in
 //            func _make<T>(t: T) -> AXElement? { Wrapper(any: t).element }
 //            return _openExistential(any, do: _make(t:))
@@ -123,12 +122,20 @@ extension AXElement {
         var obj: NSObject { (any as? NSObject) ?? NSObject() }
         lazy var mirror = Mirror(reflecting: any)
         
-        var element: AXElement? {
+        var elements: [AXElement] {
             let element = AXElement(subject: any, values: values, style: style)
             if element.values.isEmpty, !obj.isAccessibilityElement {
-                return nil
+                return []
+            } else if element.values.count == 1,
+                        case ("accessibilityElements"?, let anys)? = element.values.first,
+                        let children = anys as? [AXElement] {
+                return children
+            } else if element.values.count == 1,
+                        case ("subviews"?, let anys)? = element.values.first,
+                        let children = anys as? [AXElement] {
+                return children
             }
-            return element
+            return [element]
         }
         
         var values: [(label: String?, value: Any)] {
