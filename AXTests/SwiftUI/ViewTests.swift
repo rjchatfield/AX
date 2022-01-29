@@ -65,6 +65,63 @@ final class ViewTests: XCTestCase {
 //        _assertInlineSnapshot(matching: label, as: .dump, with: """
 //        - <UILabel; frame = (0 0; 0 0); userInteractionEnabled = NO; layer = <_UILabelLayer>>
 //        """)
+//        _assertInlineSnapshot(matching: label, as: .windowedAccessibilityElements, with: """
+//        [
+//          [0]: UILabel(label: "")
+//        ]
+//        """)
+//        _assertInlineSnapshot(matching: label, as: .ivars, with: """
+//        [
+//          "0. Type": UILabel.self,
+//          "1. Mirror.children": [:],
+//          "2. NSObject.selectors": [
+//            "adjustsFontForContentSizeCategory": 1,
+//            "adjustsFontSizeToFitWidth": 0,
+//            "adjustsLetterSpacingToFitWidth": 0,
+//            "allowsDefaultTighteningForTruncation": 0,
+//            "attributedText": nil,
+//            "autotrackTextToFit": 0,
+//            "baselineAdjustment": 0,
+//            "canUseFastLayoutSizeCalulation": 1,
+//            "centersHorizontally": 0,
+//            "color": UIDynamicSystemColor(),
+//            "currentTextColor": UIDynamicSystemColor(↩︎),
+//            "defaultAccessibilityTraits": 64,
+//            "drawsUnderline": 0,
+//            "enablesMarqueeWhenAncestorFocused": 0,
+//            "font": UICTFont(),
+//            "highlightedTextColor": nil,
+//            "intrinsicContentSize": NSSize: {0, 0},
+//            "invalidateIntrinsicContentSize": nil,
+//            "isAccessibilityElementByDefault": 1,
+//            "isElementAccessibilityExposedToInterfaceBuilder": 1,
+//            "isEnabled": 1,
+//            "isHighlighted": 0,
+//            "isLayoutSizeDependentOnPerpendicularAxis": 1,
+//            "largeContentTitle": nil,
+//            "lineBreakMode": 4,
+//            "lineBreakStrategy": 65535,
+//            "lineSpacing": 0,
+//            "marqueeEnabled": 0,
+//            "marqueeRunning": 0,
+//            "minimumFontSize": 0,
+//            "minimumScaleFactor": 0,
+//            "numberOfLines": 1,
+//            "preferredMaxLayoutWidth": 0,
+//            "rawSize": NSSize: {0, 0},
+//            "setNeedsDisplay": nil,
+//            "shadowBlur": 0,
+//            "shadowColor": nil,
+//            "shadowOffset": NSSize: {0, -1},
+//            "showsExpansionTextWhenTruncated": 0,
+//            "text": nil,
+//            "textAlignment": 2,
+//            "textColor": UIDynamicSystemColor(↩︎),
+//            "textSize": NSSize: {0, 0},
+//            "tintColorDidChange": nil
+//          ]
+//        ]
+//        """)
     }
     
     func testDivider() {

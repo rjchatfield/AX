@@ -41,7 +41,6 @@ extension Snapshotting where Value: SwiftUI.View, Format == String {
                 return AXElement.walk(view: presentedView)
             }
     }
-
 }
 
 extension Snapshotting where Value: UIView, Format == String {
@@ -56,6 +55,19 @@ extension Snapshotting where Value: UIView, Format == String {
         Snapshotting<Any, String>.customDump
             .pullback { (view: Value) -> Any in
                 "TODO: voiceOver elements"
+            }
+    }
+    
+    static var windowedAccessibilityElements: Snapshotting {
+        Snapshotting<Any, String>.customDump
+            .pullback { (view: Value) -> Any in
+                let vc = UIViewController()
+                vc.view.addSubview(view)
+                let frame = CGRect(x: 0, y: 0, width: 300, height: 3000)
+                let dispose = UIWindow.prepare(viewController: vc, frame: frame)
+//                view.frame = frame
+                defer { dispose() }
+                return AXElement.walk(view: vc.view.subviews[0])
             }
     }
 }
@@ -81,6 +93,29 @@ extension Snapshotting where Value == Any, Format == String {
             .pullback { any -> String in
                 guard let trace = find(predicate, in: any) else { return "<not found>" }
                 return trace.description
+            }
+    }
+    
+    static var ivars: Snapshotting {
+        customDump(maxDepth: 2)
+            .pullback { any in
+                var result: [String: Any] = [:]
+                result["0. Type"] = type(of: any)
+                result["1. Mirror.children"] = Dictionary(
+                    uniqueKeysWithValues: Mirror(reflecting: any)
+                        .children
+                        .compactMap { (label, value) in
+                            label.map { (label: $0, value: value) }
+                        }
+    //                    .sorted { $0. }
+                )
+                if any is NSObject, let obj = any as? NSObject {
+                    result["2. NSObject.selectors"] = Dictionary(
+                        uniqueKeysWithValues: obj.ivarSelectors
+                            .map { ($0, obj.value(forKey: $0)) }
+                    )
+                }
+                return result
             }
     }
 }

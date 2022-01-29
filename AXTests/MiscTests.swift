@@ -558,6 +558,72 @@ final class MiscTests: XCTestCase {
         _assertInlineSnapshot(matching: v, as: .accessibilityElements, with: """
         []
         """)
+        
+        _assertInlineSnapshot(matching: v, as: .ivars, with: """
+        [
+          "0. Type": UIButton.self,
+          "1. Mirror.children": [:],
+          "2. NSObject.selectors": [
+            "adjustsImageSizeForAccessibilityContentSizeCategory": 0,
+            "adjustsImageWhenDisabled": 1,
+            "adjustsImageWhenHighlighted": 1,
+            "alignmentRectInsets": UIEdgeInsets: {0, 0, 0, 0},
+            "automaticallyUpdatesConfiguration": 1,
+            "autosizesToFit": 0,
+            "behavioralStyle": 1,
+            "buttonType": 0,
+            "canBecomeFocused": 0,
+            "changesSelectionAsPrimaryAction": 0,
+            "configuration": nil,
+            "configurationUpdateHandler": nil,
+            "contentEdgeInsets": UIEdgeInsets: {0, 0, 0, 0},
+            "currentAttributedTitle": nil,
+            "currentBackgroundImage": nil,
+            "currentImage": nil,
+            "currentPreferredSymbolConfiguration": UIImageSymbolConfiguration(),
+            "currentTitle": nil,
+            "currentTitleColor": UICachedDeviceWhiteColor(),
+            "currentTitleShadowColor": nil,
+            "cursorStyleProvider": nil,
+            "defaultAccessibilityTraits": 1,
+            "font": UICTFont(),
+            "image": nil,
+            "imageEdgeInsets": UIEdgeInsets: {0, 0, 0, 0},
+            "imageView": UIImageView(),
+            "intrinsicContentSize": NSSize: {30, 34},
+            "isAccessibilityElementByDefault": 1,
+            "isElementAccessibilityExposedToInterfaceBuilder": 1,
+            "isHeld": 0,
+            "isHovered": 0,
+            "isSpringLoaded": 0,
+            "largeContentImage": nil,
+            "largeContentTitle": nil,
+            "layoutSubviews": nil,
+            "lineBreakMode": 5,
+            "menu": nil,
+            "pointerStyleProvider": nil,
+            "preferredBehavioralStyle": 0,
+            "pressFeedbackPosition": NSPoint: {0, 0},
+            "reversesTitleShadowWhenHighlighted": 0,
+            "role": 0,
+            "scalesLargeContentImage": 1,
+            "setNeedsLayout": nil,
+            "setNeedsUpdateConfiguration": nil,
+            "showsTouchWhenHighlighted": 0,
+            "subtitleLabel": nil,
+            "tintColorDidChange": nil,
+            "title": nil,
+            "titleEdgeInsets": UIEdgeInsets: {0, 0, 0, 0},
+            "titleLabel": UIButtonLabel(),
+            "titleShadowOffset": NSSize: {0, 0},
+            "updateConfiguration": nil,
+            "updateConstraints": nil,
+            "viewForFirstBaselineLayout": UIImageView(↩︎),
+            "viewForLastBaselineLayout": UIImageView(↩︎)
+          ]
+        ]
+        """)
+
 //        let elements = AXElement.walk(view: v)
 //        let _b = ((elements[0].values[1].value as! [Any])[0] as! AXElement).style.unknownValue!
 //
@@ -792,6 +858,16 @@ extension NSObject {
                 sel_getName(method_getName(mlist[i]))
             ])
         }
+    }
+    
+    var ivarSelectors: [String] {
+        allSelectors
+            .filter {
+                return !$0.contains("_")
+                    && !$0.contains(":")
+                    && !["dealloc", "init", "description"].contains($0)
+            }
+            .sorted()
     }
 }
 
