@@ -162,6 +162,14 @@ final class ViewTests: XCTestCase {
             Text("First Option").tag(0)
             Text("Second Option").tag(1)
         }
+        /*
+         {
+             "Title, Second Option, Button"
+             Label: Title
+             Value: Second Option
+             Trait: Button
+         }
+         */
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: UIButton(label: "Second Option"),
@@ -177,6 +185,14 @@ final class ViewTests: XCTestCase {
             label: { Text("label") },
             currentValueLabel: { Text("currentValueLabel") }
         )
+        /*
+         {
+             "label, currentValueLabel, 10%, Updates Frequently"
+             Label: label, currentValueLabel
+             Value: 10%
+             Trait: Updates Frequently
+         }
+         */
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: UIProgressView(
@@ -257,7 +273,7 @@ final class ViewTests: XCTestCase {
           [0]: Button(
             label: "title",
             value: "1",
-            traits: 
+            traits: <private>
           )
         ]
         """)
@@ -508,7 +524,7 @@ final class ViewTests: XCTestCase {
         [
           [0]: Button(
             label: "title",
-            traits: 
+            traits: <private>
           )
         ]
         """)
@@ -603,6 +619,23 @@ final class ViewTests: XCTestCase {
                      Text("Second")
                  }
         }
+        /*
+         {
+             Label: First
+             Value: 10 items
+             Trait: Button, Selected, Tab
+         }, {
+             "First, 10 items, Button, Selected, Tab"
+             Label: First
+             Value: 10 items
+             Trait: Button, Selected, Tab
+         }, {
+             "Second, Button, Tab"
+             Label: Second
+             Value: <None>
+             Trait: Button, Tab
+         }
+         */
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: Text(

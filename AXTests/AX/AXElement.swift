@@ -365,25 +365,32 @@ extension UIWindow {
 
 extension UIAccessibilityTraits: CustomDumpStringConvertible {
     public var customDumpDescription: String {
-        var array: [String] = []
-        if contains(.button) { array.append(".button") }
-        if contains(.link) { array.append(".link") }
-        if contains(.header) { array.append(".header") }
-        if contains(.searchField) { array.append(".searchField") }
-        if contains(.image) { array.append(".image") }
-        if contains(.selected) { array.append(".selected") }
-        if contains(.playsSound) { array.append(".playsSound") }
-        if contains(.keyboardKey) { array.append(".keyboardKey") }
-        if contains(.staticText) { array.append(".staticText") }
-        if contains(.summaryElement) { array.append(".summaryElement") }
-        if contains(.notEnabled) { array.append(".notEnabled") }
-        if contains(.updatesFrequently) { array.append(".updatesFrequently") }
-        if contains(.startsMediaSession) { array.append(".startsMediaSession") }
-        if contains(.adjustable) { array.append(".adjustable") }
-        if contains(.allowsDirectInteraction) { array.append(".allowsDirectInteraction") }
-        if contains(.causesPageTurn) { array.append(".causesPageTurn") }
-        if contains(.tabBar) { array.append(".tabBar") }
-        return array.joined(separator: ", ")
+        let known: [(UIAccessibilityTraits, String)] = [
+            (.button, ".button"),
+            (.link, ".link"),
+            (.header, ".header"),
+            (.searchField, ".searchField"),
+            (.image, ".image"),
+            (.selected, ".selected"),
+            (.playsSound, ".playsSound"),
+            (.keyboardKey, ".keyboardKey"),
+            (.staticText, ".staticText"),
+            (.summaryElement, ".summaryElement"),
+            (.notEnabled, ".notEnabled"),
+            (.updatesFrequently, ".updatesFrequently"),
+            (.startsMediaSession, ".startsMediaSession"),
+            (.adjustable, ".adjustable"),
+            (.allowsDirectInteraction, ".allowsDirectInteraction"),
+            (.causesPageTurn, ".causesPageTurn"),
+            (.tabBar, ".tabBar"),
+        ]
+        var this = self
+        var names = known.compactMap { this.remove($0.0) != nil ? $0.1 : nil }
+        if !this.isEmpty {
+            // The option set has been stripped of all publicly known cases, but is still not empty
+            names.append("<private>")
+        }
+        return names.joined(separator: ", ")
     }
 }
 
