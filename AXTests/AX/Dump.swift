@@ -95,9 +95,9 @@ func _customDump<T, TargetStream>(
                         transform(&child, offset)
                         customDumpHelp(
                             child.value, to: &out, name: child.label, indent: 2, maxDepth: maxDepth - 1)
-                        if offset != children.count - 1 {
+//                        if offset != children.count - 1 {
                             out.write(",")
-                        }
+//                        }
                         out.write("\n")
                     }
                 }

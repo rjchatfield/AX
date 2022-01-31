@@ -64,7 +64,8 @@ struct AXElement {
     static func walk<V: View>(view: V) -> [AXElement] {
         let frame = CGRect(x: 0, y: 0, width: 300, height: 3000)
         let viewController = UIHostingController(rootView: view)
-        viewController.view.frame = frame
+        let nav = UINavigationController(rootViewController: viewController)
+        nav.view.frame = frame
         let children = walk(accessibilityElements: viewController.view.accessibilityElements) ?? []
         return children
     }

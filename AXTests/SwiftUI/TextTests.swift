@@ -11,7 +11,7 @@ final class TextTests: XCTestCase {
         }
         _assertInlineSnapshot(matching: v, as: .accessibilityElements, with: """
         [
-          [0]: Text(label: "ax_label")
+          [0]: Text(label: "ax_label"),
         ]
         """)
     }
@@ -27,7 +27,7 @@ final class TextTests: XCTestCase {
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: Text(label: "Test"),
-          [1]: Text(label: "Test")
+          [1]: Text(label: "Test"),
         ]
         """)
     }

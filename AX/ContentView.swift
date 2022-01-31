@@ -19,7 +19,12 @@ struct UI: UIViewRepresentable {
 struct ContentView: View {
     var body: some View {
 //        UI()
-        Toggle("title", isOn: .constant(true))
+        NavigationView {
+            NavigationLink(destination: Text("next")) {
+                Text("item1")
+                Button {} label: { Text("item2") }
+            }
+        }
 //        VStack {
 ////        List {
 ////        LazyVStack {

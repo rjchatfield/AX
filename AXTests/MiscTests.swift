@@ -73,14 +73,14 @@ final class MiscTests: XCTestCase {
           observedScene: nil,
           isEnteringForeground: false,
           currentResponderCommands: [:],
-          $__lazy_storage_$__forwardingTarget: nil
+          $__lazy_storage_$__forwardingTarget: nil,
         )
         """)
         
         _assertInlineSnapshot(matching: vc.view.accessibilityElements!, as: .customDump(maxDepth: 2), with: """
         [
           [0]: AccessibilityNode(
-            id: UniqueID(value: 1904),
+            id: UniqueID(value: 2072),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -92,10 +92,10 @@ final class MiscTests: XCTestCase {
             cachedIsPlaceholder: false,
             focusableAncestor: nil,
             relationshipScope: nil,
-            isCell: false
+            isCell: false,
           ),
           [1]: AccessibilityNode(
-            id: UniqueID(value: 1961),
+            id: UniqueID(value: 2129),
             version: DisplayList.Version(value: 0),
             children: […],
             bridgedChild: nil,
@@ -107,10 +107,10 @@ final class MiscTests: XCTestCase {
             cachedIsPlaceholder: false,
             focusableAncestor: nil,
             relationshipScope: nil,
-            isCell: false
+            isCell: false,
           ),
           [2]: AccessibilityNode(
-            id: UniqueID(value: 1963),
+            id: UniqueID(value: 2131),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -122,10 +122,10 @@ final class MiscTests: XCTestCase {
             cachedIsPlaceholder: false,
             focusableAncestor: nil,
             relationshipScope: nil,
-            isCell: false
+            isCell: false,
           ),
           [3]: AccessibilityNode(
-            id: UniqueID(value: 1966),
+            id: UniqueID(value: 2134),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -137,10 +137,10 @@ final class MiscTests: XCTestCase {
             cachedIsPlaceholder: false,
             focusableAncestor: nil,
             relationshipScope: nil,
-            isCell: false
+            isCell: false,
           ),
           [4]: AccessibilityNode(
-            id: UniqueID(value: 1967),
+            id: UniqueID(value: 2135),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -152,10 +152,10 @@ final class MiscTests: XCTestCase {
             cachedIsPlaceholder: false,
             focusableAncestor: nil,
             relationshipScope: nil,
-            isCell: false
+            isCell: false,
           ),
           [5]: AccessibilityNode(
-            id: UniqueID(value: 1962),
+            id: UniqueID(value: 2130),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -167,8 +167,8 @@ final class MiscTests: XCTestCase {
             cachedIsPlaceholder: false,
             focusableAncestor: nil,
             relationshipScope: nil,
-            isCell: false
-          )
+            isCell: false,
+          ),
         ]
         """)
         
@@ -177,7 +177,7 @@ final class MiscTests: XCTestCase {
         XCTAssertEqual(try v.inspect().vStack().text(0).string(), "ax_text")
         _assertInlineSnapshot(matching: nsax1, as: .customDump(maxDepth: 1), with: """
         AccessibilityNode(
-          id: UniqueID(value: 1904),
+          id: UniqueID(value: 2072),
           version: DisplayList.Version(value: 0),
           children: [],
           bridgedChild: nil,
@@ -189,7 +189,7 @@ final class MiscTests: XCTestCase {
           cachedIsPlaceholder: false,
           focusableAncestor: nil,
           relationshipScope: nil,
-          isCell: false
+          isCell: false,
         )
         """)
         print("NSAX1:")
@@ -209,12 +209,12 @@ final class MiscTests: XCTestCase {
         CGRect(
           origin: CGPoint(
             x: 0.0,
-            y: -16.172159830729164
+            y: -16.172159830729164,
           ),
           size: CGSize(
             width: 0.0,
-            height: 0.0
-          )
+            height: 0.0,
+          ),
         )
         """)
     }
@@ -231,18 +231,18 @@ final class MiscTests: XCTestCase {
             traits: .header,
             customActions: [
               [0]: section_header_button1_label,
-              [1]: section_header_button2_label
-            ]
+              [1]: section_header_button2_label,
+            ],
           ),
           [2]: Button(
             identifier: "ax_button_identifier",
             label: "ax_button_label",
             hint: "ax_button_hint",
-            value: "ax_button_value"
+            value: "ax_button_value",
           ),
           [3]: Text(label: "ax_label_title"),
           [4]: Image(label: "Forward"),
-          [5]: Button(label: "ax_button_1")
+          [5]: Button(label: "ax_button_1"),
         ]
         """)
         _assertInlineSnapshot(matching: v, as: .voiceOver, with: """
@@ -269,9 +269,9 @@ final class MiscTests: XCTestCase {
             identifier: "ax_button_identifier",
             label: "ax_button_label",
             hint: "ax_button_hint",
-            value: "ax_button_value"
+            value: "ax_button_value",
           ),
-          [2]: UIButton(label: "ax_button_1")
+          [2]: UIButton(label: "ax_button_1"),
         ]
         """)
         _assertInlineSnapshot(matching: uiView, as: .voiceOver, with: """
@@ -298,21 +298,21 @@ final class MiscTests: XCTestCase {
               CGRect(
                 origin: CGPoint(
                   x: 0.0,
-                  y: 0.0
+                  y: 0.0,
                 ),
                 size: CGSize(
                   width: 0.0,
-                  height: 0.0
-                )
-              )
+                  height: 0.0,
+                ),
+              ),
             ),
             activationPoint: CGPoint(
               x: 0.0,
-              y: 0.0
+              y: 0.0,
             ),
             usesDefaultActivationPoint: true,
             customActions: [],
-            accessibilityLanguage: nil
+            accessibilityLanguage: nil,
           ),
           [1]: AccessibilityMarker(
             description: "",
@@ -321,22 +321,22 @@ final class MiscTests: XCTestCase {
               CGRect(
                 origin: CGPoint(
                   x: 0.0,
-                  y: 0.0
+                  y: 0.0,
                 ),
                 size: CGSize(
                   width: 0.0,
-                  height: 0.0
-                )
-              )
+                  height: 0.0,
+                ),
+              ),
             ),
             activationPoint: CGPoint(
               x: 0.0,
-              y: 0.0
+              y: 0.0,
             ),
             usesDefaultActivationPoint: true,
             customActions: [],
-            accessibilityLanguage: nil
-          )
+            accessibilityLanguage: nil,
+          ),
         ]
         """)
     }
@@ -347,7 +347,7 @@ final class MiscTests: XCTestCase {
         let element = vc.view.accessibilityElements![0]
         _assertInlineSnapshot(matching: element, as: .customDump(maxDepth: 1), with: """
         AccessibilityNode(
-          id: UniqueID(value: 2291),
+          id: UniqueID(value: 2465),
           version: DisplayList.Version(value: 0),
           children: [],
           bridgedChild: nil,
@@ -359,7 +359,7 @@ final class MiscTests: XCTestCase {
           cachedIsPlaceholder: false,
           focusableAncestor: nil,
           relationshipScope: nil,
-          isCell: false
+          isCell: false,
         )
         """)
         let obj = element as! NSObject
@@ -496,7 +496,7 @@ final class MiscTests: XCTestCase {
 
             _assertInlineSnapshot(matching: any as! UILabel, as: .accessibilityElements, with: """
             [
-              [0]: UILabel(label: "")
+              [0]: UILabel(label: ""),
             ]
             """)
             _assertInlineSnapshot(matching: any, as: .customDump, with: """
@@ -551,7 +551,7 @@ final class MiscTests: XCTestCase {
         []
         """)
         
-        _assertInlineSnapshot(matching: v, as: .ivars, with: """
+        _assertInlineSnapshot(matching: v, as: .ivars(), with: """
         [
           "0. Type": UIButton.self,
           "1. Mirror.children": [:],
@@ -611,8 +611,8 @@ final class MiscTests: XCTestCase {
             "updateConfiguration": nil,
             "updateConstraints": nil,
             "viewForFirstBaselineLayout": UIImageView(↩︎),
-            "viewForLastBaselineLayout": UIImageView(↩︎)
-          ]
+            "viewForLastBaselineLayout": UIImageView(↩︎),
+          ],
         ]
         """)
 
@@ -687,8 +687,8 @@ final class MiscTests: XCTestCase {
         _assertInlineSnapshot(matching: w, as: .customDump, with: """
         UIView(
           subviews: [
-            [0]: UIView()
-          ]
+            [0]: UIView(),
+          ],
         )
         """)
         
@@ -703,7 +703,7 @@ final class MiscTests: XCTestCase {
         _assertInlineSnapshot(matching: vc.view.accessibilityElements!, as: .customDump(maxDepth: 2), with: """
         [
           [0]: AccessibilityNode(
-            id: UniqueID(value: 1692),
+            id: UniqueID(value: 1860),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
@@ -715,8 +715,8 @@ final class MiscTests: XCTestCase {
             cachedIsPlaceholder: false,
             focusableAncestor: nil,
             relationshipScope: nil,
-            isCell: false
-          )
+            isCell: false,
+          ),
         ]
         """)
         let el = vc.view.accessibilityElements![0]
@@ -855,7 +855,8 @@ extension NSObject {
     var ivarSelectors: [String] {
         allSelectors
             .filter {
-                return !$0.contains("_")
+                return self.responds(to: Selector($0))
+                    && !$0.contains("_")
                     && !$0.contains(":")
                     && !["dealloc", "init", "description"].contains($0)
             }

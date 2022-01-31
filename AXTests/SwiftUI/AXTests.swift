@@ -8,7 +8,7 @@ final class AXTests: XCTestCase {
         let view = Text("title")
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: Text(label: "title")
+          [0]: Text(label: "title"),
         ]
         """)
     }
@@ -19,8 +19,8 @@ final class AXTests: XCTestCase {
         [
           [0]: Text(
             identifier: "ax_identifier",
-            label: "title"
-          )
+            label: "title",
+          ),
         ]
         """)
     }
@@ -29,7 +29,7 @@ final class AXTests: XCTestCase {
         let view = Text("title").accessibilityLabel(Text("ax_label"))
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: Text(label: "ax_label")
+          [0]: Text(label: "ax_label"),
         ]
         """)
     }
@@ -40,8 +40,8 @@ final class AXTests: XCTestCase {
         [
           [0]: Text(
             label: "title",
-            hint: "ax_hint"
-          )
+            hint: "ax_hint",
+          ),
         ]
         """)
     }
@@ -52,8 +52,8 @@ final class AXTests: XCTestCase {
         [
           [0]: Text(
             label: "title",
-            hint: "help"
-          )
+            hint: "help",
+          ),
         ]
         """)
     }
@@ -66,8 +66,8 @@ final class AXTests: XCTestCase {
         [
           [0]: Text(
             label: "title",
-            hint: "help"
-          )
+            hint: "help",
+          ),
         ]
         """)
     }
@@ -79,8 +79,8 @@ final class AXTests: XCTestCase {
         [
           [0]: Text(
             label: "title",
-            hint: "ax_hint"
-          )
+            hint: "ax_hint",
+          ),
         ]
         """)
     }
@@ -91,8 +91,8 @@ final class AXTests: XCTestCase {
         [
           [0]: Text(
             label: "title",
-            value: "ax_value"
-          )
+            value: "ax_value",
+          ),
         ]
         """)
     }
@@ -105,9 +105,9 @@ final class AXTests: XCTestCase {
             label: "title",
             userInputLabels: [
               [0]: "ax_input_label1",
-              [1]: "ax_input_label2"
-            ]
-          )
+              [1]: "ax_input_label2",
+            ],
+          ),
         ]
         """)
     }
@@ -126,7 +126,7 @@ final class AXTests: XCTestCase {
           [1]: Text(label: "title0a"),
           [2]: Text(label: "title"),
           [3]: Text(label: "title0b"),
-          [4]: Text(label: "title-1")
+          [4]: Text(label: "title-1"),
         ]
         """)
     }
@@ -137,8 +137,8 @@ final class AXTests: XCTestCase {
         [
           [0]: Text(
             label: "title",
-            traits: .header, .playsSound, .keyboardKey
-          )
+            traits: .header, .playsSound, .keyboardKey,
+          ),
         ]
         """)
     }
@@ -159,7 +159,7 @@ final class AXTests: XCTestCase {
         [
           [0]: Text(
             label: "section_header",
-            traits: .header
+            traits: .header,
           ),
           [1]: Text(label: "section_header"),
           [2]: Text(label: "title"),
@@ -167,7 +167,7 @@ final class AXTests: XCTestCase {
           [4]: Button(label: "title"),
           [5]: Button(label: "title"),
           [6]: Image(label: "Favorite"),
-          [7]: AccessibilityNode(label: "Favorite")
+          [7]: AccessibilityNode(label: "Favorite"),
         ]
         """)
     }
@@ -183,7 +183,7 @@ final class AXTests: XCTestCase {
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: Text(label: "title"),
-          [1]: Text(label: "ax_hidden(false)")
+          [1]: Text(label: "ax_hidden(false)"),
         ]
         """)
     }
@@ -192,7 +192,7 @@ final class AXTests: XCTestCase {
         let view = Text("title").accessibilityRepresentation { Text("ax_representation") }
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: Text(label: "ax_representation")
+          [0]: Text(label: "ax_representation"),
         ]
         """)
     }
@@ -222,11 +222,11 @@ final class AXTests: XCTestCase {
                 navigationStyle: .combined,
                 containerType: .semanticGroup,
                 accessibilityElements: [
-                  [0]: Text(label: "ax_children2.1")
-                ]
-              )
-            ]
-          )
+                  [0]: Text(label: "ax_children2.1"),
+                ],
+              ),
+            ],
+          ),
         ]
         """)
     }
@@ -241,9 +241,9 @@ final class AXTests: XCTestCase {
           [0]: AccessibilityNode(
             label: "text_title",
             customActions: [
-              [0]: button_title
-            ]
-          )
+              [0]: button_title,
+            ],
+          ),
         ]
         """)
     }
@@ -261,9 +261,9 @@ final class AXTests: XCTestCase {
             containerType: .semanticGroup,
             accessibilityElements: [
               [0]: Text(label: "text_title"),
-              [1]: Button(label: "button_title")
-            ]
-          )
+              [1]: Button(label: "button_title"),
+            ],
+          ),
         ]
         """)
     }
@@ -275,7 +275,7 @@ final class AXTests: XCTestCase {
         }.accessibilityElement(children: .ignore)
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: AccessibilityNode()
+          [0]: AccessibilityNode(),
         ]
         """)
     }
@@ -284,7 +284,7 @@ final class AXTests: XCTestCase {
         let view = Text("title").accessibilityAction {}
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: Button(label: "title")
+          [0]: Button(label: "title"),
         ]
         """)
     }
@@ -296,9 +296,9 @@ final class AXTests: XCTestCase {
           [0]: Text(
             label: "title",
             customActions: [
-              [0]: ax_action_name
-            ]
-          )
+              [0]: ax_action_name,
+            ],
+          ),
         ]
         """)
     }
@@ -309,8 +309,8 @@ final class AXTests: XCTestCase {
         [
           [0]: Text(
             label: "title",
-            traits: .adjustable
-          )
+            traits: .adjustable,
+          ),
         ]
         """)
     }
@@ -336,9 +336,9 @@ final class AXTests: XCTestCase {
             label: "title",
             customRotors: [
               [0]: UIAccessibilityCustomRotor(custom: "ax_custom_rotor"),
-              [1]: UIAccessibilityCustomRotor(systemRotorType: .boldText)
-            ]
-          )
+              [1]: UIAccessibilityCustomRotor(systemRotorType: .boldText),
+            ],
+          ),
         ]
         """)
     }
@@ -354,7 +354,7 @@ final class AXTests: XCTestCase {
         let view = Example()
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: Text(label: "title")
+          [0]: Text(label: "title"),
         ]
         """)
     }
@@ -373,10 +373,10 @@ final class AXTests: XCTestCase {
               [0]: AXCustomContent(ax_label1: "ax_value1"),
               [1]: AXCustomContent(
                 ax_label2: "ax_value2",
-                importance: .high
-              )
-            ]
-          )
+                importance: .high,
+              ),
+            ],
+          ),
         ]
         """)
     }
@@ -401,7 +401,7 @@ final class AXTests: XCTestCase {
           [4]: Text(label: "h4"),
           [5]: Text(label: "h5"),
           [6]: Text(label: "h6"),
-          [7]: Text(label: "unspecified")
+          [7]: Text(label: "unspecified"),
         ]
         """)
     }
@@ -410,7 +410,7 @@ final class AXTests: XCTestCase {
         let view = Text("title").accessibilityShowsLargeContentViewer { Text("ax_larger_content") }
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: Text(label: "title")
+          [0]: Text(label: "title"),
         ]
         """)
     }
@@ -427,7 +427,7 @@ final class AXTests: XCTestCase {
           [0]: Text(label: "title"),
           [1]: Text(label: ".accessibilityRespondsToUserInteraction()"),
           [2]: Text(label: ".accessibilityRespondsToUserInteraction(true)"),
-          [3]: Text(label: ".accessibilityRespondsToUserInteraction(flase)")
+          [3]: Text(label: ".accessibilityRespondsToUserInteraction(flase)"),
         ]
         """)
     }
@@ -436,7 +436,7 @@ final class AXTests: XCTestCase {
         let view = Text("title").accessibilityTextContentType(.sourceCode)
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: Text(label: "title")
+          [0]: Text(label: "title"),
         ]
         """)
     }

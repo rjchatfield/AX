@@ -10,7 +10,7 @@ final class ViewTests: XCTestCase {
         let view = Button {} label: { Text("title") }
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: Button(label: "title")
+          [0]: Button(label: "title"),
         ]
         """)
     }
@@ -30,7 +30,7 @@ final class ViewTests: XCTestCase {
         [
           [0]: Text(label: "title"),
           [1]: UILabel(label: ""),
-          [2]: UILabel(label: "10:00 AM")
+          [2]: UILabel(label: "10:00 AM"),
         ]
         """)
         
@@ -115,7 +115,7 @@ final class ViewTests: XCTestCase {
         let view = EditButton()
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: Button(label: "Edit")
+          [0]: Button(label: "Edit"),
         ]
         """)
     }
@@ -131,7 +131,7 @@ final class ViewTests: XCTestCase {
         let view = Image(systemName: "star")
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: Image(label: "Favorite")
+          [0]: Image(label: "Favorite"),
         ]
         """)
     }
@@ -140,7 +140,7 @@ final class ViewTests: XCTestCase {
         let view = Label("title", systemImage: "star")
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: Text(label: "title")
+          [0]: Text(label: "title"),
         ]
         """)
     }
@@ -151,8 +151,8 @@ final class ViewTests: XCTestCase {
         [
           [0]: Button(
             label: "title",
-            traits: .link
-          )
+            traits: .link,
+          ),
         ]
         """)
     }
@@ -173,7 +173,7 @@ final class ViewTests: XCTestCase {
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: UIButton(label: "Second Option"),
-          [1]: Text(label: "Title")
+          [1]: Text(label: "Title"),
         ]
         """)
     }
@@ -197,8 +197,8 @@ final class ViewTests: XCTestCase {
         [
           [0]: UIProgressView(
             label: "label, currentValueLabel",
-            value: "10%"
-          )
+            value: "10%",
+          ),
         ]
         """)
     }
@@ -207,7 +207,7 @@ final class ViewTests: XCTestCase {
         let view = SecureField("title", text: .constant("value"), prompt: Text("prompt"))
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: UITextField(value: "value")
+          [0]: UITextField(value: "value"),
         ]
         """)
     }
@@ -216,7 +216,7 @@ final class ViewTests: XCTestCase {
         let view = Slider(value: .constant(69), in: 0...100, step: 1, onEditingChanged: { _ in })
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: UISlider(value: "69%")
+          [0]: UISlider(value: "69%"),
         ]
         """)
     }
@@ -226,7 +226,7 @@ final class ViewTests: XCTestCase {
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: Text(label: "title"),
-          [1]: UIStepper(value: "69")
+          [1]: UIStepper(value: "69"),
         ]
         """)
     }
@@ -235,7 +235,7 @@ final class ViewTests: XCTestCase {
         let view = TextEditor(text: .constant("value"))
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: UITextView(value: "value")
+          [0]: UITextView(value: "value"),
         ]
         """)
     }
@@ -252,7 +252,7 @@ final class ViewTests: XCTestCase {
           [0]: UITextField(value: "title (no prompt, no value)"),
           [1]: UITextField(value: "prompt (no value)"),
           [2]: UITextField(value: "value"),
-          [3]: UITextField(value: "69%")
+          [3]: UITextField(value: "69%"),
         ]
         """)
     }
@@ -261,7 +261,7 @@ final class ViewTests: XCTestCase {
         let view = Text("title")
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: Text(label: "title")
+          [0]: Text(label: "title"),
         ]
         """)
     }
@@ -273,8 +273,8 @@ final class ViewTests: XCTestCase {
           [0]: Button(
             label: "title",
             value: "1",
-            traits: <private>
-          )
+            traits: <private>,
+          ),
         ]
         """)
     }
@@ -295,7 +295,7 @@ final class ViewTests: XCTestCase {
         _assertInlineSnapshot(matching: view, as: .presentedAccessibilityElements, with: """
         [
           [0]: UILabel(label: "alert-title"),
-          [1]: UILabel(label: "alert-message")
+          [1]: UILabel(label: "alert-message"),
         ]
         """)
     }
@@ -304,7 +304,7 @@ final class ViewTests: XCTestCase {
         let view = AnyView(Text("title"))
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: Text(label: "title")
+          [0]: Text(label: "title"),
         ]
         """)
     }
@@ -314,7 +314,7 @@ final class ViewTests: XCTestCase {
         let view = MyView()
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: Text(label: "title")
+          [0]: Text(label: "title"),
         ]
         """)
     }
@@ -331,16 +331,16 @@ final class ViewTests: XCTestCase {
           [0]: Button(
             label: "Group1",
             customActions: [
-              [0]: Group1
-            ]
+              [0]: Group1,
+            ],
           ),
           [1]: Text(label: "item1"),
           [2]: Button(
             label: "Group2",
             customActions: [
-              [0]: Group2
-            ]
-          )
+              [0]: Group2,
+            ],
+          ),
         ]
         """)
     }
@@ -352,7 +352,7 @@ final class ViewTests: XCTestCase {
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: Text(label: "item1"),
-          [1]: Text(label: "item2")
+          [1]: Text(label: "item2"),
         ]
         """)
     }
@@ -375,7 +375,7 @@ final class ViewTests: XCTestCase {
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: Text(label: "item1"),
-          [1]: Button(label: "item2")
+          [1]: Button(label: "item2"),
         ]
         """)
     }
@@ -393,9 +393,9 @@ final class ViewTests: XCTestCase {
             containerType: .semanticGroup,
             accessibilityElements: [
               [0]: Text(label: "item1"),
-              [1]: Button(label: "item2")
-            ]
-          )
+              [1]: Button(label: "item2"),
+            ],
+          ),
         ]
         """)
     }
@@ -408,7 +408,7 @@ final class ViewTests: XCTestCase {
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: Text(label: "item1"),
-          [1]: Button(label: "item2")
+          [1]: Button(label: "item2"),
         ]
         """)
     }
@@ -432,9 +432,9 @@ final class ViewTests: XCTestCase {
             containerType: .semanticGroup,
             accessibilityElements: [
               [0]: Text(label: "item1"),
-              [1]: Button(label: "item2")
-            ]
-          )
+              [1]: Button(label: "item2"),
+            ],
+          ),
         ]
         """)
     }
@@ -450,11 +450,7 @@ final class ViewTests: XCTestCase {
             shouldGroupAccessibilityChildren: true,
             navigationStyle: .combined,
             containerType: .semanticGroup,
-            accessibilityElements: [
-              [0]: Text(label: "item1"),
-              [1]: Button(label: "item2")
-            ]
-          )
+          ),
         ]
         """)
     }
@@ -478,9 +474,9 @@ final class ViewTests: XCTestCase {
             containerType: .semanticGroup,
             accessibilityElements: [
               [0]: Text(label: "item1"),
-              [1]: Button(label: "item2")
-            ]
-          )
+              [1]: Button(label: "item2"),
+            ],
+          ),
         ]
         """)
     }
@@ -496,11 +492,7 @@ final class ViewTests: XCTestCase {
             shouldGroupAccessibilityChildren: true,
             navigationStyle: .combined,
             containerType: .semanticGroup,
-            accessibilityElements: [
-              [0]: Text(label: "item1"),
-              [1]: Button(label: "item2")
-            ]
-          )
+          ),
         ]
         """)
     }
@@ -524,8 +516,8 @@ final class ViewTests: XCTestCase {
         [
           [0]: Button(
             label: "title",
-            traits: <private>
-          )
+            traits: <private>,
+          ),
         ]
         """)
     }
@@ -539,11 +531,92 @@ final class ViewTests: XCTestCase {
         [
           [0]: Button(
             label: "item1",
-            traits: .notEnabled,
             customActions: [
-              [0]: item2
-            ]
-          )
+              [0]: item2,
+            ],
+          ),
+        ]
+        """)
+        
+//        let els = AXElement.walk(view: view)
+//        let nav = els[0]
+//            .value(axElement: 0)
+//            .value(axElement: 0)
+//            .value(axElement: 1)
+//            .value(axElement: 0)
+//            .subject(as: UILabel.self)
+//            .subject(as: NSObject.self)
+        let frame = CGRect(x: 0, y: 0, width: 300, height: 3000)
+        let viewController = UIHostingController(rootView: view)
+        viewController.view.frame = frame
+        let nav = viewController.view!
+        let els = nav.accessibilityElements![0] // as! UIView
+        _assertInlineSnapshot(matching: els, as: .dump, with: """
+        - <SwiftUI.AccessibilityNode> item1
+        """)
+//        _assertInlineSnapshot(matching: els, as: .windowedAccessibilityElements, with: """
+//        [
+//          [0]: UILabel(label: "")
+//        ]
+//        """)
+        _assertInlineSnapshot(matching: els, as: .ivars(badSelectors: ["accessibilityRowRange"]), with: """
+        [
+          "0. Type": AccessibilityNode.self,
+          "1. Mirror.children": [
+            "attachmentsStorage": […],
+            "bridgedChild": nil,
+            "cachedCombinedAttachment": AccessibilityAttachment(…),
+            "cachedIsPlaceholder": false,
+            "children": […],
+            "focusableAncestor": nil,
+            "id": UniqueID(value: 5942),
+            "isCell": false,
+            "parent": AccessibilityNode(…),
+            "platformRotorStorage": [:],
+            "relationshipScope": nil,
+            "version": DisplayList.Version(value: 0),
+            "viewRendererHost": _UIHostingView(…),
+          ],
+          "2. NSObject.selectors": [
+            "accessibilityActivate": 0,
+            "accessibilityActivationPoint": NSPoint: {150.16666666666666, 1500.1666666666665},
+            "accessibilityAttributedHint": nil,
+            "accessibilityAttributedLabel": "item1",
+            "accessibilityAttributedUserInputLabels": [],
+            "accessibilityAttributedValue": nil,
+            "accessibilityChartDescriptor": nil,
+            "accessibilityContainer": _UIHostingView(↩︎),
+            "accessibilityContainerType": 0,
+            "accessibilityCustomActions": […],
+            "accessibilityCustomContent": [],
+            "accessibilityCustomRotors": [],
+            "accessibilityDecrement": nil,
+            "accessibilityElementCount": 0,
+            "accessibilityElementDidBecomeFocused": nil,
+            "accessibilityElementDidLoseFocus": nil,
+            "accessibilityElements": [],
+            "accessibilityElementsHidden": 0,
+            "accessibilityFrame": NSRect: {{104.66666666666666, 1490}, {91, 20.333333333333258}},
+            "accessibilityHint": nil,
+            "accessibilityIdentifier": nil,
+            "accessibilityIncrement": nil,
+            "accessibilityLabel": "item1",
+            "accessibilityLanguage": "en-US",
+            "accessibilityNavigationStyle": 0,
+            "accessibilityPath": UIBezierPath(),
+            "accessibilityPerformEscape": 0,
+            "accessibilityPerformMagicTap": 0,
+            "accessibilityRespondsToUserInteraction": 0,
+            "accessibilityRowRange": "[IGNORED]",
+            "accessibilityTextualContext": nil,
+            "accessibilityTraits": 257,
+            "accessibilityURL": nil,
+            "accessibilityUserInputLabels": [],
+            "accessibilityValue": nil,
+            "accessibilityViewIsModal": 0,
+            "isAccessibilityElement": 1,
+            "shouldGroupAccessibilityChildren": 0,
+          ],
         ]
         """)
     }
@@ -569,9 +642,9 @@ final class ViewTests: XCTestCase {
             shouldGroupAccessibilityChildren: true,
             accessibilityElements: [
               [0]: Text(label: "item1"),
-              [1]: Button(label: "item2")
-            ]
-          )
+              [1]: Button(label: "item2"),
+            ],
+          ),
         ]
         """)
     }
@@ -591,16 +664,16 @@ final class ViewTests: XCTestCase {
         [
           [0]: Text(
             label: "header.item1",
-            traits: .header
+            traits: .header,
           ),
           [1]: Button(
             label: "header.item2",
-            traits: .header
+            traits: .header,
           ),
           [2]: Text(label: "item1"),
           [3]: Button(label: "item2"),
           [4]: Text(label: "footer.item1"),
-          [5]: Button(label: "footer.item2")
+          [5]: Button(label: "footer.item2"),
         ]
         """)
     }
@@ -640,21 +713,21 @@ final class ViewTests: XCTestCase {
         [
           [0]: Text(
             label: "item1",
-            value: "10"
+            value: "10",
           ),
           [1]: UITabBarButton(
             label: "First",
             subviews: [
               [0]: UITabBarButtonLabel(label: "First"),
-              [1]: UILabel(label: "10")
-            ]
+              [1]: UILabel(label: "10"),
+            ],
           ),
           [2]: UITabBarButton(
             label: "Second",
             subviews: [
-              [0]: UITabBarButtonLabel(label: "Second")
-            ]
-          )
+              [0]: UITabBarButtonLabel(label: "Second"),
+            ],
+          ),
         ]
         """)
     }
@@ -667,7 +740,7 @@ final class ViewTests: XCTestCase {
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: Text(label: "item1"),
-          [1]: Button(label: "item2")
+          [1]: Button(label: "item2"),
         ]
         """)
     }
@@ -681,7 +754,7 @@ final class ViewTests: XCTestCase {
         }
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: Text(label: "")
+          [0]: Text(label: ""),
         ]
         """)
     }
@@ -694,7 +767,7 @@ final class ViewTests: XCTestCase {
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: Text(label: "item1"),
-          [1]: Button(label: "item2")
+          [1]: Button(label: "item2"),
         ]
         """)
     }
@@ -707,7 +780,7 @@ final class ViewTests: XCTestCase {
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: Text(label: "item1"),
-          [1]: Button(label: "item2")
+          [1]: Button(label: "item2"),
         ]
         """)
     }
@@ -718,7 +791,7 @@ final class ViewTests: XCTestCase {
         let view = Text("title").onTapGesture {}
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: Text(label: "title")
+          [0]: Text(label: "title"),
         ]
         """)
     }
@@ -732,12 +805,12 @@ final class ViewTests: XCTestCase {
         [
           [0]: Button(
             label: "title",
-            traits: .notEnabled
+            traits: .notEnabled,
           ),
           [1]: UITextField(
             value: "value",
-            isEnabled: false
-          )
+            isEnabled: false,
+          ),
         ]
         """)
     }

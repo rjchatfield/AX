@@ -96,7 +96,7 @@ extension Snapshotting where Value == Any, Format == String {
             }
     }
     
-    static var ivars: Snapshotting {
+    static func ivars(badSelectors: [String] = []) -> Snapshotting {
         customDump(maxDepth: 2)
             .pullback { any in
                 var result: [String: Any] = [:]
@@ -112,7 +112,7 @@ extension Snapshotting where Value == Any, Format == String {
                 if any is NSObject, let obj = any as? NSObject {
                     result["2. NSObject.selectors"] = Dictionary(
                         uniqueKeysWithValues: obj.ivarSelectors
-                            .map { ($0, obj.value(forKey: $0)) }
+                            .map { ($0, badSelectors.contains($0) ? "[IGNORED]" : obj.value(forKey: $0)) }
                     )
                 }
                 return result
