@@ -264,14 +264,14 @@ final class MiscTests: XCTestCase {
     func test4() {
         _assertInlineSnapshot(matching: uiView, as: .accessibilityElements, with: """
         [
-          [0]: UILabel(label: "ax_text"),
-          [1]: UIButton(
+          [0]: Text(label: "ax_text"),
+          [1]: Button(
             identifier: "ax_button_identifier",
             label: "ax_button_label",
             hint: "ax_button_hint",
             value: "ax_button_value",
           ),
-          [2]: UIButton(label: "ax_button_1"),
+          [2]: Button(label: "ax_button_1"),
         ]
         """)
         _assertInlineSnapshot(matching: uiView, as: .voiceOver, with: """
@@ -496,7 +496,7 @@ final class MiscTests: XCTestCase {
 
             _assertInlineSnapshot(matching: any as! UILabel, as: .accessibilityElements, with: """
             [
-              [0]: UILabel(label: ""),
+              [0]: Text(label: ""),
             ]
             """)
             _assertInlineSnapshot(matching: any, as: .customDump, with: """

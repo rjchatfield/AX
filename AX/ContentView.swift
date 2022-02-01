@@ -8,23 +8,35 @@
 import SwiftUI
 
 struct UI: UIViewRepresentable {
-    func makeUIView(context: Context) -> UIButton {
-        let v = UIButton()
-        v.setTitle("text_goes_here", for: .normal) 
-        return v
+    func makeUIView(context: Context) -> UIView {
+        let label1 = UILabel()
+        label1.text = "label1"
+        let label2 = UILabel()
+        label2.text = "label2"
+        label2.accessibilityTraits.remove(.staticText)
+        
+        let button1 = UIButton(type: .system)
+        button1.setTitle("button1", for: .normal)
+        let button2 = UIButton(type: .system)
+        button2.setTitle("button2", for: .normal)
+        button2.accessibilityTraits.remove(.button)
+        
+        let view = UIStackView()
+        view.addArrangedSubview(label1)
+        view.addArrangedSubview(label2)
+        view.addArrangedSubview(button1)
+        view.addArrangedSubview(button2)
+
+        view.axis = .vertical
+        view.distribution = .equalSpacing
+        return view
     }
-    func updateUIView(_ uiView: UIButton, context: Context) {}
+    func updateUIView(_ uiView: UIView, context: Context) {}
 }
 
 struct ContentView: View {
     var body: some View {
-//        UI()
-        NavigationView {
-            NavigationLink(destination: Text("next")) {
-                Text("item1")
-                Button {} label: { Text("item2") }
-            }
-        }
+        UI()
 //        VStack {
 ////        List {
 ////        LazyVStack {

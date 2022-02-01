@@ -71,6 +71,7 @@ final class AXTests: XCTestCase {
         ]
         """)
     }
+
     func testAXHintBeforeHelp() {
         let view = Text("title")
             .help(Text("help"))

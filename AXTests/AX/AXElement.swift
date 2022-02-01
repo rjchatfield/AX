@@ -187,11 +187,17 @@ extension AXElement {
         }
         
         var style: Style {
-            if any is UIView { return .unknown(any) }
-            let traits = obj.accessibilityTraits
-            if traits.contains(.button) { return .button }
-            if traits.contains(.staticText) { return .staticText }
-            if traits.contains(.image) { return .image }
+            if any is UIView {
+                if any is UIButton { return .button }
+                if any is UILabel { return .staticText }
+                if any is UIImageView { return .image }
+            } else {
+                // NSObject or SwiftUI
+                let traits = obj.accessibilityTraits
+                if traits.contains(.button) { return .button }
+                if traits.contains(.staticText) { return .staticText }
+                if traits.contains(.image) { return .image }
+            }
             return .unknown(any)
         }
         

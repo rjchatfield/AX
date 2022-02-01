@@ -30,6 +30,7 @@
 		D48E5C6E276C37AB002ACB6A /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = D48E5C6D276C37AB002ACB6A /* SnapshotTesting */; };
 		D49791182783BB5000962D32 /* CustomDump in Frameworks */ = {isa = PBXBuildFile; productRef = D49791172783BB5000962D32 /* CustomDump */; };
 		D497911B2783BC1F00962D32 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = D497911A2783BC1F00962D32 /* ViewInspector */; };
+		D4C684AA27A9EC1B006D3EBE /* UIKitAXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C684A927A9EC1B006D3EBE /* UIKitAXTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		D48E5C56276C3532002ACB6A /* AXUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AXUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D48E5C5A276C3532002ACB6A /* AXUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AXUITests.swift; sourceTree = "<group>"; };
 		D48E5C5C276C3532002ACB6A /* AXUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AXUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D4C684A927A9EC1B006D3EBE /* UIKitAXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitAXTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +198,7 @@
 		D48E5C4F276C3532002ACB6A /* AXTests */ = {
 			isa = PBXGroup;
 			children = (
+				D4C684A827A9EBF7006D3EBE /* UIKit */,
 				D477E25527865F4C00AA0076 /* SwiftUI */,
 				D477E25C2787F69B00AA0076 /* AX */,
 				D48E5C50276C3532002ACB6A /* MiscTests.swift */,
@@ -217,6 +220,14 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D4C684A827A9EBF7006D3EBE /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				D4C684A927A9EC1B006D3EBE /* UIKitAXTests.swift */,
+			);
+			path = UIKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -425,6 +436,7 @@
 				D477E25B2787AED100AA0076 /* ViewTests.swift in Sources */,
 				D477E252278512A900AA0076 /* Mirror+Extensions.swift in Sources */,
 				D4261DF0278457A700A849CE /* AXElement.swift in Sources */,
+				D4C684AA27A9EC1B006D3EBE /* UIKitAXTests.swift in Sources */,
 				D477E25E278D019300AA0076 /* Dump.swift in Sources */,
 				D477E25027850BA900AA0076 /* AX+Snapshotting.swift in Sources */,
 				D477E259278694F800AA0076 /* AXTests.swift in Sources */,

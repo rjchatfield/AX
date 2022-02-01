@@ -29,8 +29,8 @@ final class ViewTests: XCTestCase {
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
           [0]: Text(label: "title"),
-          [1]: UILabel(label: ""),
-          [2]: UILabel(label: "10:00 AM"),
+          [1]: Text(label: ""),
+          [2]: Text(label: "10:00 AM"),
         ]
         """)
         
@@ -172,7 +172,7 @@ final class ViewTests: XCTestCase {
          */
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: UIButton(label: "Second Option"),
+          [0]: Button(label: "Second Option"),
           [1]: Text(label: "Title"),
         ]
         """)
@@ -294,8 +294,8 @@ final class ViewTests: XCTestCase {
             }
         _assertInlineSnapshot(matching: view, as: .presentedAccessibilityElements, with: """
         [
-          [0]: UILabel(label: "alert-title"),
-          [1]: UILabel(label: "alert-message"),
+          [0]: Text(label: "alert-title"),
+          [1]: Text(label: "alert-message"),
         ]
         """)
     }
@@ -718,14 +718,14 @@ final class ViewTests: XCTestCase {
           [1]: UITabBarButton(
             label: "First",
             subviews: [
-              [0]: UITabBarButtonLabel(label: "First"),
-              [1]: UILabel(label: "10"),
+              [0]: Text(label: "First"),
+              [1]: Text(label: "10"),
             ],
           ),
           [2]: UITabBarButton(
             label: "Second",
             subviews: [
-              [0]: UITabBarButtonLabel(label: "Second"),
+              [0]: Text(label: "Second"),
             ],
           ),
         ]
