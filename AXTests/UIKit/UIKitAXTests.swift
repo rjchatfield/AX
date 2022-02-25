@@ -218,23 +218,39 @@ final class UIKitAXTests: XCTestCase {
         ]
         """)
     }
-//
-//    func testAXHidden() {
-//        let view = VStack {
-//            Text("title")
-//            Text("ax_hidden(false)").accessibilityHidden(false)
-//            Text("ax_hidden(true)").accessibilityHidden(true)
-//            Text("hidden()").hidden()
-//            Text("opacity(0)").opacity(0)
-//        }
-//        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
-//        [
-//          [0]: Text(label: "title"),
-//          [1]: Text(label: "ax_hidden(false)"),
-//        ]
-//        """)
-//    }
-//
+
+    func testAXHidden() {
+        let label1 = UILabel()
+        label1.text = "title"
+        let label2 = UILabel()
+        label2.text = "accessibilityElementsHidden = false"
+        label2.accessibilityElementsHidden = false
+        let label3 = UILabel()
+        label3.text = "accessibilityElementsHidden = true"
+        label3.accessibilityElementsHidden = true
+        let label4 = UILabel()
+        label4.text = "isHidden = true"
+        label4.isHidden = true
+        let label5 = UILabel()
+        label5.text = "layer.opacity = 0"
+        label5.layer.opacity = 0
+        
+        /// Using UIView here to ensure because UIStackView has in-built behaviour of removing hidden views
+        let view = UIView()
+        view.addSubview(label1)
+        view.addSubview(label2)
+        view.addSubview(label3)
+        view.addSubview(label4)
+        view.addSubview(label5)
+
+        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
+        [
+          [0]: Text(label: "title"),
+          [1]: Text(label: "accessibilityElementsHidden = false"),
+        ]
+        """)
+    }
+
 //    func testAXRepresentation() {
 //        let view = Text("title").accessibilityRepresentation { Text("ax_representation") }
 //        _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """

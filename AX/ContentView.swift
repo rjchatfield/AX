@@ -10,25 +10,75 @@ import SwiftUI
 struct UI: UIViewRepresentable {
     func makeUIView(context: Context) -> UIView {
         let label1 = UILabel()
-        label1.text = "label1"
+        label1.text = "title"
         let label2 = UILabel()
-        label2.text = "label2"
-        label2.accessibilityTraits.remove(.staticText)
-        
-        let button1 = UIButton(type: .system)
-        button1.setTitle("button1", for: .normal)
-        let button2 = UIButton(type: .system)
-        button2.setTitle("button2", for: .normal)
-        button2.accessibilityTraits.remove(.button)
-        
-        let view = UIStackView()
-        view.addArrangedSubview(label1)
-        view.addArrangedSubview(label2)
-        view.addArrangedSubview(button1)
-        view.addArrangedSubview(button2)
+        label2.text = "accessibilityElementsHidden = false"
+        label2.accessibilityElementsHidden = false
+        let label3 = UILabel()
+        label3.text = "accessibilityElementsHidden = true"
+        label3.accessibilityElementsHidden = true
+        let label4 = UILabel()
+        label4.text = "isHidden = true"
+        label4.isHidden = true
+        let label5 = UILabel()
+        label5.text = "layer.opacity = 0"
+        label5.layer.opacity = 0
 
-        view.axis = .vertical
-        view.distribution = .equalSpacing
+//        let view = UIStackView()
+//        view.addArrangedSubview(label1)
+//        view.addArrangedSubview(label2)
+//        view.addArrangedSubview(label3)
+//        view.addArrangedSubview(label4)
+//        view.addArrangedSubview(label5)
+
+        let view = UIView()
+        view.addSubview(label1)
+        view.addSubview(label2)
+        view.addSubview(label3)
+        view.addSubview(label4)
+        view.addSubview(label5)
+        
+        label1.translatesAutoresizingMaskIntoConstraints = false
+        label2.translatesAutoresizingMaskIntoConstraints = false
+        label3.translatesAutoresizingMaskIntoConstraints = false
+        label4.translatesAutoresizingMaskIntoConstraints = false
+        label5.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            label1.topAnchor.constraint(equalTo: view.topAnchor),
+            label2.topAnchor.constraint(equalTo: label1.bottomAnchor),
+            label3.topAnchor.constraint(equalTo: label2.bottomAnchor),
+            label4.topAnchor.constraint(equalTo: label3.bottomAnchor),
+            label5.topAnchor.constraint(equalTo: label4.bottomAnchor),
+            view.bottomAnchor.constraint(greaterThanOrEqualTo: label5.bottomAnchor),
+            
+//            label1.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            label2.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            label3.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            label4.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            label5.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+
+            label1.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            label2.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            label3.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            label4.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            label5.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+
+            label1.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor),
+            label2.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor),
+            label3.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor),
+            label4.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor),
+            label5.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor),
+            
+            view.heightAnchor.constraint(equalToConstant: 500),
+            view.widthAnchor.constraint(equalToConstant: 300),
+        ])
+        
+        view.backgroundColor = .systemGray
+
+//        view.axis = .vertical
+//        view.distribution = .equalSpacing
         return view
     }
     func updateUIView(_ uiView: UIView, context: Context) {}

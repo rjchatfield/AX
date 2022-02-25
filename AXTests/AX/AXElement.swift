@@ -125,6 +125,10 @@ extension AXElement {
         
         var elements: [AXElement] {
             let element = AXElement(subject: any, values: values, style: style)
+            // Hide hidden views
+            if obj.accessibilityElementsHidden { return [] }
+            if uiView?.layer.opacity == 0 { return [] }
+            
             if element.values.isEmpty, !obj.isAccessibilityElement {
                 return []
             } else if element.values.count == 1,
@@ -152,7 +156,7 @@ extension AXElement {
                 // accessibilityActivationPoint: CGPoint
                 // accessibilityLanguage: String?
                 ("isEnabled", isEnabled),
-                ("elementsHidden", accessibilityElementsHidden),
+//                ("elementsHidden", accessibilityElementsHidden),
                 ("viewIsModal", accessibilityViewIsModal),
                 ("shouldGroupAccessibilityChildren", shouldGroupAccessibilityChildren),
                 ("navigationStyle", accessibilityNavigationStyle),
