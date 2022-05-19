@@ -832,7 +832,7 @@
 			repositoryURL = "https://github.com/pointfreeco/swift-custom-dump.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.3.0;
+				minimumVersion = 0.4.0;
 			};
 		};
 		D48E5C6C276C37AB002ACB6A /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
