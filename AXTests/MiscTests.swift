@@ -31,6 +31,9 @@ final class MiscTests: XCTestCase {
           isRendering: false,
           accessibilityVersion: DisplayList.Version(value: 0),
           externalUpdateCount: 0,
+          isRotatingWindow: false,
+          allowUIKitAnimations: 0,
+          allowUIKitAnimationsForNextUpdate: false,
           disabledBackgroundColor: false,
           allowFrameChanges: true,
           wantsTransparentBackground: false,
@@ -39,8 +42,10 @@ final class MiscTests: XCTestCase {
           defaultAddsKeyboardToSafeAreaInsets: nil,
           keyboardSeed: 0,
           isHiddenForReuse: false,
+          registeredForGeometryChanges: false,
           inheritedEnvironment: nil,
           environmentOverride: nil,
+          traitCollectionOverride: nil,
           viewController: UIHostingController(…),
           eventBridge: UIKitEventBindingBridge(…),
           displayLink: nil,
@@ -50,14 +55,14 @@ final class MiscTests: XCTestCase {
           nextTimerTime: nil,
           updateTimer: nil,
           colorScheme: nil,
-          navigationState: nil,
+          navigationV3State: nil,
           deprecatedAlertBridge: DeprecatedAlertBridge(…),
           deprecatedActionSheetBridge: DeprecatedAlertBridge(…),
           sheetBridge: SheetBridge(…),
           focusBridge: FocusBridge(…),
           dragBridge: DragAndDropBridge(…),
-          fileImportExportBridge: FileImportExportBridge(…),
           inspectorBridge: UIKitInspectorBridge(…),
+          sharingActivityPickerBridge: SharingActivityPickerBridge(…),
           sceneBridge: nil,
           pointerBridge: nil,
           statusBarBridge: UIKitStatusBarBridge(…),
@@ -65,6 +70,7 @@ final class MiscTests: XCTestCase {
           accessibilityEnabled: false,
           shouldUpdateAccessibilityFocus: false,
           largeContentViewerInteractionBridge: UILargeContentViewerInteractionBridge(…),
+          $__lazy_storage_$_presentationModeLocation: nil,
           scrollTest: nil,
           delegate: nil,
           rootViewDelegate: nil,
@@ -72,102 +78,101 @@ final class MiscTests: XCTestCase {
           currentAccessibilityFocusStore: AccessibilityFocusStore(…),
           observedScene: nil,
           isEnteringForeground: false,
-          currentResponderCommands: [:],
-          $__lazy_storage_$__forwardingTarget: nil,
+          isExitingForeground: false,
         )
         """)
         
         _assertInlineSnapshot(matching: vc.view.accessibilityElements!, as: .customDump(maxDepth: 2), with: """
         [
           [0]: AccessibilityNode(
-            id: UniqueID(value: 2072),
+            id: UniqueID(value: 2600),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
             parent: AccessibilityNode(…),
             viewRendererHost: _UIHostingView(…),
+            environment: EnvironmentValues(…),
             attachmentsStorage: […],
             cachedCombinedAttachment: nil,
+            platformElementPropertiesDirty: true,
             platformRotorStorage: [:],
-            cachedIsPlaceholder: false,
-            focusableAncestor: nil,
+            cachedIsPlaceholderOrIgnored: false,
             relationshipScope: nil,
-            isCell: false,
           ),
           [1]: AccessibilityNode(
-            id: UniqueID(value: 2129),
+            id: UniqueID(value: 2693),
             version: DisplayList.Version(value: 0),
             children: […],
             bridgedChild: nil,
             parent: AccessibilityNode(↩︎),
             viewRendererHost: _UIHostingView(↩︎),
+            environment: EnvironmentValues(…),
             attachmentsStorage: […],
             cachedCombinedAttachment: nil,
+            platformElementPropertiesDirty: true,
             platformRotorStorage: [:],
-            cachedIsPlaceholder: false,
-            focusableAncestor: nil,
+            cachedIsPlaceholderOrIgnored: false,
             relationshipScope: nil,
-            isCell: false,
           ),
           [2]: AccessibilityNode(
-            id: UniqueID(value: 2131),
+            id: UniqueID(value: 2695),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
             parent: AccessibilityNode(↩︎),
             viewRendererHost: _UIHostingView(↩︎),
+            environment: EnvironmentValues(…),
             attachmentsStorage: […],
             cachedCombinedAttachment: nil,
+            platformElementPropertiesDirty: true,
             platformRotorStorage: [:],
-            cachedIsPlaceholder: false,
-            focusableAncestor: nil,
+            cachedIsPlaceholderOrIgnored: false,
             relationshipScope: nil,
-            isCell: false,
           ),
           [3]: AccessibilityNode(
-            id: UniqueID(value: 2134),
+            id: UniqueID(value: 2698),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
             parent: AccessibilityNode(↩︎),
             viewRendererHost: _UIHostingView(↩︎),
+            environment: EnvironmentValues(…),
             attachmentsStorage: […],
             cachedCombinedAttachment: nil,
+            platformElementPropertiesDirty: true,
             platformRotorStorage: [:],
-            cachedIsPlaceholder: false,
-            focusableAncestor: nil,
+            cachedIsPlaceholderOrIgnored: false,
             relationshipScope: nil,
-            isCell: false,
           ),
           [4]: AccessibilityNode(
-            id: UniqueID(value: 2135),
+            id: UniqueID(value: 2699),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
             parent: AccessibilityNode(↩︎),
             viewRendererHost: _UIHostingView(↩︎),
+            environment: EnvironmentValues(…),
             attachmentsStorage: […],
             cachedCombinedAttachment: nil,
+            platformElementPropertiesDirty: true,
             platformRotorStorage: [:],
-            cachedIsPlaceholder: false,
-            focusableAncestor: nil,
+            cachedIsPlaceholderOrIgnored: false,
             relationshipScope: nil,
-            isCell: false,
           ),
           [5]: AccessibilityNode(
-            id: UniqueID(value: 2130),
+            id: UniqueID(value: 2694),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
             parent: AccessibilityNode(↩︎),
             viewRendererHost: _UIHostingView(↩︎),
+            environment: EnvironmentValues(…),
             attachmentsStorage: […],
             cachedCombinedAttachment: nil,
+            platformElementPropertiesDirty: true,
             platformRotorStorage: [:],
-            cachedIsPlaceholder: false,
-            focusableAncestor: nil,
+            cachedIsPlaceholderOrIgnored: false,
             relationshipScope: nil,
-            isCell: false,
           ),
         ]
         """)
@@ -177,19 +182,19 @@ final class MiscTests: XCTestCase {
         XCTAssertEqual(try v.inspect().vStack().text(0).string(), "ax_text")
         _assertInlineSnapshot(matching: nsax1, as: .customDump(maxDepth: 1), with: """
         AccessibilityNode(
-          id: UniqueID(value: 2072),
+          id: UniqueID(value: 2600),
           version: DisplayList.Version(value: 0),
           children: [],
           bridgedChild: nil,
           parent: AccessibilityNode(…),
           viewRendererHost: _UIHostingView(…),
+          environment: EnvironmentValues(…),
           attachmentsStorage: […],
           cachedCombinedAttachment: nil,
+          platformElementPropertiesDirty: true,
           platformRotorStorage: [:],
-          cachedIsPlaceholder: false,
-          focusableAncestor: nil,
+          cachedIsPlaceholderOrIgnored: false,
           relationshipScope: nil,
-          isCell: false,
         )
         """)
         print("NSAX1:")
@@ -227,11 +232,10 @@ final class MiscTests: XCTestCase {
             identifier: "section_header_button1_identifier-section_header_button2_identifier",
             label: "section_header_text",
             hint: "section_header_button1_hint, section_header_button2_hint",
-            value: "section_header_button2_value",
+            value: "section_header_button1_value, section_header_button2_value",
             traits: .header,
             customActions: [
-              [0]: section_header_button1_label,
-              [1]: section_header_button2_label,
+              [0]: section_header_button2_label,
             ],
           ),
           [2]: Button(
@@ -347,19 +351,19 @@ final class MiscTests: XCTestCase {
         let element = vc.view.accessibilityElements![0]
         _assertInlineSnapshot(matching: element, as: .customDump(maxDepth: 1), with: """
         AccessibilityNode(
-          id: UniqueID(value: 2465),
+          id: UniqueID(value: 3142),
           version: DisplayList.Version(value: 0),
           children: [],
           bridgedChild: nil,
           parent: AccessibilityNode(…),
           viewRendererHost: _UIHostingView(…),
+          environment: EnvironmentValues(…),
           attachmentsStorage: […],
           cachedCombinedAttachment: nil,
+          platformElementPropertiesDirty: true,
           platformRotorStorage: [:],
-          cachedIsPlaceholder: false,
-          focusableAncestor: nil,
+          cachedIsPlaceholderOrIgnored: false,
           relationshipScope: nil,
-          isCell: false,
         )
         """)
         let obj = element as! NSObject
@@ -367,11 +371,12 @@ final class MiscTests: XCTestCase {
 //            .filter { $0.starts(with: "accessibility") }
             .sorted()
         _assertInlineSnapshot(matching: selectors, as: .dump, with: """
-        ▿ 101 elements
+        ▿ 113 elements
           - ".cxx_destruct"
+          - "_accessibilityAutomationHitTestReverseOrder"
           - "_accessibilityAutomationType"
           - "_accessibilityBoundsForRange:"
-          - "_accessibilityClassName"
+          - "_accessibilityCanPerformEscapeAction"
           - "_accessibilityDataSeriesGridlinePositionsForAxis:"
           - "_accessibilityDataSeriesIncludesTrendlineInSonification"
           - "_accessibilityDataSeriesMaximumValueForAxis:"
@@ -395,11 +400,14 @@ final class MiscTests: XCTestCase {
           - "_accessibilityNumberValue"
           - "_accessibilityRoleDescription"
           - "_accessibilityScrollToVisible"
+          - "_accessibilitySupportsActivateAction"
           - "_accessibilityUpdateContainerElementReferencesIfNeededForNewElements:"
           - "_accessibilityUserDefinedLinkedUIElements"
           - "_accessibilityUserTestingChildren"
+          - "_accessibilityUserTestingIsElementClassAcceptable"
           - "_accessibilityUserTestingParent"
           - "_accessibilityUserTestingVisibleAncestor"
+          - "_accessibilityWindow"
           - "accessibilityActivate"
           - "accessibilityActivationPoint"
           - "accessibilityAttributedHint"
@@ -410,9 +418,12 @@ final class MiscTests: XCTestCase {
           - "accessibilityContainer"
           - "accessibilityContainerType"
           - "accessibilityCustomActions"
+          - "accessibilityCustomAttribute:"
           - "accessibilityCustomContent"
           - "accessibilityCustomRotors"
           - "accessibilityDecrement"
+          - "accessibilityDragSourceDescriptors"
+          - "accessibilityDropPointDescriptors"
           - "accessibilityElementCount"
           - "accessibilityElementDidBecomeFocused"
           - "accessibilityElementDidLoseFocus"
@@ -431,12 +442,15 @@ final class MiscTests: XCTestCase {
           - "accessibilityRespondsToUserInteraction"
           - "accessibilityRowRange"
           - "accessibilityScroll:"
+          - "accessibilityShouldEnumerateContainerElementsArrayDirectly"
           - "accessibilityTextualContext"
           - "accessibilityTraits"
           - "accessibilityURL"
           - "accessibilityUserInputLabels"
           - "accessibilityValue"
           - "accessibilityViewIsModal"
+          - "accessibilityZoomInAtPoint:"
+          - "accessibilityZoomOutAtPoint:"
           - "dealloc"
           - "description"
           - "init"
@@ -451,6 +465,8 @@ final class MiscTests: XCTestCase {
           - "setAccessibilityCustomActions:"
           - "setAccessibilityCustomContent:"
           - "setAccessibilityCustomRotors:"
+          - "setAccessibilityDragSourceDescriptors:"
+          - "setAccessibilityDropPointDescriptors:"
           - "setAccessibilityElements:"
           - "setAccessibilityElementsHidden:"
           - "setAccessibilityFrame:"
@@ -595,6 +611,7 @@ final class MiscTests: XCTestCase {
             "menu": nil,
             "pointerStyleProvider": nil,
             "preferredBehavioralStyle": 0,
+            "preferredMenuElementOrder": 0,
             "pressFeedbackPosition": NSPoint: {0, 0},
             "reversesTitleShadowWhenHighlighted": 0,
             "role": 0,
@@ -703,19 +720,19 @@ final class MiscTests: XCTestCase {
         _assertInlineSnapshot(matching: vc.view.accessibilityElements!, as: .customDump(maxDepth: 2), with: """
         [
           [0]: AccessibilityNode(
-            id: UniqueID(value: 1860),
+            id: UniqueID(value: 2323),
             version: DisplayList.Version(value: 0),
             children: [],
             bridgedChild: nil,
             parent: AccessibilityNode(…),
             viewRendererHost: _UIHostingView(…),
+            environment: EnvironmentValues(…),
             attachmentsStorage: […],
             cachedCombinedAttachment: nil,
+            platformElementPropertiesDirty: true,
             platformRotorStorage: [:],
-            cachedIsPlaceholder: false,
-            focusableAncestor: nil,
+            cachedIsPlaceholderOrIgnored: false,
             relationshipScope: nil,
-            isCell: false,
           ),
         ]
         """)
@@ -729,18 +746,21 @@ final class MiscTests: XCTestCase {
               some: _UIHostingView<ModifiedContent<Text, AccessibilityAttachmentModifier>>
                 _rootView: ModifiedContent<Text, AccessibilityAttachmentModifier>
                   modifier: AccessibilityAttachmentModifier
-                    storage: Storage
-                      propertiesComponent: Array<PropertiesComponent>
-                        0: ReplacingPropertiesComponent<Array<AccessibilityCustomContentEntry>>
-                          value: Array<AccessibilityCustomContentEntry>
-                            0: AccessibilityCustomContentEntry
-                              key: AccessibilityCustomContentKey
-                                identifier: Identifier
-                                  text: Text
-                                    storage: Storage
-                                      anyTextStorage: LocalizedTextStorage
-                                        key: LocalizedStringKey
-                                          key: "ax_label_high"
+                    storage: MutableBox<AccessibilityAttachment>
+                      value: AccessibilityAttachment
+                        properties: AccessibilityProperties
+                          storage: Dictionary<AGTypeID, AnyAccessibilityPropertiesEntry>
+                            0: (key: AGTypeID, value: AnyAccessibilityPropertiesEntry)
+                              value: AccessibilityPropertiesEntry<Array<AccessibilityCustomContentEntry>>
+                                typedValue: Array<AccessibilityCustomContentEntry>
+                                  0: AccessibilityCustomContentEntry
+                                    key: AccessibilityCustomContentKey
+                                      identifier: Identifier
+                                        text: Text
+                                          storage: Storage
+                                            anyTextStorage: LocalizedTextStorage
+                                              key: LocalizedStringKey
+                                                key: "ax_label_high"
         """)
     }
 

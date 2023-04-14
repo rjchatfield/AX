@@ -166,7 +166,7 @@ final class AXTests: XCTestCase {
           [2]: Text(label: "title"),
           [3]: AccessibilityNode(label: "title"),
           [4]: Button(label: "title"),
-          [5]: Button(label: "title"),
+          [5]: AccessibilityNode(label: "title"),
           [6]: Image(label: "Favorite"),
           [7]: AccessibilityNode(label: "Favorite"),
         ]
@@ -239,12 +239,7 @@ final class AXTests: XCTestCase {
         }.accessibilityElement(children: .combine)
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: AccessibilityNode(
-            label: "text_title",
-            customActions: [
-              [0]: button_title,
-            ],
-          ),
+          [0]: Button(label: "text_title"),
         ]
         """)
     }

@@ -172,8 +172,7 @@ final class ViewTests: XCTestCase {
          */
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: Button(label: "Second Option"),
-          [1]: Text(label: "Title"),
+          [0]: Button(label: "Title, Second Option"),
         ]
         """)
     }
@@ -195,9 +194,10 @@ final class ViewTests: XCTestCase {
          */
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: UIProgressView(
+          [0]: AccessibilityNode(
             label: "label, currentValueLabel",
             value: "10%",
+            traits: .updatesFrequently,
           ),
         ]
         """)
@@ -225,8 +225,10 @@ final class ViewTests: XCTestCase {
         let view = Stepper("title", value: .constant(69), in: 0...100, step: 1)
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: Text(label: "title"),
-          [1]: UIStepper(value: "69"),
+          [0]: UIStepper(
+            label: "title",
+            value: "69",
+          ),
         ]
         """)
     }
@@ -235,7 +237,7 @@ final class ViewTests: XCTestCase {
         let view = TextEditor(text: .constant("value"))
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: UITextView(value: "value"),
+          [0]: TextEditorTextView(value: "value"),
         ]
         """)
     }
@@ -322,25 +324,15 @@ final class ViewTests: XCTestCase {
     func testDisclosureGroup() {
         let view = DisclosureGroup("Group1", isExpanded: .constant(true)) {
             Text("item1")
-            DisclosureGroup("Group2") {
+            DisclosureGroup("Group2", isExpanded: .constant(false)) {
                 Button {} label: { Text("item2") }
             }
         }
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
         [
-          [0]: Button(
-            label: "Group1",
-            customActions: [
-              [0]: Group1,
-            ],
-          ),
+          [0]: AccessibilityNode(label: "Group1"),
           [1]: Text(label: "item1"),
-          [2]: Button(
-            label: "Group2",
-            customActions: [
-              [0]: Group2,
-            ],
-          ),
+          [2]: AccessibilityNode(label: "Group2"),
         ]
         """)
     }
@@ -566,14 +558,14 @@ final class ViewTests: XCTestCase {
             "attachmentsStorage": […],
             "bridgedChild": nil,
             "cachedCombinedAttachment": AccessibilityAttachment(…),
-            "cachedIsPlaceholder": false,
+            "cachedIsPlaceholderOrIgnored": false,
             "children": […],
-            "focusableAncestor": nil,
-            "id": UniqueID(value: 5942),
-            "isCell": false,
+            "environment": EnvironmentValues(…),
+            "id": UniqueID(value: 7565),
             "parent": AccessibilityNode(…),
+            "platformElementPropertiesDirty": true,
             "platformRotorStorage": [:],
-            "relationshipScope": nil,
+            "relationshipScope": AccessibilityRelationshipScope(…),
             "version": DisplayList.Version(value: 0),
             "viewRendererHost": _UIHostingView(…),
           ],
@@ -582,7 +574,7 @@ final class ViewTests: XCTestCase {
             "accessibilityActivationPoint": NSPoint: {150.16666666666666, 1500.1666666666665},
             "accessibilityAttributedHint": nil,
             "accessibilityAttributedLabel": "item1",
-            "accessibilityAttributedUserInputLabels": [],
+            "accessibilityAttributedUserInputLabels": nil,
             "accessibilityAttributedValue": nil,
             "accessibilityChartDescriptor": nil,
             "accessibilityContainer": _UIHostingView(↩︎),
@@ -591,6 +583,8 @@ final class ViewTests: XCTestCase {
             "accessibilityCustomContent": [],
             "accessibilityCustomRotors": [],
             "accessibilityDecrement": nil,
+            "accessibilityDragSourceDescriptors": [],
+            "accessibilityDropPointDescriptors": [],
             "accessibilityElementCount": 0,
             "accessibilityElementDidBecomeFocused": nil,
             "accessibilityElementDidLoseFocus": nil,
@@ -608,10 +602,11 @@ final class ViewTests: XCTestCase {
             "accessibilityPerformMagicTap": 0,
             "accessibilityRespondsToUserInteraction": 0,
             "accessibilityRowRange": "[IGNORED]",
+            "accessibilityShouldEnumerateContainerElementsArrayDirectly": 1,
             "accessibilityTextualContext": nil,
             "accessibilityTraits": 257,
             "accessibilityURL": nil,
-            "accessibilityUserInputLabels": [],
+            "accessibilityUserInputLabels": nil,
             "accessibilityValue": nil,
             "accessibilityViewIsModal": 0,
             "isAccessibilityElement": 1,
