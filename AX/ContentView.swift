@@ -7,6 +7,43 @@
 
 import SwiftUI
 
+struct TableVCUI: UIViewControllerRepresentable {
+
+    func makeUIViewController(context: Context) -> TableViewController {
+        let tableVC = TableViewController()
+        return tableVC
+    }
+
+    func updateUIViewController(_ uiViewController: TableViewController, context: Context) {}
+}
+
+class TableViewController: UITableViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        cell.textLabel?.text = "Row: \(indexPath.row)"
+        return cell
+    }
+
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action1 = UIContextualAction(style: .normal, title: "Swaction-Title-(1)-\(indexPath.row)", handler: { (_: UIContextualAction, _: UIView, _: @escaping (Bool) -> Void) in })
+        let action2 = UIContextualAction(style: .normal, title: "Swaction-Title-(2)-\(indexPath.row)", handler: { (_: UIContextualAction, _: UIView, _: @escaping (Bool) -> Void) in })
+        //            action1. = "Swaction-Description-\(indexPath.row)"
+        return UISwipeActionsConfiguration(actions: [
+            action1,
+            action2,
+        ])
+    }
+}
+
 struct UI: UIViewRepresentable {
     func makeUIView(context: Context) -> UIView {
         let label1 = UILabel()
@@ -86,7 +123,8 @@ struct UI: UIViewRepresentable {
 
 struct ContentView: View {
     var body: some View {
-        UI()
+//        UI()
+        TableVCUI()
 //        VStack {
 ////        List {
 ////        LazyVStack {

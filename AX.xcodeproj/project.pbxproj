@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F6C62A92A09082600619002 /* AccessibilitySnapshot in Frameworks */ = {isa = PBXBuildFile; productRef = 3F6C62A82A09082600619002 /* AccessibilitySnapshot */; };
+		3F6C62AB2A09082600619002 /* AccessibilitySnapshotCore in Frameworks */ = {isa = PBXBuildFile; productRef = 3F6C62AA2A09082600619002 /* AccessibilitySnapshotCore */; };
 		D4261DD527840C5C00A849CE /* AccessibilitySnapshot.h in Headers */ = {isa = PBXBuildFile; fileRef = D4261DD427840C5C00A849CE /* AccessibilitySnapshot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D4261DD927840C6700A849CE /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4261DCB278409B300A849CE /* String+Localization.swift */; };
 		D4261DDA27840C6700A849CE /* UIAccessibility+SnapshotAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4261DC92784097200A849CE /* UIAccessibility+SnapshotAdditions.swift */; };
@@ -105,8 +107,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D48E5C6E276C37AB002ACB6A /* SnapshotTesting in Frameworks */,
+				3F6C62A92A09082600619002 /* AccessibilitySnapshot in Frameworks */,
 				D49791182783BB5000962D32 /* CustomDump in Frameworks */,
 				D497911B2783BC1F00962D32 /* ViewInspector in Frameworks */,
+				3F6C62AB2A09082600619002 /* AccessibilitySnapshotCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +306,8 @@
 				D48E5C6D276C37AB002ACB6A /* SnapshotTesting */,
 				D49791172783BB5000962D32 /* CustomDump */,
 				D497911A2783BC1F00962D32 /* ViewInspector */,
+				3F6C62A82A09082600619002 /* AccessibilitySnapshot */,
+				3F6C62AA2A09082600619002 /* AccessibilitySnapshotCore */,
 			);
 			productName = AXTests;
 			productReference = D48E5C4C276C3532002ACB6A /* AXTests.xctest */;
@@ -363,6 +369,7 @@
 				D48E5C69276C3763002ACB6A /* XCRemoteSwiftPackageReference "swift-custom-dump" */,
 				D48E5C6C276C37AB002ACB6A /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 				D49791192783BC1F00962D32 /* XCRemoteSwiftPackageReference "ViewInspector" */,
+				3F6C62A72A09082600619002 /* XCRemoteSwiftPackageReference "AccessibilitySnapshot" */,
 			);
 			productRefGroup = D48E5C3D276C3531002ACB6A /* Products */;
 			projectDirPath = "";
@@ -827,6 +834,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3F6C62A72A09082600619002 /* XCRemoteSwiftPackageReference "AccessibilitySnapshot" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/cashapp/AccessibilitySnapshot.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.0;
+			};
+		};
 		D48E5C69276C3763002ACB6A /* XCRemoteSwiftPackageReference "swift-custom-dump" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-custom-dump.git";
@@ -854,6 +869,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3F6C62A82A09082600619002 /* AccessibilitySnapshot */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3F6C62A72A09082600619002 /* XCRemoteSwiftPackageReference "AccessibilitySnapshot" */;
+			productName = AccessibilitySnapshot;
+		};
+		3F6C62AA2A09082600619002 /* AccessibilitySnapshotCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3F6C62A72A09082600619002 /* XCRemoteSwiftPackageReference "AccessibilitySnapshot" */;
+			productName = AccessibilitySnapshotCore;
+		};
 		D48E5C6A276C3763002ACB6A /* CustomDump */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D48E5C69276C3763002ACB6A /* XCRemoteSwiftPackageReference "swift-custom-dump" */;

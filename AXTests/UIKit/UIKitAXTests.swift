@@ -1,8 +1,55 @@
 import SwiftUI
+import AccessibilitySnapshotCore
 import XCTest
 import SnapshotTesting
+import AccessibilitySnapshot
 
 final class UIKitAXTests: XCTestCase {
+
+    func testTableVC() {
+        class TableViewController: UITableViewController {
+            override func viewDidLoad() {
+                super.viewDidLoad()
+                self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+            }
+
+            override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+                return 3
+            }
+
+            override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+                cell.textLabel?.text = "Row: \(indexPath.row)"
+                return cell
+            }
+
+            override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+                let action1 = UIContextualAction(style: .normal, title: "Swaction-Title-(1)-\(indexPath.row)", handler: { (_: UIContextualAction, _: UIView, _: @escaping (Bool) -> Void) in })
+                let action2 = UIContextualAction(style: .normal, title: "Swaction-Title-(2)-\(indexPath.row)", handler: { (_: UIContextualAction, _: UIView, _: @escaping (Bool) -> Void) in })
+                //            action1. = "Swaction-Description-\(indexPath.row)"
+                return UISwipeActionsConfiguration(actions: [
+                    action1,
+                    action2,
+                ])
+            }
+        }
+
+        let tableVC  = TableViewController(nibName: nil, bundle: nil)
+        _assertInlineSnapshot(matching: tableVC.view, as: .accessibilityElements, with: """
+        []
+        """)
+
+        let parser = AccessibilityHierarchyParser()
+
+        struct TestUserInterfaceLayoutDirectionProvider: UserInterfaceLayoutDirectionProviding {
+            var userInterfaceLayoutDirection: UIUserInterfaceLayoutDirection
+        }
+
+        let ltrElements = parser.parseAccessibilityElements(in: tableVC.view)
+        _assertInlineSnapshot(matching: ltrElements, as: .dump, with: """
+        - 0 elements
+        """)
+    }
     
     func testLabelText() {
         let view = UILabel()

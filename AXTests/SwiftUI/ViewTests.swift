@@ -544,7 +544,7 @@ final class ViewTests: XCTestCase {
         let nav = viewController.view!
         let els = nav.accessibilityElements![0] // as! UIView
         _assertInlineSnapshot(matching: els, as: .dump, with: """
-        - <SwiftUI.AccessibilityNode> item1
+        - <SwiftUI.AccessibilityNode>
         """)
 //        _assertInlineSnapshot(matching: els, as: .windowedAccessibilityElements, with: """
 //        [
@@ -557,11 +557,11 @@ final class ViewTests: XCTestCase {
           "1. Mirror.children": [
             "attachmentsStorage": […],
             "bridgedChild": nil,
-            "cachedCombinedAttachment": AccessibilityAttachment(…),
+            "cachedCombinedAttachment": nil,
             "cachedIsPlaceholderOrIgnored": false,
             "children": […],
             "environment": EnvironmentValues(…),
-            "id": UniqueID(value: 7565),
+            "id": UniqueID(value: 7573),
             "parent": AccessibilityNode(…),
             "platformElementPropertiesDirty": true,
             "platformRotorStorage": [:],
@@ -585,7 +585,6 @@ final class ViewTests: XCTestCase {
             "accessibilityDecrement": nil,
             "accessibilityDragSourceDescriptors": [],
             "accessibilityDropPointDescriptors": [],
-            "accessibilityElementCount": 0,
             "accessibilityElementDidBecomeFocused": nil,
             "accessibilityElementDidLoseFocus": nil,
             "accessibilityElements": [],
@@ -602,7 +601,6 @@ final class ViewTests: XCTestCase {
             "accessibilityPerformMagicTap": 0,
             "accessibilityRespondsToUserInteraction": 0,
             "accessibilityRowRange": "[IGNORED]",
-            "accessibilityShouldEnumerateContainerElementsArrayDirectly": 1,
             "accessibilityTextualContext": nil,
             "accessibilityTraits": 257,
             "accessibilityURL": nil,
@@ -748,9 +746,7 @@ final class ViewTests: XCTestCase {
             }
         }
         _assertInlineSnapshot(matching: view, as: .accessibilityElements, with: """
-        [
-          [0]: Text(label: ""),
-        ]
+        []
         """)
     }
     

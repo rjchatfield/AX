@@ -213,7 +213,7 @@ func _customDump<T, TargetStream>(
                     if maxDepth == 0 {
                         out.write("\"…\"")
                     } else {
-                        let hashes = String(repeating: "#", count: value.hashCount)
+                        let hashes = String(repeating: "#", count: value.hashCount(isMultiline: false))
                         out.write("\(hashes)\"\"\"")
                         out.write("\n")
                         print(value.indenting(by: name != nil ? 2 : 0), to: &out)
